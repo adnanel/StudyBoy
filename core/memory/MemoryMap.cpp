@@ -5,6 +5,7 @@
 #include <new>
 #include "MemoryMap.h"
 
-MemoryMap::MemoryMap(const size_t &memSize) {
+MemoryMap::MemoryMap(const size_t &memSize, bool isReadonly) {
     this->mMemory = new char[memSize];
+    this->mIsReadonly = isReadonly;
 }

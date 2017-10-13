@@ -10,9 +10,19 @@
 
 class MemoryMap {
     char* mMemory;
+    bool mIsReadonly;
 
 public:
-    explicit MemoryMap(const size_t& memSize = 32 * 1024);
+    explicit MemoryMap(const size_t& memSize = 32 * 1024, bool readonly = false);
+
+    // Access memory data directly via the [] operator
+    const char& operator[](const int& addr) const;
+    char& operator[](const int& addr);
+
+
+    void WriteData(int targetAddress, char* data, size_t size);
+    void CopyData(int targetAddress, char* target, size_t size);
+
 };
 
 
