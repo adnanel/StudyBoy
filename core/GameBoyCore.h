@@ -8,6 +8,7 @@
 
 #include "memory/MemoryMap.h"
 #include "cpu/Processor.h"
+#include "GameBoyConfig.h"
 
 class GameBoyCore {
 private:
@@ -15,6 +16,10 @@ private:
     MemoryMap mDisplayRam;
 
     Processor mCpu;
+
+public:
+    GameBoyCore(const GameBoyConfig& gbConfig);
+    ~GameBoyCore();
 };
 
 

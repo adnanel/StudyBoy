@@ -3,3 +3,14 @@
 //
 
 #include "GameBoyCore.h"
+
+GameBoyCore::GameBoyCore(const GameBoyConfig& gbConfig)
+    : mWorkRam(gbConfig.workMemorySize),
+      mDisplayRam(gbConfig.displayMemorySize)
+{
+
+}
+
+GameBoyCore::~GameBoyCore() {
+
+}
