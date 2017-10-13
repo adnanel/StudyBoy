@@ -6,8 +6,20 @@
 #define STUDYBOY_PROCESSOR_H
 
 
-class Processor {
+#include "../memory/MemoryMap.h"
+#include "components/FrequencyDivider.h"
+#include "components/Timer.h"
 
+class Processor {
+private:
+    // 127 * 8 bits of built in RAM (working and stack)
+    MemoryMap mRam;
+    // 16 stage frequency divider
+    FrequencyDivider mFrequencyDivider;
+    // 8 bit timer
+    Timer mTimer;
+    // DMA controller
+    DmaController mDmaController;
 };
 
 
