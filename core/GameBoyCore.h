@@ -11,9 +11,10 @@
 
 class GameBoyCore {
 private:
-    MemoryMap mRam;
-    Processor mCpu;
+    MemoryMap mWorkRam;
+    MemoryMap mDisplayRam;
 
+    Processor mCpu;
 };
 
 
