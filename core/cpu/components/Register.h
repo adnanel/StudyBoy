@@ -51,6 +51,11 @@ public:
         return *this;
     }
 
+    inline Register<N>& operator=(unsigned long long n) {
+        mData = n;
+        return *this;
+    }
+
     inline IndexWrapperHelper operator[](size_t n) {
         return IndexWrapperHelper(mData, n);
     }

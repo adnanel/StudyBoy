@@ -11,5 +11,10 @@ Processor::~Processor() {
 Processor::Processor()
     : mRam(127)
 {
+    HardReset();
+}
 
+void Processor::HardReset() {
+    mCpuRegisters.PC = 0x100;
+    mCpuRegisters.SP = 0xFFFE;
 }

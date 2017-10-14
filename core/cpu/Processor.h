@@ -31,6 +31,8 @@ protected:
 public:
     Processor();
     virtual ~Processor();
+
+    virtual void HardReset();
 };
 
 
