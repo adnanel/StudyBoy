@@ -4,6 +4,7 @@
 
 #include "Instruction.h"
 
+namespace Instruction {
 // RET NZ
 void ret_nz_(GameBoyCore* core) {
         // todo
@@ -1227,5 +1228,754 @@ void inc_b_(GameBoyCore* core) {
 // INC C
 void inc_c_(GameBoyCore* core) {
         // todo
+}
+
+}; //namespace Instruction
+
+InstructionFun Instruction::DecodeInstruction(unsigned long long opcode) {
+    static std::map<unsigned long long, InstructionFun> instructionMap{
+            {
+                    0xc0, ret_nz_
+            },
+            {
+                    0xc9, ret__
+            },
+            {
+                    0xc8, ret_z_
+            },
+            {
+                    0xd0, ret_nc_
+            },
+            {
+                    0xd8, ret_c_
+            },
+            {
+                    0x1f, rra__
+            },
+            {
+                    0xce, adc_a_d8
+            },
+            {
+                    0x89, adc_a_c
+            },
+            {
+                    0x88, adc_a_b
+            },
+            {
+                    0x8f, adc_a_a
+            },
+            {
+                    0x8e, adc_a__hl_
+            },
+            {
+                    0x8d, adc_a_l
+            },
+            {
+                    0x8c, adc_a_h
+            },
+            {
+                    0x8b, adc_a_e
+            },
+            {
+                    0x8a, adc_a_d
+            },
+            {
+                    0x19, add_hl_de
+            },
+            {
+                    0xc6, add_a_d8
+            },
+            {
+                    0x29, add_hl_hl
+            },
+            {
+                    0xe8, add_sp_r8
+            },
+            {
+                    0x39, add_hl_sp
+            },
+            {
+                    0x09, add_hl_bc
+            },
+            {
+                    0x87, add_a_a
+            },
+            {
+                    0x86, add_a__hl_
+            },
+            {
+                    0x85, add_a_l
+            },
+            {
+                    0x84, add_a_h
+            },
+            {
+                    0x83, add_a_e
+            },
+            {
+                    0x82, add_a_d
+            },
+            {
+                    0x81, add_a_c
+            },
+            {
+                    0x80, add_a_b
+            },
+            {
+                    0xc4, call_nz_a16
+            },
+            {
+                    0xd4, call_nc_a16
+            },
+            {
+                    0xcd, call_a16_
+            },
+            {
+                    0xcc, call_z_a16
+            },
+            {
+                    0xdc, call_c_a16
+            },
+            {
+                    0xf3, di__
+            },
+            {
+                    0xc2, jp_nz_a16
+            },
+            {
+                    0xc3, jp_a16_
+            },
+            {
+                    0xd2, jp_nc_a16
+            },
+            {
+                    0xe9, jp__hl__
+            },
+            {
+                    0xca, jp_z_a16
+            },
+            {
+                    0xda, jp_c_a16
+            },
+            {
+                    0x17, rla__
+            },
+            {
+                    0x18, jr_r8_
+            },
+            {
+                    0x20, jr_nz_r8
+            },
+            {
+                    0x28, jr_z_r8
+            },
+            {
+                    0x30, jr_nc_r8
+            },
+            {
+                    0x38, jr_c_r8
+            },
+            {
+                    0xd9, reti__
+            },
+            {
+                    0xe0, ldh__a8__a
+            },
+            {
+                    0xf0, ldh_a__a8_
+            },
+            {
+                    0xde, sbc_a_d8
+            },
+            {
+                    0x98, sbc_a_b
+            },
+            {
+                    0x99, sbc_a_c
+            },
+            {
+                    0x9f, sbc_a_a
+            },
+            {
+                    0x9e, sbc_a__hl_
+            },
+            {
+                    0x9d, sbc_a_l
+            },
+            {
+                    0x9c, sbc_a_h
+            },
+            {
+                    0x9b, sbc_a_e
+            },
+            {
+                    0x9a, sbc_a_d
+            },
+            {
+                    0x76, halt__
+            },
+            {
+                    0xd6, sub_d8_
+            },
+            {
+                    0x90, sub_b_
+            },
+            {
+                    0x97, sub_a_
+            },
+            {
+                    0x96, sub__hl__
+            },
+            {
+                    0x95, sub_l_
+            },
+            {
+                    0x94, sub_h_
+            },
+            {
+                    0x93, sub_e_
+            },
+            {
+                    0x92, sub_d_
+            },
+            {
+                    0x91, sub_c_
+            },
+            {
+                    0xb1, or_c_
+            },
+            {
+                    0xb0, or_b_
+            },
+            {
+                    0xb7, or_a_
+            },
+            {
+                    0xb6, or__hl__
+            },
+            {
+                    0xb5, or_l_
+            },
+            {
+                    0xb4, or_h_
+            },
+            {
+                    0xb3, or_e_
+            },
+            {
+                    0xb2, or_d_
+            },
+            {
+                    0xf6, or_d8_
+            },
+            {
+                    0x15, dec_d_
+            },
+            {
+                    0x1d, dec_e_
+            },
+            {
+                    0x1b, dec_de_
+            },
+            {
+                    0x25, dec_h_
+            },
+            {
+                    0x2d, dec_l_
+            },
+            {
+                    0x2b, dec_hl_
+            },
+            {
+                    0x35, dec__hl__
+            },
+            {
+                    0x3b, dec_sp_
+            },
+            {
+                    0x3d, dec_a_
+            },
+            {
+                    0x05, dec_b_
+            },
+            {
+                    0x0b, dec_bc_
+            },
+            {
+                    0x0d, dec_c_
+            },
+            {
+                    0xfb, ei__
+            },
+            {
+                    0x10, stop_0_
+            },
+            {
+                    0x27, daa__
+            },
+            {
+                    0x3f, ccf__
+            },
+            {
+                    0xb9, cp_c_
+            },
+            {
+                    0xb8, cp_b_
+            },
+            {
+                    0xba, cp_d_
+            },
+            {
+                    0xbf, cp_a_
+            },
+            {
+                    0xbe, cp__hl__
+            },
+            {
+                    0xbd, cp_l_
+            },
+            {
+                    0xbc, cp_h_
+            },
+            {
+                    0xbb, cp_e_
+            },
+            {
+                    0xfe, cp_d8_
+            },
+            {
+                    0x00, nop__
+            },
+            {
+                    0xc1, pop_bc_
+            },
+            {
+                    0xd1, pop_de_
+            },
+            {
+                    0xe1, pop_hl_
+            },
+            {
+                    0xf1, pop_af_
+            },
+            {
+                    0xc7, rst_00h_
+            },
+            {
+                    0xd7, rst_10h_
+            },
+            {
+                    0xe7, rst_20h_
+            },
+            {
+                    0xcf, rst_08h_
+            },
+            {
+                    0xf7, rst_30h_
+            },
+            {
+                    0xdf, rst_18h_
+            },
+            {
+                    0xef, rst_28h_
+            },
+            {
+                    0xff, rst_38h_
+            },
+            {
+                    0xcb, prefix_cb_
+            },
+            {
+                    0xa0, and_b_
+            },
+            {
+                    0xa7, and_a_
+            },
+            {
+                    0xa6, and__hl__
+            },
+            {
+                    0xa5, and_l_
+            },
+            {
+                    0xa4, and_h_
+            },
+            {
+                    0xa3, and_e_
+            },
+            {
+                    0xa2, and_d_
+            },
+            {
+                    0xa1, and_c_
+            },
+            {
+                    0xe6, and_d8_
+            },
+            {
+                    0x37, scf__
+            },
+            {
+                    0x16, ld_d_d8
+            },
+            {
+                    0x12, ld__de__a
+            },
+            {
+                    0x11, ld_de_d16
+            },
+            {
+                    0x1e, ld_e_d8
+            },
+            {
+                    0x1a, ld_a__de_
+            },
+            {
+                    0x21, ld_hl_d16
+            },
+            {
+                    0x26, ld_h_d8
+            },
+            {
+                    0x22, ld__hlplus__a
+            },
+            {
+                    0x2a, ld_a__hlplus_
+            },
+            {
+                    0xe2, ld__c__a
+            },
+            {
+                    0x2e, ld_l_d8
+            },
+            {
+                    0x32, ld__hlminus__a
+            },
+            {
+                    0x31, ld_sp_d16
+            },
+            {
+                    0x36, ld__hl__d8
+            },
+            {
+                    0x3a, ld_a__hlminus_
+            },
+            {
+                    0xf2, ld_a__c_
+            },
+            {
+                    0xf9, ld_sp_hl
+            },
+            {
+                    0x3e, ld_a_d8
+            },
+            {
+                    0xf8, ld_hl_spplusr8
+            },
+            {
+                    0x43, ld_b_e
+            },
+            {
+                    0x42, ld_b_d
+            },
+            {
+                    0x41, ld_b_c
+            },
+            {
+                    0x40, ld_b_b
+            },
+            {
+                    0x49, ld_c_c
+            },
+            {
+                    0x48, ld_c_b
+            },
+            {
+                    0x47, ld_b_a
+            },
+            {
+                    0x46, ld_b__hl_
+            },
+            {
+                    0x45, ld_b_l
+            },
+            {
+                    0x44, ld_b_h
+            },
+            {
+                    0x4c, ld_c_h
+            },
+            {
+                    0x4b, ld_c_e
+            },
+            {
+                    0x4a, ld_c_d
+            },
+            {
+                    0x01, ld_bc_d16
+            },
+            {
+                    0x02, ld__bc__a
+            },
+            {
+                    0x4f, ld_c_a
+            },
+            {
+                    0x06, ld_b_d8
+            },
+            {
+                    0x4e, ld_c__hl_
+            },
+            {
+                    0x4d, ld_c_l
+            },
+            {
+                    0x08, ld__a16__sp
+            },
+            {
+                    0x54, ld_d_h
+            },
+            {
+                    0x53, ld_d_e
+            },
+            {
+                    0x52, ld_d_d
+            },
+            {
+                    0x51, ld_d_c
+            },
+            {
+                    0xea, ld__a16__a
+            },
+            {
+                    0x50, ld_d_b
+            },
+            {
+                    0x59, ld_e_c
+            },
+            {
+                    0x58, ld_e_b
+            },
+            {
+                    0x57, ld_d_a
+            },
+            {
+                    0x56, ld_d__hl_
+            },
+            {
+                    0x55, ld_d_l
+            },
+            {
+                    0x5d, ld_e_l
+            },
+            {
+                    0x5c, ld_e_h
+            },
+            {
+                    0x5b, ld_e_e
+            },
+            {
+                    0x5a, ld_e_d
+            },
+            {
+                    0x5f, ld_e_a
+            },
+            {
+                    0x5e, ld_e__hl_
+            },
+            {
+                    0x65, ld_h_l
+            },
+            {
+                    0x64, ld_h_h
+            },
+            {
+                    0x63, ld_h_e
+            },
+            {
+                    0x62, ld_h_d
+            },
+            {
+                    0x61, ld_h_c
+            },
+            {
+                    0xfa, ld_a__a16_
+            },
+            {
+                    0x60, ld_h_b
+            },
+            {
+                    0x0a, ld_a__bc_
+            },
+            {
+                    0x69, ld_l_c
+            },
+            {
+                    0x0e, ld_c_d8
+            },
+            {
+                    0x68, ld_l_b
+            },
+            {
+                    0x67, ld_h_a
+            },
+            {
+                    0x66, ld_h__hl_
+            },
+            {
+                    0x6e, ld_l__hl_
+            },
+            {
+                    0x6d, ld_l_l
+            },
+            {
+                    0x6c, ld_l_h
+            },
+            {
+                    0x6b, ld_l_e
+            },
+            {
+                    0x6a, ld_l_d
+            },
+            {
+                    0x6f, ld_l_a
+            },
+            {
+                    0x75, ld__hl__l
+            },
+            {
+                    0x74, ld__hl__h
+            },
+            {
+                    0x73, ld__hl__e
+            },
+            {
+                    0x72, ld__hl__d
+            },
+            {
+                    0x71, ld__hl__c
+            },
+            {
+                    0x70, ld__hl__b
+            },
+            {
+                    0x79, ld_a_c
+            },
+            {
+                    0x78, ld_a_b
+            },
+            {
+                    0x77, ld__hl__a
+            },
+            {
+                    0x7f, ld_a_a
+            },
+            {
+                    0x7e, ld_a__hl_
+            },
+            {
+                    0x7d, ld_a_l
+            },
+            {
+                    0x7c, ld_a_h
+            },
+            {
+                    0x7b, ld_a_e
+            },
+            {
+                    0x7a, ld_a_d
+            },
+            {
+                    0x0f, rrca__
+            },
+            {
+                    0xa8, xor_b_
+            },
+            {
+                    0xa9, xor_c_
+            },
+            {
+                    0xaf, xor_a_
+            },
+            {
+                    0xae, xor__hl__
+            },
+            {
+                    0xad, xor_l_
+            },
+            {
+                    0xac, xor_h_
+            },
+            {
+                    0xab, xor_e_
+            },
+            {
+                    0xaa, xor_d_
+            },
+            {
+                    0xee, xor_d8_
+            },
+            {
+                    0x2f, cpl__
+            },
+            {
+                    0x07, rlca__
+            },
+            {
+                    0xc5, push_bc_
+            },
+            {
+                    0xd5, push_de_
+            },
+            {
+                    0xe5, push_hl_
+            },
+            {
+                    0xf5, push_af_
+            },
+            {
+                    0x14, inc_d_
+            },
+            {
+                    0x13, inc_de_
+            },
+            {
+                    0x1c, inc_e_
+            },
+            {
+                    0x24, inc_h_
+            },
+            {
+                    0x23, inc_hl_
+            },
+            {
+                    0x2c, inc_l_
+            },
+            {
+                    0x34, inc__hl__
+            },
+            {
+                    0x33, inc_sp_
+            },
+            {
+                    0x3c, inc_a_
+            },
+            {
+                    0x03, inc_bc_
+            },
+            {
+                    0x04, inc_b_
+            },
+            {
+                    0x0c, inc_c_
+            }
+    };
+
+
+    auto it = instructionMap.find(opcode);
+    if ( it == instructionMap.end() ) {
+        throw std::invalid_argument("Invalid opcode!");
+    }
+    return it->second;
 }
 
