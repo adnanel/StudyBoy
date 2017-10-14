@@ -21,6 +21,10 @@ private:
     Timer mTimer;
     // DMA controller
     DmaController mDmaController;
+
+public:
+    virtual Processor() = 0;
+    virtual ~Processor();
 };
 
 
