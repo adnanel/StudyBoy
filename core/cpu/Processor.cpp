@@ -7,3 +7,9 @@
 Processor::~Processor() {
 
 }
+
+Processor::Processor()
+    : mRam(127)
+{
+
+}

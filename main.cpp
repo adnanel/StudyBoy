@@ -6,6 +6,7 @@ int main() {
     GameBoyConfig testConfig;
     testConfig.displayMemorySize = 8 * 1024;
     testConfig.workMemorySize = 8 * 1024;
+    testConfig.clockSpeed = 5 * 1000 * 1000;
 
     GameBoyCore core(testConfig);
 

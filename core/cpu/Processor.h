@@ -10,9 +10,12 @@
 #include "components/FrequencyDivider.h"
 #include "components/Timer.h"
 #include "components/DmaController.h"
+#include "components/Register.h"
+#include "components/IORegisters.h"
+#include "components/CpuRegisters.h"
 
 class Processor {
-private:
+protected:
     // 127 * 8 bits of built in RAM (working and stack)
     MemoryMap mRam;
     // 16 stage frequency divider
@@ -22,8 +25,11 @@ private:
     // DMA controller
     DmaController mDmaController;
 
+    // Registers
+    IORegisters mIORegisters;
+    CpuRegisters mCpuRegisters;
 public:
-    virtual Processor() = 0;
+    virtual Processor();
     virtual ~Processor();
 };
 

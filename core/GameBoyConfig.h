@@ -11,6 +11,7 @@
 struct GameBoyConfig {
     size_t displayMemorySize;
     size_t workMemorySize;
+    unsigned long clockSpeed;
 
     static GameBoyConfig FromFile(const char* fpath) {
         std::ifstream istream(fpath);

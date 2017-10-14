@@ -11,7 +11,10 @@
  * The processor implementation for the DMG and MGB version of the gameboy
  */
 class DmgProcessor : public Processor {
+public:
+    DmgProcessor() : Processor() {
 
+    }
 };
 
 
