@@ -10,6 +10,7 @@
 
 class Instruction {
 private:
+    static std::map<unsigned long long, Instruction*> s_instructionMap;
 public:
     Instruction(long opcode);
 
@@ -20,9 +21,13 @@ public:
     virtual long getCoded() const = 0;
 
 
-
-private:
-    static std::map<unsigned long long, Instruction*> instructionMap;
+    static Instruction* DecodeInstruction(unsigned long long opcode) {
+        auto it = s_instructionMap.find(opcode);
+        if ( it == s_instructionMap.end() ) {
+            throw std::invalid_argument("Invalid opcode!");
+        }
+        return it->second;
+    }
 };
 
 

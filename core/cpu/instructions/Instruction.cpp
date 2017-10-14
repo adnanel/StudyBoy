@@ -11,7 +11,7 @@ Instruction::Instruction(long opcode) {
 }
 
 
-std::map<unsigned long long, Instruction*> Instruction::instructionMap{
+std::map<unsigned long long, Instruction*> Instruction::s_instructionMap{
         {
                 0xc0, nullptr // RET NZ
         },
@@ -73,7 +73,7 @@ std::map<unsigned long long, Instruction*> Instruction::instructionMap{
                 0x39, nullptr // ADD HL SP
         },
         {
-                0x9, nullptr // ADD HL BC
+                0x09, nullptr // ADD HL BC
         },
         {
                 0x87, nullptr // ADD A A
@@ -274,13 +274,13 @@ std::map<unsigned long long, Instruction*> Instruction::instructionMap{
                 0x3d, nullptr // DEC A
         },
         {
-                0x5, nullptr // DEC B
+                0x05, nullptr // DEC B
         },
         {
-                0xb, nullptr // DEC BC
+                0x0b, nullptr // DEC BC
         },
         {
-                0xd, nullptr // DEC C
+                0x0d, nullptr // DEC C
         },
         {
                 0xfb, nullptr // EI
@@ -322,7 +322,7 @@ std::map<unsigned long long, Instruction*> Instruction::instructionMap{
                 0xfe, nullptr // CP d8
         },
         {
-                0x0, nullptr // NOP
+                0x00, nullptr // NOP
         },
         {
                 0xc1, nullptr // POP BC
@@ -490,16 +490,16 @@ std::map<unsigned long long, Instruction*> Instruction::instructionMap{
                 0x4a, nullptr // LD C D
         },
         {
-                0x1, nullptr // LD BC d16
+                0x01, nullptr // LD BC d16
         },
         {
-                0x2, nullptr // LD (BC) A
+                0x02, nullptr // LD (BC) A
         },
         {
                 0x4f, nullptr // LD C A
         },
         {
-                0x6, nullptr // LD B d8
+                0x06, nullptr // LD B d8
         },
         {
                 0x4e, nullptr // LD C (HL)
@@ -508,7 +508,7 @@ std::map<unsigned long long, Instruction*> Instruction::instructionMap{
                 0x4d, nullptr // LD C L
         },
         {
-                0x8, nullptr // LD (a16) SP
+                0x08, nullptr // LD (a16) SP
         },
         {
                 0x54, nullptr // LD D H
@@ -583,13 +583,13 @@ std::map<unsigned long long, Instruction*> Instruction::instructionMap{
                 0x60, nullptr // LD H B
         },
         {
-                0xa, nullptr // LD A (BC)
+                0x0a, nullptr // LD A (BC)
         },
         {
                 0x69, nullptr // LD L C
         },
         {
-                0xe, nullptr // LD C d8
+                0x0e, nullptr // LD C d8
         },
         {
                 0x68, nullptr // LD L B
@@ -664,7 +664,7 @@ std::map<unsigned long long, Instruction*> Instruction::instructionMap{
                 0x7a, nullptr // LD A D
         },
         {
-                0xf, nullptr // RRCA
+                0x0f, nullptr // RRCA
         },
         {
                 0xa8, nullptr // XOR B
@@ -697,7 +697,7 @@ std::map<unsigned long long, Instruction*> Instruction::instructionMap{
                 0x2f, nullptr // CPL
         },
         {
-                0x7, nullptr // RLCA
+                0x07, nullptr // RLCA
         },
         {
                 0xc5, nullptr // PUSH BC
@@ -739,12 +739,12 @@ std::map<unsigned long long, Instruction*> Instruction::instructionMap{
                 0x3c, nullptr // INC A
         },
         {
-                0x3, nullptr // INC BC
+                0x03, nullptr // INC BC
         },
         {
-                0x4, nullptr // INC B
+                0x04, nullptr // INC B
         },
         {
-                0xc, nullptr // INC C
+                0x0c, nullptr // INC C
         }
 };
