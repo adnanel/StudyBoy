@@ -11,740 +11,740 @@ Instruction::Instruction(long opcode) {
 }
 
 
-std::map<std::string, Instruction*> Instruction::instructionMap{
+std::map<unsigned long long, Instruction*> Instruction::instructionMap{
         {
-            "11000000", nullptr // RET NZ
+                0xc0, nullptr // RET NZ
         },
         {
-            "11001001", nullptr // RET
+                0xc9, nullptr // RET
         },
         {
-            "11001000", nullptr // RET Z
+                0xc8, nullptr // RET Z
         },
         {
-            "11010000", nullptr // RET NC
+                0xd0, nullptr // RET NC
         },
         {
-            "11011000", nullptr // RET C
+                0xd8, nullptr // RET C
         },
         {
-            "00011111", nullptr // RRA
+                0x1f, nullptr // RRA
         },
         {
-            "11001110", nullptr // ADC A d8
+                0xce, nullptr // ADC A d8
         },
         {
-            "10001001", nullptr // ADC A C
+                0x89, nullptr // ADC A C
         },
         {
-            "10001000", nullptr // ADC A B
+                0x88, nullptr // ADC A B
         },
         {
-            "10001111", nullptr // ADC A A
+                0x8f, nullptr // ADC A A
         },
         {
-            "10001110", nullptr // ADC A (HL)
+                0x8e, nullptr // ADC A (HL)
         },
         {
-            "10001101", nullptr // ADC A L
+                0x8d, nullptr // ADC A L
         },
         {
-            "10001100", nullptr // ADC A H
+                0x8c, nullptr // ADC A H
         },
         {
-            "10001011", nullptr // ADC A E
+                0x8b, nullptr // ADC A E
         },
         {
-            "10001010", nullptr // ADC A D
+                0x8a, nullptr // ADC A D
         },
         {
-            "00011001", nullptr // ADD HL DE
+                0x19, nullptr // ADD HL DE
         },
         {
-            "11000110", nullptr // ADD A d8
+                0xc6, nullptr // ADD A d8
         },
         {
-            "00101001", nullptr // ADD HL HL
+                0x29, nullptr // ADD HL HL
         },
         {
-            "11101000", nullptr // ADD SP r8
+                0xe8, nullptr // ADD SP r8
         },
         {
-            "00111001", nullptr // ADD HL SP
+                0x39, nullptr // ADD HL SP
         },
         {
-            "00001001", nullptr // ADD HL BC
+                0x9, nullptr // ADD HL BC
         },
         {
-            "10000111", nullptr // ADD A A
+                0x87, nullptr // ADD A A
         },
         {
-            "10000110", nullptr // ADD A (HL)
+                0x86, nullptr // ADD A (HL)
         },
         {
-            "10000101", nullptr // ADD A L
+                0x85, nullptr // ADD A L
         },
         {
-            "10000100", nullptr // ADD A H
+                0x84, nullptr // ADD A H
         },
         {
-            "10000011", nullptr // ADD A E
+                0x83, nullptr // ADD A E
         },
         {
-            "10000010", nullptr // ADD A D
+                0x82, nullptr // ADD A D
         },
         {
-            "10000001", nullptr // ADD A C
+                0x81, nullptr // ADD A C
         },
         {
-            "10000000", nullptr // ADD A B
+                0x80, nullptr // ADD A B
         },
         {
-            "11000100", nullptr // CALL NZ a16
+                0xc4, nullptr // CALL NZ a16
         },
         {
-            "11010100", nullptr // CALL NC a16
+                0xd4, nullptr // CALL NC a16
         },
         {
-            "11001101", nullptr // CALL a16
+                0xcd, nullptr // CALL a16
         },
         {
-            "11001100", nullptr // CALL Z a16
+                0xcc, nullptr // CALL Z a16
         },
         {
-            "11011100", nullptr // CALL C a16
+                0xdc, nullptr // CALL C a16
         },
         {
-            "11110011", nullptr // DI
+                0xf3, nullptr // DI
         },
         {
-            "11000010", nullptr // JP NZ a16
+                0xc2, nullptr // JP NZ a16
         },
         {
-            "11000011", nullptr // JP a16
+                0xc3, nullptr // JP a16
         },
         {
-            "11010010", nullptr // JP NC a16
+                0xd2, nullptr // JP NC a16
         },
         {
-            "11101001", nullptr // JP (HL)
+                0xe9, nullptr // JP (HL)
         },
         {
-            "11001010", nullptr // JP Z a16
+                0xca, nullptr // JP Z a16
         },
         {
-            "11011010", nullptr // JP C a16
+                0xda, nullptr // JP C a16
         },
         {
-            "00010111", nullptr // RLA
+                0x17, nullptr // RLA
         },
         {
-            "00011000", nullptr // JR r8
+                0x18, nullptr // JR r8
         },
         {
-            "00100000", nullptr // JR NZ r8
+                0x20, nullptr // JR NZ r8
         },
         {
-            "00101000", nullptr // JR Z r8
+                0x28, nullptr // JR Z r8
         },
         {
-            "00110000", nullptr // JR NC r8
+                0x30, nullptr // JR NC r8
         },
         {
-            "00111000", nullptr // JR C r8
+                0x38, nullptr // JR C r8
         },
         {
-            "11011001", nullptr // RETI
+                0xd9, nullptr // RETI
         },
         {
-            "11100000", nullptr // LDH (a8) A
+                0xe0, nullptr // LDH (a8) A
         },
         {
-            "11110000", nullptr // LDH A (a8)
+                0xf0, nullptr // LDH A (a8)
         },
         {
-            "11011110", nullptr // SBC A d8
+                0xde, nullptr // SBC A d8
         },
         {
-            "10011000", nullptr // SBC A B
+                0x98, nullptr // SBC A B
         },
         {
-            "10011001", nullptr // SBC A C
+                0x99, nullptr // SBC A C
         },
         {
-            "10011111", nullptr // SBC A A
+                0x9f, nullptr // SBC A A
         },
         {
-            "10011110", nullptr // SBC A (HL)
+                0x9e, nullptr // SBC A (HL)
         },
         {
-            "10011101", nullptr // SBC A L
+                0x9d, nullptr // SBC A L
         },
         {
-            "10011100", nullptr // SBC A H
+                0x9c, nullptr // SBC A H
         },
         {
-            "10011011", nullptr // SBC A E
+                0x9b, nullptr // SBC A E
         },
         {
-            "10011010", nullptr // SBC A D
+                0x9a, nullptr // SBC A D
         },
         {
-            "01110110", nullptr // HALT
+                0x76, nullptr // HALT
         },
         {
-            "11010110", nullptr // SUB d8
+                0xd6, nullptr // SUB d8
         },
         {
-            "10010000", nullptr // SUB B
+                0x90, nullptr // SUB B
         },
         {
-            "10010111", nullptr // SUB A
+                0x97, nullptr // SUB A
         },
         {
-            "10010110", nullptr // SUB (HL)
+                0x96, nullptr // SUB (HL)
         },
         {
-            "10010101", nullptr // SUB L
+                0x95, nullptr // SUB L
         },
         {
-            "10010100", nullptr // SUB H
+                0x94, nullptr // SUB H
         },
         {
-            "10010011", nullptr // SUB E
+                0x93, nullptr // SUB E
         },
         {
-            "10010010", nullptr // SUB D
+                0x92, nullptr // SUB D
         },
         {
-            "10010001", nullptr // SUB C
+                0x91, nullptr // SUB C
         },
         {
-            "10110001", nullptr // OR C
+                0xb1, nullptr // OR C
         },
         {
-            "10110000", nullptr // OR B
+                0xb0, nullptr // OR B
         },
         {
-            "10110111", nullptr // OR A
+                0xb7, nullptr // OR A
         },
         {
-            "10110110", nullptr // OR (HL)
+                0xb6, nullptr // OR (HL)
         },
         {
-            "10110101", nullptr // OR L
+                0xb5, nullptr // OR L
         },
         {
-            "10110100", nullptr // OR H
+                0xb4, nullptr // OR H
         },
         {
-            "10110011", nullptr // OR E
+                0xb3, nullptr // OR E
         },
         {
-            "10110010", nullptr // OR D
+                0xb2, nullptr // OR D
         },
         {
-            "11110110", nullptr // OR d8
+                0xf6, nullptr // OR d8
         },
         {
-            "00010101", nullptr // DEC D
+                0x15, nullptr // DEC D
         },
         {
-            "00011101", nullptr // DEC E
+                0x1d, nullptr // DEC E
         },
         {
-            "00011011", nullptr // DEC DE
+                0x1b, nullptr // DEC DE
         },
         {
-            "00100101", nullptr // DEC H
+                0x25, nullptr // DEC H
         },
         {
-            "00101101", nullptr // DEC L
+                0x2d, nullptr // DEC L
         },
         {
-            "00101011", nullptr // DEC HL
+                0x2b, nullptr // DEC HL
         },
         {
-            "00110101", nullptr // DEC (HL)
+                0x35, nullptr // DEC (HL)
         },
         {
-            "00111011", nullptr // DEC SP
+                0x3b, nullptr // DEC SP
         },
         {
-            "00111101", nullptr // DEC A
+                0x3d, nullptr // DEC A
         },
         {
-            "00000101", nullptr // DEC B
+                0x5, nullptr // DEC B
         },
         {
-            "00001011", nullptr // DEC BC
+                0xb, nullptr // DEC BC
         },
         {
-            "00001101", nullptr // DEC C
+                0xd, nullptr // DEC C
         },
         {
-            "11111011", nullptr // EI
+                0xfb, nullptr // EI
         },
         {
-            "00010000", nullptr // STOP 0
+                0x10, nullptr // STOP 0
         },
         {
-            "00100111", nullptr // DAA
+                0x27, nullptr // DAA
         },
         {
-            "00111111", nullptr // CCF
+                0x3f, nullptr // CCF
         },
         {
-            "10111001", nullptr // CP C
+                0xb9, nullptr // CP C
         },
         {
-            "10111000", nullptr // CP B
+                0xb8, nullptr // CP B
         },
         {
-            "10111010", nullptr // CP D
+                0xba, nullptr // CP D
         },
         {
-            "10111111", nullptr // CP A
+                0xbf, nullptr // CP A
         },
         {
-            "10111110", nullptr // CP (HL)
+                0xbe, nullptr // CP (HL)
         },
         {
-            "10111101", nullptr // CP L
+                0xbd, nullptr // CP L
         },
         {
-            "10111100", nullptr // CP H
+                0xbc, nullptr // CP H
         },
         {
-            "10111011", nullptr // CP E
+                0xbb, nullptr // CP E
         },
         {
-            "11111110", nullptr // CP d8
+                0xfe, nullptr // CP d8
         },
         {
-            "00000000", nullptr // NOP
+                0x0, nullptr // NOP
         },
         {
-            "11000001", nullptr // POP BC
+                0xc1, nullptr // POP BC
         },
         {
-            "11010001", nullptr // POP DE
+                0xd1, nullptr // POP DE
         },
         {
-            "11100001", nullptr // POP HL
+                0xe1, nullptr // POP HL
         },
         {
-            "11110001", nullptr // POP AF
+                0xf1, nullptr // POP AF
         },
         {
-            "11000111", nullptr // RST 00H
+                0xc7, nullptr // RST 00H
         },
         {
-            "11010111", nullptr // RST 10H
+                0xd7, nullptr // RST 10H
         },
         {
-            "11100111", nullptr // RST 20H
+                0xe7, nullptr // RST 20H
         },
         {
-            "11001111", nullptr // RST 08H
+                0xcf, nullptr // RST 08H
         },
         {
-            "11110111", nullptr // RST 30H
+                0xf7, nullptr // RST 30H
         },
         {
-            "11011111", nullptr // RST 18H
+                0xdf, nullptr // RST 18H
         },
         {
-            "11101111", nullptr // RST 28H
+                0xef, nullptr // RST 28H
         },
         {
-            "11111111", nullptr // RST 38H
+                0xff, nullptr // RST 38H
         },
         {
-            "11001011", nullptr // PREFIX CB
+                0xcb, nullptr // PREFIX CB
         },
         {
-            "10100000", nullptr // AND B
+                0xa0, nullptr // AND B
         },
         {
-            "10100111", nullptr // AND A
+                0xa7, nullptr // AND A
         },
         {
-            "10100110", nullptr // AND (HL)
+                0xa6, nullptr // AND (HL)
         },
         {
-            "10100101", nullptr // AND L
+                0xa5, nullptr // AND L
         },
         {
-            "10100100", nullptr // AND H
+                0xa4, nullptr // AND H
         },
         {
-            "10100011", nullptr // AND E
+                0xa3, nullptr // AND E
         },
         {
-            "10100010", nullptr // AND D
+                0xa2, nullptr // AND D
         },
         {
-            "10100001", nullptr // AND C
+                0xa1, nullptr // AND C
         },
         {
-            "11100110", nullptr // AND d8
+                0xe6, nullptr // AND d8
         },
         {
-            "00110111", nullptr // SCF
+                0x37, nullptr // SCF
         },
         {
-            "00010110", nullptr // LD D d8
+                0x16, nullptr // LD D d8
         },
         {
-            "00010010", nullptr // LD (DE) A
+                0x12, nullptr // LD (DE) A
         },
         {
-            "00010001", nullptr // LD DE d16
+                0x11, nullptr // LD DE d16
         },
         {
-            "00011110", nullptr // LD E d8
+                0x1e, nullptr // LD E d8
         },
         {
-            "00011010", nullptr // LD A (DE)
+                0x1a, nullptr // LD A (DE)
         },
         {
-            "00100001", nullptr // LD HL d16
+                0x21, nullptr // LD HL d16
         },
         {
-            "00100110", nullptr // LD H d8
+                0x26, nullptr // LD H d8
         },
         {
-            "00100010", nullptr // LD (HL+) A
+                0x22, nullptr // LD (HL+) A
         },
         {
-            "00101010", nullptr // LD A (HL+)
+                0x2a, nullptr // LD A (HL+)
         },
         {
-            "11100010", nullptr // LD (C) A
+                0xe2, nullptr // LD (C) A
         },
         {
-            "00101110", nullptr // LD L d8
+                0x2e, nullptr // LD L d8
         },
         {
-            "00110010", nullptr // LD (HL-) A
+                0x32, nullptr // LD (HL-) A
         },
         {
-            "00110001", nullptr // LD SP d16
+                0x31, nullptr // LD SP d16
         },
         {
-            "00110110", nullptr // LD (HL) d8
+                0x36, nullptr // LD (HL) d8
         },
         {
-            "00111010", nullptr // LD A (HL-)
+                0x3a, nullptr // LD A (HL-)
         },
         {
-            "11110010", nullptr // LD A (C)
+                0xf2, nullptr // LD A (C)
         },
         {
-            "11111001", nullptr // LD SP HL
+                0xf9, nullptr // LD SP HL
         },
         {
-            "00111110", nullptr // LD A d8
+                0x3e, nullptr // LD A d8
         },
         {
-            "11111000", nullptr // LD HL SP+r8
+                0xf8, nullptr // LD HL SP+r8
         },
         {
-            "01000011", nullptr // LD B E
+                0x43, nullptr // LD B E
         },
         {
-            "01000010", nullptr // LD B D
+                0x42, nullptr // LD B D
         },
         {
-            "01000001", nullptr // LD B C
+                0x41, nullptr // LD B C
         },
         {
-            "01000000", nullptr // LD B B
+                0x40, nullptr // LD B B
         },
         {
-            "01001001", nullptr // LD C C
+                0x49, nullptr // LD C C
         },
         {
-            "01001000", nullptr // LD C B
+                0x48, nullptr // LD C B
         },
         {
-            "01000111", nullptr // LD B A
+                0x47, nullptr // LD B A
         },
         {
-            "01000110", nullptr // LD B (HL)
+                0x46, nullptr // LD B (HL)
         },
         {
-            "01000101", nullptr // LD B L
+                0x45, nullptr // LD B L
         },
         {
-            "01000100", nullptr // LD B H
+                0x44, nullptr // LD B H
         },
         {
-            "01001100", nullptr // LD C H
+                0x4c, nullptr // LD C H
         },
         {
-            "01001011", nullptr // LD C E
+                0x4b, nullptr // LD C E
         },
         {
-            "01001010", nullptr // LD C D
+                0x4a, nullptr // LD C D
         },
         {
-            "00000001", nullptr // LD BC d16
+                0x1, nullptr // LD BC d16
         },
         {
-            "00000010", nullptr // LD (BC) A
+                0x2, nullptr // LD (BC) A
         },
         {
-            "01001111", nullptr // LD C A
+                0x4f, nullptr // LD C A
         },
         {
-            "00000110", nullptr // LD B d8
+                0x6, nullptr // LD B d8
         },
         {
-            "01001110", nullptr // LD C (HL)
+                0x4e, nullptr // LD C (HL)
         },
         {
-            "01001101", nullptr // LD C L
+                0x4d, nullptr // LD C L
         },
         {
-            "00001000", nullptr // LD (a16) SP
+                0x8, nullptr // LD (a16) SP
         },
         {
-            "01010100", nullptr // LD D H
+                0x54, nullptr // LD D H
         },
         {
-            "01010011", nullptr // LD D E
+                0x53, nullptr // LD D E
         },
         {
-            "01010010", nullptr // LD D D
+                0x52, nullptr // LD D D
         },
         {
-            "01010001", nullptr // LD D C
+                0x51, nullptr // LD D C
         },
         {
-            "11101010", nullptr // LD (a16) A
+                0xea, nullptr // LD (a16) A
         },
         {
-            "01010000", nullptr // LD D B
+                0x50, nullptr // LD D B
         },
         {
-            "01011001", nullptr // LD E C
+                0x59, nullptr // LD E C
         },
         {
-            "01011000", nullptr // LD E B
+                0x58, nullptr // LD E B
         },
         {
-            "01010111", nullptr // LD D A
+                0x57, nullptr // LD D A
         },
         {
-            "01010110", nullptr // LD D (HL)
+                0x56, nullptr // LD D (HL)
         },
         {
-            "01010101", nullptr // LD D L
+                0x55, nullptr // LD D L
         },
         {
-            "01011101", nullptr // LD E L
+                0x5d, nullptr // LD E L
         },
         {
-            "01011100", nullptr // LD E H
+                0x5c, nullptr // LD E H
         },
         {
-            "01011011", nullptr // LD E E
+                0x5b, nullptr // LD E E
         },
         {
-            "01011010", nullptr // LD E D
+                0x5a, nullptr // LD E D
         },
         {
-            "01011111", nullptr // LD E A
+                0x5f, nullptr // LD E A
         },
         {
-            "01011110", nullptr // LD E (HL)
+                0x5e, nullptr // LD E (HL)
         },
         {
-            "01100101", nullptr // LD H L
+                0x65, nullptr // LD H L
         },
         {
-            "01100100", nullptr // LD H H
+                0x64, nullptr // LD H H
         },
         {
-            "01100011", nullptr // LD H E
+                0x63, nullptr // LD H E
         },
         {
-            "01100010", nullptr // LD H D
+                0x62, nullptr // LD H D
         },
         {
-            "01100001", nullptr // LD H C
+                0x61, nullptr // LD H C
         },
         {
-            "11111010", nullptr // LD A (a16)
+                0xfa, nullptr // LD A (a16)
         },
         {
-            "01100000", nullptr // LD H B
+                0x60, nullptr // LD H B
         },
         {
-            "00001010", nullptr // LD A (BC)
+                0xa, nullptr // LD A (BC)
         },
         {
-            "01101001", nullptr // LD L C
+                0x69, nullptr // LD L C
         },
         {
-            "00001110", nullptr // LD C d8
+                0xe, nullptr // LD C d8
         },
         {
-            "01101000", nullptr // LD L B
+                0x68, nullptr // LD L B
         },
         {
-            "01100111", nullptr // LD H A
+                0x67, nullptr // LD H A
         },
         {
-            "01100110", nullptr // LD H (HL)
+                0x66, nullptr // LD H (HL)
         },
         {
-            "01101110", nullptr // LD L (HL)
+                0x6e, nullptr // LD L (HL)
         },
         {
-            "01101101", nullptr // LD L L
+                0x6d, nullptr // LD L L
         },
         {
-            "01101100", nullptr // LD L H
+                0x6c, nullptr // LD L H
         },
         {
-            "01101011", nullptr // LD L E
+                0x6b, nullptr // LD L E
         },
         {
-            "01101010", nullptr // LD L D
+                0x6a, nullptr // LD L D
         },
         {
-            "01101111", nullptr // LD L A
+                0x6f, nullptr // LD L A
         },
         {
-            "01110101", nullptr // LD (HL) L
+                0x75, nullptr // LD (HL) L
         },
         {
-            "01110100", nullptr // LD (HL) H
+                0x74, nullptr // LD (HL) H
         },
         {
-            "01110011", nullptr // LD (HL) E
+                0x73, nullptr // LD (HL) E
         },
         {
-            "01110010", nullptr // LD (HL) D
+                0x72, nullptr // LD (HL) D
         },
         {
-            "01110001", nullptr // LD (HL) C
+                0x71, nullptr // LD (HL) C
         },
         {
-            "01110000", nullptr // LD (HL) B
+                0x70, nullptr // LD (HL) B
         },
         {
-            "01111001", nullptr // LD A C
+                0x79, nullptr // LD A C
         },
         {
-            "01111000", nullptr // LD A B
+                0x78, nullptr // LD A B
         },
         {
-            "01110111", nullptr // LD (HL) A
+                0x77, nullptr // LD (HL) A
         },
         {
-            "01111111", nullptr // LD A A
+                0x7f, nullptr // LD A A
         },
         {
-            "01111110", nullptr // LD A (HL)
+                0x7e, nullptr // LD A (HL)
         },
         {
-            "01111101", nullptr // LD A L
+                0x7d, nullptr // LD A L
         },
         {
-            "01111100", nullptr // LD A H
+                0x7c, nullptr // LD A H
         },
         {
-            "01111011", nullptr // LD A E
+                0x7b, nullptr // LD A E
         },
         {
-            "01111010", nullptr // LD A D
+                0x7a, nullptr // LD A D
         },
         {
-            "00001111", nullptr // RRCA
+                0xf, nullptr // RRCA
         },
         {
-            "10101000", nullptr // XOR B
+                0xa8, nullptr // XOR B
         },
         {
-            "10101001", nullptr // XOR C
+                0xa9, nullptr // XOR C
         },
         {
-            "10101111", nullptr // XOR A
+                0xaf, nullptr // XOR A
         },
         {
-            "10101110", nullptr // XOR (HL)
+                0xae, nullptr // XOR (HL)
         },
         {
-            "10101101", nullptr // XOR L
+                0xad, nullptr // XOR L
         },
         {
-            "10101100", nullptr // XOR H
+                0xac, nullptr // XOR H
         },
         {
-            "10101011", nullptr // XOR E
+                0xab, nullptr // XOR E
         },
         {
-            "10101010", nullptr // XOR D
+                0xaa, nullptr // XOR D
         },
         {
-            "11101110", nullptr // XOR d8
+                0xee, nullptr // XOR d8
         },
         {
-            "00101111", nullptr // CPL
+                0x2f, nullptr // CPL
         },
         {
-            "00000111", nullptr // RLCA
+                0x7, nullptr // RLCA
         },
         {
-            "11000101", nullptr // PUSH BC
+                0xc5, nullptr // PUSH BC
         },
         {
-            "11010101", nullptr // PUSH DE
+                0xd5, nullptr // PUSH DE
         },
         {
-            "11100101", nullptr // PUSH HL
+                0xe5, nullptr // PUSH HL
         },
         {
-            "11110101", nullptr // PUSH AF
+                0xf5, nullptr // PUSH AF
         },
         {
-            "00010100", nullptr // INC D
+                0x14, nullptr // INC D
         },
         {
-            "00010011", nullptr // INC DE
+                0x13, nullptr // INC DE
         },
         {
-            "00011100", nullptr // INC E
+                0x1c, nullptr // INC E
         },
         {
-            "00100100", nullptr // INC H
+                0x24, nullptr // INC H
         },
         {
-            "00100011", nullptr // INC HL
+                0x23, nullptr // INC HL
         },
         {
-            "00101100", nullptr // INC L
+                0x2c, nullptr // INC L
         },
         {
-            "00110100", nullptr // INC (HL)
+                0x34, nullptr // INC (HL)
         },
         {
-            "00110011", nullptr // INC SP
+                0x33, nullptr // INC SP
         },
         {
-            "00111100", nullptr // INC A
+                0x3c, nullptr // INC A
         },
         {
-            "00000011", nullptr // INC BC
+                0x3, nullptr // INC BC
         },
         {
-            "00000100", nullptr // INC B
+                0x4, nullptr // INC B
         },
         {
-            "00001100", nullptr // INC C
+                0xc, nullptr // INC C
         }
 };

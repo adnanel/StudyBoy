@@ -22,7 +22,7 @@ public:
 
 
 private:
-    static std::map<std::string, Instruction*> instructionMap;
+    static std::map<unsigned long long, Instruction*> instructionMap;
 };
 
 
