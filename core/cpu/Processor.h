@@ -29,7 +29,7 @@ protected:
     IORegisters mIORegisters;
     CpuRegisters mCpuRegisters;
 public:
-    virtual Processor();
+    Processor();
     virtual ~Processor();
 };
 

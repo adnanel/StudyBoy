@@ -8,17 +8,17 @@
 #include "Register.h"
 
 typedef struct {
-    Register<Reg8Bit> A;
-    Register<Reg8Bit> B;
-    Register<Reg8Bit> C;
-    Register<Reg8Bit> D;
-    Register<Reg8Bit> E;
-    Register<Reg8Bit> F;
-    Register<Reg8Bit> H;
-    Register<Reg8Bit> L;
+    Register<8> A;
+    Register<8> B;
+    Register<8> C;
+    Register<8> D;
+    Register<8> E;
+    Register<8> F;
+    Register<8> H;
+    Register<8> L;
 
-    Register<Reg16Bit> SP;
-    Register<Reg16Bit> PC;
+    Register<16> SP;
+    Register<16> PC;
 } CpuRegisters;
 
 #endif //STUDYBOY_CPUREGISTERS_H

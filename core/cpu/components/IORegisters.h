@@ -9,67 +9,67 @@
 #include "Register.h"
 
 typedef struct {
-    Register<Reg8Bit> FF00; // P1
-    Register<Reg8Bit> FF01; // SB
-    Register<Reg8Bit> FF02; // SC
-    Register<Reg8Bit> FF04; // DIV
-    Register<Reg8Bit> FF05; // TIMA
-    Register<Reg8Bit> FF06; // TMA
-    Register<Reg8Bit> FF07; // TAC
-    Register<Reg8Bit> FF0F; // IF
-    Register<Reg8Bit> FF10; // NR 10
-    Register<Reg8Bit> FF11; // NR 11
-    Register<Reg8Bit> FF12; // NR 12
-    Register<Reg8Bit> FF13; // NR 13
-    Register<Reg8Bit> FF14; // NR 14
-    Register<Reg8Bit> FF16; // NR 21
-    Register<Reg8Bit> FF17; // NR 22
-    Register<Reg8Bit> FF18; // NR 23
-    Register<Reg8Bit> FF19; // NR 24
-    Register<Reg8Bit> FF1A; // NR 30
-    Register<Reg8Bit> FF1B; // NR 31
-    Register<Reg8Bit> FF1C; // NR 32
-    Register<Reg8Bit> FF1D; // NR 33
-    Register<Reg8Bit> FF1E; // NR 34
-    Register<Reg8Bit> FF20; // NR 41
-    Register<Reg8Bit> FF21; // NR 42
-    Register<Reg8Bit> FF22; // NR 43
-    Register<Reg8Bit> FF23; // NR 44
-    Register<Reg8Bit> FF24; // NR 50
-    Register<Reg8Bit> FF25; // NR 51
-    Register<Reg8Bit> FF26; // NR 52
+    Register<8> FF00; // P1
+    Register<8> FF01; // SB
+    Register<8> FF02; // SC
+    Register<8> FF04; // DIV
+    Register<8> FF05; // TIMA
+    Register<8> FF06; // TMA
+    Register<8> FF07; // TAC
+    Register<8> FF0F; // IF
+    Register<8> FF10; // NR 10
+    Register<8> FF11; // NR 11
+    Register<8> FF12; // NR 12
+    Register<8> FF13; // NR 13
+    Register<8> FF14; // NR 14
+    Register<8> FF16; // NR 21
+    Register<8> FF17; // NR 22
+    Register<8> FF18; // NR 23
+    Register<8> FF19; // NR 24
+    Register<8> FF1A; // NR 30
+    Register<8> FF1B; // NR 31
+    Register<8> FF1C; // NR 32
+    Register<8> FF1D; // NR 33
+    Register<8> FF1E; // NR 34
+    Register<8> FF20; // NR 41
+    Register<8> FF21; // NR 42
+    Register<8> FF22; // NR 43
+    Register<8> FF23; // NR 44
+    Register<8> FF24; // NR 50
+    Register<8> FF25; // NR 51
+    Register<8> FF26; // NR 52
 
-    Register<Reg8Bit> FF30; // Wave pattern 1
-    Register<Reg8Bit> FF31; // Wave pattern 2
-    Register<Reg8Bit> FF32; // Wave pattern 3
-    Register<Reg8Bit> FF33; // Wave pattern 4
-    Register<Reg8Bit> FF34; // Wave pattern 5
-    Register<Reg8Bit> FF35; // Wave pattern 6
-    Register<Reg8Bit> FF36; // Wave pattern 7
-    Register<Reg8Bit> FF37; // Wave pattern 8
-    Register<Reg8Bit> FF38; // Wave pattern 9
-    Register<Reg8Bit> FF39; // Wave pattern 10
-    Register<Reg8Bit> FF3A; // Wave pattern 11
-    Register<Reg8Bit> FF3B; // Wave pattern 12
-    Register<Reg8Bit> FF3C; // Wave pattern 13
-    Register<Reg8Bit> FF3D; // Wave pattern 14
-    Register<Reg8Bit> FF3E; // Wave pattern 15
-    Register<Reg8Bit> FF3F; // Wave pattern 16
+    Register<8> FF30; // Wave pattern 1
+    Register<8> FF31; // Wave pattern 2
+    Register<8> FF32; // Wave pattern 3
+    Register<8> FF33; // Wave pattern 4
+    Register<8> FF34; // Wave pattern 5
+    Register<8> FF35; // Wave pattern 6
+    Register<8> FF36; // Wave pattern 7
+    Register<8> FF37; // Wave pattern 8
+    Register<8> FF38; // Wave pattern 9
+    Register<8> FF39; // Wave pattern 10
+    Register<8> FF3A; // Wave pattern 11
+    Register<8> FF3B; // Wave pattern 12
+    Register<8> FF3C; // Wave pattern 13
+    Register<8> FF3D; // Wave pattern 14
+    Register<8> FF3E; // Wave pattern 15
+    Register<8> FF3F; // Wave pattern 16
 
-    Register<Reg8Bit> FF40; // LCDC
-    Register<Reg8Bit> FF41; // STAT
-    Register<Reg8Bit> FF42; // SCY
-    Register<Reg8Bit> FF43; // SCX
-    Register<Reg8Bit> FF44; // LY
-    Register<Reg8Bit> FF45; // LYC
-    Register<Reg8Bit> FF46; // DMA
+    Register<8> FF40; // LCDC
+    Register<8> FF41; // STAT
+    Register<8> FF42; // SCY
+    Register<8> FF43; // SCX
+    Register<8> FF44; // LY
+    Register<8> FF45; // LYC
+    Register<8> FF46; // DMA
 
-    Register<Reg8Bit> FF47; // BGP
-    Register<Reg8Bit> FF48; // OBP0
-    Register<Reg8Bit> FF49; // OBP1
-    Register<Reg8Bit> FF4A; // WY
-    Register<Reg8Bit> FF4B; // WX
-    Register<Reg8Bit> FFFF; // IE
+    Register<8> FF47; // BGP
+    Register<8> FF48; // OBP0
+    Register<8> FF49; // OBP1
+    Register<8> FF4A; // WY
+    Register<8> FF4B; // WX
+    Register<8> FFFF; // IE
 } IORegisters;
 
 #endif //STUDYBOY_IOREGISTERS_H
