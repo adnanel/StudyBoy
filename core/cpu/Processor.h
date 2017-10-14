@@ -9,6 +9,7 @@
 #include "../memory/MemoryMap.h"
 #include "components/FrequencyDivider.h"
 #include "components/Timer.h"
+#include "components/DmaController.h"
 
 class Processor {
 private:

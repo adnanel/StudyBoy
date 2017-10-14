@@ -9,6 +9,7 @@
 #include "memory/MemoryMap.h"
 #include "cpu/Processor.h"
 #include "GameBoyConfig.h"
+#include "lcd/LcdController.h"
 
 class GameBoyCore {
 private:
@@ -17,6 +18,7 @@ private:
 
     Processor mCpu;
 
+    LcdController mLcdController;
 public:
     GameBoyCore(const GameBoyConfig& gbConfig);
     ~GameBoyCore();
