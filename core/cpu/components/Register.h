@@ -140,6 +140,13 @@ public:
         Register copy(*this);
         return copy += other;
     }
+
+
+    template<unsigned int A, unsigned int B>
+    inline static Register<A + B> CombineRegisters(const Register<A>& a, const Register<B>& b) {
+        Register<A + B> res = (a.mData.to_ullong() << B) | b;
+        return res;
+    };
 };
 
 
