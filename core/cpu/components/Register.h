@@ -144,6 +144,12 @@ public:
     }
 
     template<typename T>
+    inline Register<N>& operator-=(const T& other) {
+        mData = mData.to_ullong() - other;
+        return *this;
+    }
+
+    template<typename T>
     inline Register<N>& operator+=(const T& other) {
         mData = mData.to_ullong() + other;
         return *this;
@@ -153,6 +159,12 @@ public:
     inline Register<N> operator+(const T& other) {
         Register copy(*this);
         return copy += other;
+    }
+
+    template<typename T>
+    inline Register<N> operator-(const T& other) {
+        Register copy(*this);
+        return copy -= other;
     }
 
 
