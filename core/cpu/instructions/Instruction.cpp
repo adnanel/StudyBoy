@@ -1159,10 +1159,11 @@ void Instruction::ld_d_d8(GameBoyCore* core, unsigned long long opcode) {
 }
 
 // LD (DE) A
-void Instruction::ld__de__a(GameBoyCore* core, unsigned long long opcode) {
+void Instruction::ld__de__a(GameBoyCore* core, unsigned long long) {
+    auto de = core->getCpu()->getCpuRegisters()->getDE();
+    auto a = core->getCpu()->getCpuRegisters()->getA();
 
-// todo
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
+    core->getWorkRam()->WriteData(de.to_ullong(), a);
 }
 
 // LD DE d16
@@ -1330,9 +1331,9 @@ void Instruction::ld_c_b(GameBoyCore* core, unsigned long long opcode) {
 
 // LD B A
 void Instruction::ld_b_a(GameBoyCore* core, unsigned long long opcode) {
+    auto a = core->getCpu()->getCpuRegisters()->getA();
 
-// todo
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
+    core->getCpu()->getCpuRegisters()->setB(a);
 }
 
 // LD B (HL)
@@ -1386,16 +1387,17 @@ void Instruction::ld_bc_d16(GameBoyCore* core, unsigned long long opcode) {
 
 // LD (BC) A
 void Instruction::ld__bc__a(GameBoyCore* core, unsigned long long opcode) {
+    auto bc = core->getCpu()->getCpuRegisters()->getBC();
+    auto a  = core->getCpu()->getCpuRegisters()->getA();
 
-// todo
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
+    core->getWorkRam()->WriteData(bc.to_ullong(), a);
 }
 
 // LD C A
 void Instruction::ld_c_a(GameBoyCore* core, unsigned long long opcode) {
+    auto a = core->getCpu()->getCpuRegisters()->getA();
 
-// todo
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
+    core->getCpu()->getCpuRegisters()->setC(a);
 }
 
 // LD B d8
@@ -1484,9 +1486,8 @@ void Instruction::ld_e_b(GameBoyCore* core, unsigned long long opcode) {
 
 // LD D A
 void Instruction::ld_d_a(GameBoyCore* core, unsigned long long opcode) {
-
-// todo
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
+    auto a = core->getCpu()->getCpuRegisters()->getA();
+    core->getCpu()->getCpuRegisters()->setD(a);
 }
 
 // LD D (HL)
@@ -1533,9 +1534,8 @@ void Instruction::ld_e_d(GameBoyCore* core, unsigned long long opcode) {
 
 // LD E A
 void Instruction::ld_e_a(GameBoyCore* core, unsigned long long opcode) {
-
-// todo
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
+    auto a = core->getCpu()->getCpuRegisters()->getA();
+    core->getCpu()->getCpuRegisters()->setE(a);
 }
 
 // LD E (HL)
@@ -1624,9 +1624,8 @@ void Instruction::ld_l_b(GameBoyCore* core, unsigned long long opcode) {
 
 // LD H A
 void Instruction::ld_h_a(GameBoyCore* core, unsigned long long opcode) {
-
-// todo
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
+    auto a = core->getCpu()->getCpuRegisters()->getA();
+    core->getCpu()->getCpuRegisters()->setH(a);
 }
 
 // LD H (HL)
@@ -1673,9 +1672,8 @@ void Instruction::ld_l_d(GameBoyCore* core, unsigned long long opcode) {
 
 // LD L A
 void Instruction::ld_l_a(GameBoyCore* core, unsigned long long opcode) {
-
-// todo
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
+    auto a = core->getCpu()->getCpuRegisters()->getA();
+    core->getCpu()->getCpuRegisters()->setL(a);
 }
 
 // LD (HL) L
@@ -1736,16 +1734,17 @@ void Instruction::ld_a_b(GameBoyCore* core, unsigned long long opcode) {
 
 // LD (HL) A
 void Instruction::ld__hl__a(GameBoyCore* core, unsigned long long opcode) {
+    auto hl = core->getCpu()->getCpuRegisters()->getHL();
+    auto a  = core->getCpu()->getCpuRegisters()->getA();
 
-// todo
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
+    core->getWorkRam()->WriteData(hl.to_ullong(), a);
 }
 
 // LD A A
 void Instruction::ld_a_a(GameBoyCore* core, unsigned long long opcode) {
+    auto regA = core->getCpu()->getCpuRegisters()->getA();
 
-// todo
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
+    core->getCpu()->getCpuRegisters()->setA(regA);
 }
 
 // LD A (HL)

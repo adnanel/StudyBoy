@@ -9,6 +9,7 @@
 #include <cstdio>
 #include <bitset>
 #include <stdexcept>
+#include "../cpu/components/Register.h"
 
 class MemoryMap {
     char* mMemory;
@@ -27,15 +28,28 @@ public:
 
 
     template<unsigned int BitCount>
-    std::bitset<BitCount> ReadData(unsigned long long targetAddress) {
+    std::bitset<BitCount> ReadData(unsigned long long targetAddress) const {
         if ( BitCount % 8 != 0 ) throw std::invalid_argument("BitCount unsupported!");
         std::bitset<BitCount> res;
         int byteCount = BitCount % 8;
 
-        for ( int i = 0; i < byteCount; ++ i ) {
+        for ( int i = byteCount; i >= 0; -- i ) {
             res = (res.to_ullong() << 8) | mMemory[targetAddress + i];
         }
         return res;
+    }
+
+    template<unsigned int BitCount>
+    void WriteData(unsigned long long address, const Register<BitCount>& reg) {
+        if ( BitCount % 8 != 0 ) throw std::invalid_argument("BitCount unsupported!");
+
+        int byteCount = BitCount % 8;
+
+        auto data = reg.to_ullong();
+        for ( int i = 0; i < byteCount; ++ i ) {
+            mMemory[address + i] = static_cast<char>(0xFF & data);
+            data >>= 8;
+        }
     }
 
     template<typename T>
