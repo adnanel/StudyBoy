@@ -22,6 +22,21 @@ private:
 public:
     GameBoyCore(const GameBoyConfig& gbConfig);
     ~GameBoyCore();
+
+
+    Processor& getCpu() {
+        return mCpu;
+    }
+    const Processor& getCpu() const {
+        return mCpu;
+    }
+
+    void SetFlags(bool z, bool n, bool h, bool c) {
+        mCpu.getFlagRegister().setZ(z);
+        mCpu.getFlagRegister().setN(n);
+        mCpu.getFlagRegister().setH(h);
+        mCpu.getFlagRegister().setC(c);
+    }
 };
 
 

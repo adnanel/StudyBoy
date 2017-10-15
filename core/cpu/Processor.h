@@ -13,6 +13,7 @@
 #include "components/Register.h"
 #include "components/IORegisters.h"
 #include "components/CpuRegisters.h"
+#include "components/FlagRegister.h"
 
 class Processor {
 protected:
@@ -28,11 +29,19 @@ protected:
     // Registers
     IORegisters mIORegisters;
     CpuRegisters mCpuRegisters;
+    FlagRegister mFlagRegister;
 public:
     Processor();
     virtual ~Processor();
 
     virtual void HardReset();
+
+    FlagRegister& getFlagRegister() {
+        return mFlagRegister;
+    }
+    const FlagRegister& getFlagRegister() const {
+        return mFlagRegister;
+    }
 };
 
 

@@ -4,1233 +4,1939 @@
 
 #include "Instruction.h"
 
-namespace Instruction {
 // RET NZ
-void ret_nz_(GameBoyCore* core) {
-        // todo
+void Instruction::ret_nz_(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // RET
-void ret__(GameBoyCore* core) {
-        // todo
+void Instruction::ret__(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // RET Z
-void ret_z_(GameBoyCore* core) {
-        // todo
+void Instruction::ret_z_(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // RET NC
-void ret_nc_(GameBoyCore* core) {
-        // todo
+void Instruction::ret_nc_(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // RET C
-void ret_c_(GameBoyCore* core) {
-        // todo
+void Instruction::ret_c_(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // RRA
-void rra__(GameBoyCore* core) {
-        // todo
+void Instruction::rra__(GameBoyCore* core) {
+    bool c;
+
+// todo
+    core->SetFlags(false, false, false, c);
 }
 
 // ADC A d8
-void adc_a_d8(GameBoyCore* core) {
-        // todo
+void Instruction::adc_a_d8(GameBoyCore* core) {
+    bool z;
+    bool h;
+    bool c;
+
+// todo
+    core->SetFlags(z, false, h, c);
 }
 
 // ADC A C
-void adc_a_c(GameBoyCore* core) {
-        // todo
+void Instruction::adc_a_c(GameBoyCore* core) {
+    bool z;
+    bool h;
+    bool c;
+
+// todo
+    core->SetFlags(z, false, h, c);
 }
 
 // ADC A B
-void adc_a_b(GameBoyCore* core) {
-        // todo
+void Instruction::adc_a_b(GameBoyCore* core) {
+    bool z;
+    bool h;
+    bool c;
+
+// todo
+    core->SetFlags(z, false, h, c);
 }
 
 // ADC A A
-void adc_a_a(GameBoyCore* core) {
-        // todo
+void Instruction::adc_a_a(GameBoyCore* core) {
+    bool z;
+    bool h;
+    bool c;
+
+// todo
+    core->SetFlags(z, false, h, c);
 }
 
 // ADC A (HL)
-void adc_a__hl_(GameBoyCore* core) {
-        // todo
+void Instruction::adc_a__hl_(GameBoyCore* core) {
+    bool z;
+    bool h;
+    bool c;
+
+// todo
+    core->SetFlags(z, false, h, c);
 }
 
 // ADC A L
-void adc_a_l(GameBoyCore* core) {
-        // todo
+void Instruction::adc_a_l(GameBoyCore* core) {
+    bool z;
+    bool h;
+    bool c;
+
+// todo
+    core->SetFlags(z, false, h, c);
 }
 
 // ADC A H
-void adc_a_h(GameBoyCore* core) {
-        // todo
+void Instruction::adc_a_h(GameBoyCore* core) {
+    bool z;
+    bool h;
+    bool c;
+
+// todo
+    core->SetFlags(z, false, h, c);
 }
 
 // ADC A E
-void adc_a_e(GameBoyCore* core) {
-        // todo
+void Instruction::adc_a_e(GameBoyCore* core) {
+    bool z;
+    bool h;
+    bool c;
+
+// todo
+    core->SetFlags(z, false, h, c);
 }
 
 // ADC A D
-void adc_a_d(GameBoyCore* core) {
-        // todo
+void Instruction::adc_a_d(GameBoyCore* core) {
+    bool z;
+    bool h;
+    bool c;
+
+// todo
+    core->SetFlags(z, false, h, c);
 }
 
 // ADD HL DE
-void add_hl_de(GameBoyCore* core) {
-        // todo
+void Instruction::add_hl_de(GameBoyCore* core) {
+    bool h;
+    bool c;
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), false, h, c);
 }
 
 // ADD A d8
-void add_a_d8(GameBoyCore* core) {
-        // todo
+void Instruction::add_a_d8(GameBoyCore* core) {
+    bool z;
+    bool h;
+    bool c;
+
+// todo
+    core->SetFlags(z, false, h, c);
 }
 
 // ADD HL HL
-void add_hl_hl(GameBoyCore* core) {
-        // todo
+void Instruction::add_hl_hl(GameBoyCore* core) {
+    bool h;
+    bool c;
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), false, h, c);
 }
 
 // ADD SP r8
-void add_sp_r8(GameBoyCore* core) {
-        // todo
+void Instruction::add_sp_r8(GameBoyCore* core) {
+    bool h;
+    bool c;
+
+// todo
+    core->SetFlags(false, false, h, c);
 }
 
 // ADD HL SP
-void add_hl_sp(GameBoyCore* core) {
-        // todo
+void Instruction::add_hl_sp(GameBoyCore* core) {
+    bool h;
+    bool c;
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), false, h, c);
 }
 
 // ADD HL BC
-void add_hl_bc(GameBoyCore* core) {
-        // todo
+void Instruction::add_hl_bc(GameBoyCore* core) {
+    bool h;
+    bool c;
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), false, h, c);
 }
 
 // ADD A A
-void add_a_a(GameBoyCore* core) {
-        // todo
+void Instruction::add_a_a(GameBoyCore* core) {
+    bool z;
+    bool h;
+    bool c;
+
+// todo
+    core->SetFlags(z, false, h, c);
 }
 
 // ADD A (HL)
-void add_a__hl_(GameBoyCore* core) {
-        // todo
+void Instruction::add_a__hl_(GameBoyCore* core) {
+    bool z;
+    bool h;
+    bool c;
+
+// todo
+    core->SetFlags(z, false, h, c);
 }
 
 // ADD A L
-void add_a_l(GameBoyCore* core) {
-        // todo
+void Instruction::add_a_l(GameBoyCore* core) {
+    bool z;
+    bool h;
+    bool c;
+
+// todo
+    core->SetFlags(z, false, h, c);
 }
 
 // ADD A H
-void add_a_h(GameBoyCore* core) {
-        // todo
+void Instruction::add_a_h(GameBoyCore* core) {
+    bool z;
+    bool h;
+    bool c;
+
+// todo
+    core->SetFlags(z, false, h, c);
 }
 
 // ADD A E
-void add_a_e(GameBoyCore* core) {
-        // todo
+void Instruction::add_a_e(GameBoyCore* core) {
+    bool z;
+    bool h;
+    bool c;
+
+// todo
+    core->SetFlags(z, false, h, c);
 }
 
 // ADD A D
-void add_a_d(GameBoyCore* core) {
-        // todo
+void Instruction::add_a_d(GameBoyCore* core) {
+    bool z;
+    bool h;
+    bool c;
+
+// todo
+    core->SetFlags(z, false, h, c);
 }
 
 // ADD A C
-void add_a_c(GameBoyCore* core) {
-        // todo
+void Instruction::add_a_c(GameBoyCore* core) {
+    bool z;
+    bool h;
+    bool c;
+
+// todo
+    core->SetFlags(z, false, h, c);
 }
 
 // ADD A B
-void add_a_b(GameBoyCore* core) {
-        // todo
+void Instruction::add_a_b(GameBoyCore* core) {
+    bool z;
+    bool h;
+    bool c;
+
+// todo
+    core->SetFlags(z, false, h, c);
 }
 
 // CALL NZ a16
-void call_nz_a16(GameBoyCore* core) {
-        // todo
+void Instruction::call_nz_a16(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // CALL NC a16
-void call_nc_a16(GameBoyCore* core) {
-        // todo
+void Instruction::call_nc_a16(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // CALL a16
-void call_a16_(GameBoyCore* core) {
-        // todo
+void Instruction::call_a16_(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // CALL Z a16
-void call_z_a16(GameBoyCore* core) {
-        // todo
+void Instruction::call_z_a16(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // CALL C a16
-void call_c_a16(GameBoyCore* core) {
-        // todo
+void Instruction::call_c_a16(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // DI
-void di__(GameBoyCore* core) {
-        // todo
+void Instruction::di__(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // JP NZ a16
-void jp_nz_a16(GameBoyCore* core) {
-        // todo
+void Instruction::jp_nz_a16(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // JP a16
-void jp_a16_(GameBoyCore* core) {
-        // todo
+void Instruction::jp_a16_(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // JP NC a16
-void jp_nc_a16(GameBoyCore* core) {
-        // todo
+void Instruction::jp_nc_a16(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // JP (HL)
-void jp__hl__(GameBoyCore* core) {
-        // todo
+void Instruction::jp__hl__(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // JP Z a16
-void jp_z_a16(GameBoyCore* core) {
-        // todo
+void Instruction::jp_z_a16(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // JP C a16
-void jp_c_a16(GameBoyCore* core) {
-        // todo
+void Instruction::jp_c_a16(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // RLA
-void rla__(GameBoyCore* core) {
-        // todo
+void Instruction::rla__(GameBoyCore* core) {
+    bool c;
+
+// todo
+    core->SetFlags(false, false, false, c);
 }
 
 // JR r8
-void jr_r8_(GameBoyCore* core) {
-        // todo
+void Instruction::jr_r8_(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // JR NZ r8
-void jr_nz_r8(GameBoyCore* core) {
-        // todo
+void Instruction::jr_nz_r8(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // JR Z r8
-void jr_z_r8(GameBoyCore* core) {
-        // todo
+void Instruction::jr_z_r8(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // JR NC r8
-void jr_nc_r8(GameBoyCore* core) {
-        // todo
+void Instruction::jr_nc_r8(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // JR C r8
-void jr_c_r8(GameBoyCore* core) {
-        // todo
+void Instruction::jr_c_r8(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // RETI
-void reti__(GameBoyCore* core) {
-        // todo
+void Instruction::reti__(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LDH (a8) A
-void ldh__a8__a(GameBoyCore* core) {
-        // todo
+void Instruction::ldh__a8__a(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LDH A (a8)
-void ldh_a__a8_(GameBoyCore* core) {
-        // todo
+void Instruction::ldh_a__a8_(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // SBC A d8
-void sbc_a_d8(GameBoyCore* core) {
-        // todo
+void Instruction::sbc_a_d8(GameBoyCore* core) {
+    bool z;
+    bool h;
+    bool c;
+
+// todo
+    core->SetFlags(z, true, h, c);
 }
 
 // SBC A B
-void sbc_a_b(GameBoyCore* core) {
-        // todo
+void Instruction::sbc_a_b(GameBoyCore* core) {
+    bool z;
+    bool h;
+    bool c;
+
+// todo
+    core->SetFlags(z, true, h, c);
 }
 
 // SBC A C
-void sbc_a_c(GameBoyCore* core) {
-        // todo
+void Instruction::sbc_a_c(GameBoyCore* core) {
+    bool z;
+    bool h;
+    bool c;
+
+// todo
+    core->SetFlags(z, true, h, c);
 }
 
 // SBC A A
-void sbc_a_a(GameBoyCore* core) {
-        // todo
+void Instruction::sbc_a_a(GameBoyCore* core) {
+    bool z;
+    bool h;
+    bool c;
+
+// todo
+    core->SetFlags(z, true, h, c);
 }
 
 // SBC A (HL)
-void sbc_a__hl_(GameBoyCore* core) {
-        // todo
+void Instruction::sbc_a__hl_(GameBoyCore* core) {
+    bool z;
+    bool h;
+    bool c;
+
+// todo
+    core->SetFlags(z, true, h, c);
 }
 
 // SBC A L
-void sbc_a_l(GameBoyCore* core) {
-        // todo
+void Instruction::sbc_a_l(GameBoyCore* core) {
+    bool z;
+    bool h;
+    bool c;
+
+// todo
+    core->SetFlags(z, true, h, c);
 }
 
 // SBC A H
-void sbc_a_h(GameBoyCore* core) {
-        // todo
+void Instruction::sbc_a_h(GameBoyCore* core) {
+    bool z;
+    bool h;
+    bool c;
+
+// todo
+    core->SetFlags(z, true, h, c);
 }
 
 // SBC A E
-void sbc_a_e(GameBoyCore* core) {
-        // todo
+void Instruction::sbc_a_e(GameBoyCore* core) {
+    bool z;
+    bool h;
+    bool c;
+
+// todo
+    core->SetFlags(z, true, h, c);
 }
 
 // SBC A D
-void sbc_a_d(GameBoyCore* core) {
-        // todo
+void Instruction::sbc_a_d(GameBoyCore* core) {
+    bool z;
+    bool h;
+    bool c;
+
+// todo
+    core->SetFlags(z, true, h, c);
 }
 
 // HALT
-void halt__(GameBoyCore* core) {
-        // todo
+void Instruction::halt__(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // SUB d8
-void sub_d8_(GameBoyCore* core) {
-        // todo
+void Instruction::sub_d8_(GameBoyCore* core) {
+    bool z;
+    bool h;
+    bool c;
+
+// todo
+    core->SetFlags(z, true, h, c);
 }
 
 // SUB B
-void sub_b_(GameBoyCore* core) {
-        // todo
+void Instruction::sub_b_(GameBoyCore* core) {
+    bool z;
+    bool h;
+    bool c;
+
+// todo
+    core->SetFlags(z, true, h, c);
 }
 
 // SUB A
-void sub_a_(GameBoyCore* core) {
-        // todo
+void Instruction::sub_a_(GameBoyCore* core) {
+    bool z;
+    bool h;
+    bool c;
+
+// todo
+    core->SetFlags(z, true, h, c);
 }
 
 // SUB (HL)
-void sub__hl__(GameBoyCore* core) {
-        // todo
+void Instruction::sub__hl__(GameBoyCore* core) {
+    bool z;
+    bool h;
+    bool c;
+
+// todo
+    core->SetFlags(z, true, h, c);
 }
 
 // SUB L
-void sub_l_(GameBoyCore* core) {
-        // todo
+void Instruction::sub_l_(GameBoyCore* core) {
+    bool z;
+    bool h;
+    bool c;
+
+// todo
+    core->SetFlags(z, true, h, c);
 }
 
 // SUB H
-void sub_h_(GameBoyCore* core) {
-        // todo
+void Instruction::sub_h_(GameBoyCore* core) {
+    bool z;
+    bool h;
+    bool c;
+
+// todo
+    core->SetFlags(z, true, h, c);
 }
 
 // SUB E
-void sub_e_(GameBoyCore* core) {
-        // todo
+void Instruction::sub_e_(GameBoyCore* core) {
+    bool z;
+    bool h;
+    bool c;
+
+// todo
+    core->SetFlags(z, true, h, c);
 }
 
 // SUB D
-void sub_d_(GameBoyCore* core) {
-        // todo
+void Instruction::sub_d_(GameBoyCore* core) {
+    bool z;
+    bool h;
+    bool c;
+
+// todo
+    core->SetFlags(z, true, h, c);
 }
 
 // SUB C
-void sub_c_(GameBoyCore* core) {
-        // todo
+void Instruction::sub_c_(GameBoyCore* core) {
+    bool z;
+    bool h;
+    bool c;
+
+// todo
+    core->SetFlags(z, true, h, c);
 }
 
 // OR C
-void or_c_(GameBoyCore* core) {
-        // todo
+void Instruction::or_c_(GameBoyCore* core) {
+    bool z;
+
+// todo
+    core->SetFlags(z, false, false, false);
 }
 
 // OR B
-void or_b_(GameBoyCore* core) {
-        // todo
+void Instruction::or_b_(GameBoyCore* core) {
+    bool z;
+
+// todo
+    core->SetFlags(z, false, false, false);
 }
 
 // OR A
-void or_a_(GameBoyCore* core) {
-        // todo
+void Instruction::or_a_(GameBoyCore* core) {
+    bool z;
+
+// todo
+    core->SetFlags(z, false, false, false);
 }
 
 // OR (HL)
-void or__hl__(GameBoyCore* core) {
-        // todo
+void Instruction::or__hl__(GameBoyCore* core) {
+    bool z;
+
+// todo
+    core->SetFlags(z, false, false, false);
 }
 
 // OR L
-void or_l_(GameBoyCore* core) {
-        // todo
+void Instruction::or_l_(GameBoyCore* core) {
+    bool z;
+
+// todo
+    core->SetFlags(z, false, false, false);
 }
 
 // OR H
-void or_h_(GameBoyCore* core) {
-        // todo
+void Instruction::or_h_(GameBoyCore* core) {
+    bool z;
+
+// todo
+    core->SetFlags(z, false, false, false);
 }
 
 // OR E
-void or_e_(GameBoyCore* core) {
-        // todo
+void Instruction::or_e_(GameBoyCore* core) {
+    bool z;
+
+// todo
+    core->SetFlags(z, false, false, false);
 }
 
 // OR D
-void or_d_(GameBoyCore* core) {
-        // todo
+void Instruction::or_d_(GameBoyCore* core) {
+    bool z;
+
+// todo
+    core->SetFlags(z, false, false, false);
 }
 
 // OR d8
-void or_d8_(GameBoyCore* core) {
-        // todo
+void Instruction::or_d8_(GameBoyCore* core) {
+    bool z;
+
+// todo
+    core->SetFlags(z, false, false, false);
 }
 
 // DEC D
-void dec_d_(GameBoyCore* core) {
-        // todo
+void Instruction::dec_d_(GameBoyCore* core) {
+    bool z;
+    bool h;
+
+// todo
+    core->SetFlags(z, true, h, core->getCpu().getFlagRegister().getZ());
 }
 
 // DEC E
-void dec_e_(GameBoyCore* core) {
-        // todo
+void Instruction::dec_e_(GameBoyCore* core) {
+    bool z;
+    bool h;
+
+// todo
+    core->SetFlags(z, true, h, core->getCpu().getFlagRegister().getZ());
 }
 
 // DEC DE
-void dec_de_(GameBoyCore* core) {
-        // todo
+void Instruction::dec_de_(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // DEC H
-void dec_h_(GameBoyCore* core) {
-        // todo
+void Instruction::dec_h_(GameBoyCore* core) {
+    bool z;
+    bool h;
+
+// todo
+    core->SetFlags(z, true, h, core->getCpu().getFlagRegister().getZ());
 }
 
 // DEC L
-void dec_l_(GameBoyCore* core) {
-        // todo
+void Instruction::dec_l_(GameBoyCore* core) {
+    bool z;
+    bool h;
+
+// todo
+    core->SetFlags(z, true, h, core->getCpu().getFlagRegister().getZ());
 }
 
 // DEC HL
-void dec_hl_(GameBoyCore* core) {
-        // todo
+void Instruction::dec_hl_(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // DEC (HL)
-void dec__hl__(GameBoyCore* core) {
-        // todo
+void Instruction::dec__hl__(GameBoyCore* core) {
+    bool z;
+    bool h;
+
+// todo
+    core->SetFlags(z, true, h, core->getCpu().getFlagRegister().getZ());
 }
 
 // DEC SP
-void dec_sp_(GameBoyCore* core) {
-        // todo
+void Instruction::dec_sp_(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // DEC A
-void dec_a_(GameBoyCore* core) {
-        // todo
+void Instruction::dec_a_(GameBoyCore* core) {
+    bool z;
+    bool h;
+
+// todo
+    core->SetFlags(z, true, h, core->getCpu().getFlagRegister().getZ());
 }
 
 // DEC B
-void dec_b_(GameBoyCore* core) {
-        // todo
+void Instruction::dec_b_(GameBoyCore* core) {
+    bool z;
+    bool h;
+
+// todo
+    core->SetFlags(z, true, h, core->getCpu().getFlagRegister().getZ());
 }
 
 // DEC BC
-void dec_bc_(GameBoyCore* core) {
-        // todo
+void Instruction::dec_bc_(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // DEC C
-void dec_c_(GameBoyCore* core) {
-        // todo
+void Instruction::dec_c_(GameBoyCore* core) {
+    bool z;
+    bool h;
+
+// todo
+    core->SetFlags(z, true, h, core->getCpu().getFlagRegister().getZ());
 }
 
 // EI
-void ei__(GameBoyCore* core) {
-        // todo
+void Instruction::ei__(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // STOP 0
-void stop_0_(GameBoyCore* core) {
-        // todo
+void Instruction::stop_0_(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // DAA
-void daa__(GameBoyCore* core) {
-        // todo
+void Instruction::daa__(GameBoyCore* core) {
+    bool z;
+    bool c;
+
+// todo
+    core->SetFlags(z, core->getCpu().getFlagRegister().getH(), false, c);
 }
 
 // CCF
-void ccf__(GameBoyCore* core) {
-        // todo
+void Instruction::ccf__(GameBoyCore* core) {
+    bool c;
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), false, false, c);
 }
 
 // CP C
-void cp_c_(GameBoyCore* core) {
-        // todo
+void Instruction::cp_c_(GameBoyCore* core) {
+    bool z;
+    bool h;
+    bool c;
+
+// todo
+    core->SetFlags(z, true, h, c);
 }
 
 // CP B
-void cp_b_(GameBoyCore* core) {
-        // todo
+void Instruction::cp_b_(GameBoyCore* core) {
+    bool z;
+    bool h;
+    bool c;
+
+// todo
+    core->SetFlags(z, true, h, c);
 }
 
 // CP D
-void cp_d_(GameBoyCore* core) {
-        // todo
+void Instruction::cp_d_(GameBoyCore* core) {
+    bool z;
+    bool h;
+    bool c;
+
+// todo
+    core->SetFlags(z, true, h, c);
 }
 
 // CP A
-void cp_a_(GameBoyCore* core) {
-        // todo
+void Instruction::cp_a_(GameBoyCore* core) {
+    bool z;
+    bool h;
+    bool c;
+
+// todo
+    core->SetFlags(z, true, h, c);
 }
 
 // CP (HL)
-void cp__hl__(GameBoyCore* core) {
-        // todo
+void Instruction::cp__hl__(GameBoyCore* core) {
+    bool z;
+    bool h;
+    bool c;
+
+// todo
+    core->SetFlags(z, true, h, c);
 }
 
 // CP L
-void cp_l_(GameBoyCore* core) {
-        // todo
+void Instruction::cp_l_(GameBoyCore* core) {
+    bool z;
+    bool h;
+    bool c;
+
+// todo
+    core->SetFlags(z, true, h, c);
 }
 
 // CP H
-void cp_h_(GameBoyCore* core) {
-        // todo
+void Instruction::cp_h_(GameBoyCore* core) {
+    bool z;
+    bool h;
+    bool c;
+
+// todo
+    core->SetFlags(z, true, h, c);
 }
 
 // CP E
-void cp_e_(GameBoyCore* core) {
-        // todo
+void Instruction::cp_e_(GameBoyCore* core) {
+    bool z;
+    bool h;
+    bool c;
+
+// todo
+    core->SetFlags(z, true, h, c);
 }
 
 // CP d8
-void cp_d8_(GameBoyCore* core) {
-        // todo
+void Instruction::cp_d8_(GameBoyCore* core) {
+    bool z;
+    bool h;
+    bool c;
+
+// todo
+    core->SetFlags(z, true, h, c);
 }
 
 // NOP
-void nop__(GameBoyCore* core) {
-        // todo
+void Instruction::nop__(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // POP BC
-void pop_bc_(GameBoyCore* core) {
-        // todo
+void Instruction::pop_bc_(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // POP DE
-void pop_de_(GameBoyCore* core) {
-        // todo
+void Instruction::pop_de_(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // POP HL
-void pop_hl_(GameBoyCore* core) {
-        // todo
+void Instruction::pop_hl_(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // POP AF
-void pop_af_(GameBoyCore* core) {
-        // todo
+void Instruction::pop_af_(GameBoyCore* core) {
+    bool z;
+    bool n;
+    bool h;
+    bool c;
+
+// todo
+    core->SetFlags(z, n, h, c);
 }
 
 // RST 00H
-void rst_00h_(GameBoyCore* core) {
-        // todo
+void Instruction::rst_00h_(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // RST 10H
-void rst_10h_(GameBoyCore* core) {
-        // todo
+void Instruction::rst_10h_(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // RST 20H
-void rst_20h_(GameBoyCore* core) {
-        // todo
+void Instruction::rst_20h_(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // RST 08H
-void rst_08h_(GameBoyCore* core) {
-        // todo
+void Instruction::rst_08h_(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // RST 30H
-void rst_30h_(GameBoyCore* core) {
-        // todo
+void Instruction::rst_30h_(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // RST 18H
-void rst_18h_(GameBoyCore* core) {
-        // todo
+void Instruction::rst_18h_(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // RST 28H
-void rst_28h_(GameBoyCore* core) {
-        // todo
+void Instruction::rst_28h_(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // RST 38H
-void rst_38h_(GameBoyCore* core) {
-        // todo
+void Instruction::rst_38h_(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // PREFIX CB
-void prefix_cb_(GameBoyCore* core) {
-        // todo
+void Instruction::prefix_cb_(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // AND B
-void and_b_(GameBoyCore* core) {
-        // todo
+void Instruction::and_b_(GameBoyCore* core) {
+    bool z;
+
+// todo
+    core->SetFlags(z, false, true, false);
 }
 
 // AND A
-void and_a_(GameBoyCore* core) {
-        // todo
+void Instruction::and_a_(GameBoyCore* core) {
+    bool z;
+
+// todo
+    core->SetFlags(z, false, true, false);
 }
 
 // AND (HL)
-void and__hl__(GameBoyCore* core) {
-        // todo
+void Instruction::and__hl__(GameBoyCore* core) {
+    bool z;
+
+// todo
+    core->SetFlags(z, false, true, false);
 }
 
 // AND L
-void and_l_(GameBoyCore* core) {
-        // todo
+void Instruction::and_l_(GameBoyCore* core) {
+    bool z;
+
+// todo
+    core->SetFlags(z, false, true, false);
 }
 
 // AND H
-void and_h_(GameBoyCore* core) {
-        // todo
+void Instruction::and_h_(GameBoyCore* core) {
+    bool z;
+
+// todo
+    core->SetFlags(z, false, true, false);
 }
 
 // AND E
-void and_e_(GameBoyCore* core) {
-        // todo
+void Instruction::and_e_(GameBoyCore* core) {
+    bool z;
+
+// todo
+    core->SetFlags(z, false, true, false);
 }
 
 // AND D
-void and_d_(GameBoyCore* core) {
-        // todo
+void Instruction::and_d_(GameBoyCore* core) {
+    bool z;
+
+// todo
+    core->SetFlags(z, false, true, false);
 }
 
 // AND C
-void and_c_(GameBoyCore* core) {
-        // todo
+void Instruction::and_c_(GameBoyCore* core) {
+    bool z;
+
+// todo
+    core->SetFlags(z, false, true, false);
 }
 
 // AND d8
-void and_d8_(GameBoyCore* core) {
-        // todo
+void Instruction::and_d8_(GameBoyCore* core) {
+    bool z;
+
+// todo
+    core->SetFlags(z, false, true, false);
 }
 
 // SCF
-void scf__(GameBoyCore* core) {
-        // todo
+void Instruction::scf__(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), false, false, true);
 }
 
 // LD D d8
-void ld_d_d8(GameBoyCore* core) {
-        // todo
+void Instruction::ld_d_d8(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD (DE) A
-void ld__de__a(GameBoyCore* core) {
-        // todo
+void Instruction::ld__de__a(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD DE d16
-void ld_de_d16(GameBoyCore* core) {
-        // todo
+void Instruction::ld_de_d16(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD E d8
-void ld_e_d8(GameBoyCore* core) {
-        // todo
+void Instruction::ld_e_d8(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD A (DE)
-void ld_a__de_(GameBoyCore* core) {
-        // todo
+void Instruction::ld_a__de_(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD HL d16
-void ld_hl_d16(GameBoyCore* core) {
-        // todo
+void Instruction::ld_hl_d16(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD H d8
-void ld_h_d8(GameBoyCore* core) {
-        // todo
+void Instruction::ld_h_d8(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD (HL+) A
-void ld__hlplus__a(GameBoyCore* core) {
-        // todo
+void Instruction::ld__hlplus__a(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD A (HL+)
-void ld_a__hlplus_(GameBoyCore* core) {
-        // todo
+void Instruction::ld_a__hlplus_(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD (C) A
-void ld__c__a(GameBoyCore* core) {
-        // todo
+void Instruction::ld__c__a(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD L d8
-void ld_l_d8(GameBoyCore* core) {
-        // todo
+void Instruction::ld_l_d8(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD (HL-) A
-void ld__hlminus__a(GameBoyCore* core) {
-        // todo
+void Instruction::ld__hlminus__a(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD SP d16
-void ld_sp_d16(GameBoyCore* core) {
-        // todo
+void Instruction::ld_sp_d16(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD (HL) d8
-void ld__hl__d8(GameBoyCore* core) {
-        // todo
+void Instruction::ld__hl__d8(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD A (HL-)
-void ld_a__hlminus_(GameBoyCore* core) {
-        // todo
+void Instruction::ld_a__hlminus_(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD A (C)
-void ld_a__c_(GameBoyCore* core) {
-        // todo
+void Instruction::ld_a__c_(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD SP HL
-void ld_sp_hl(GameBoyCore* core) {
-        // todo
+void Instruction::ld_sp_hl(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD A d8
-void ld_a_d8(GameBoyCore* core) {
-        // todo
+void Instruction::ld_a_d8(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD HL SP+r8
-void ld_hl_spplusr8(GameBoyCore* core) {
-        // todo
+void Instruction::ld_hl_spplusr8(GameBoyCore* core) {
+    bool h;
+    bool c;
+
+// todo
+    core->SetFlags(false, false, h, c);
 }
 
 // LD B E
-void ld_b_e(GameBoyCore* core) {
-        // todo
+void Instruction::ld_b_e(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD B D
-void ld_b_d(GameBoyCore* core) {
-        // todo
+void Instruction::ld_b_d(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD B C
-void ld_b_c(GameBoyCore* core) {
-        // todo
+void Instruction::ld_b_c(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD B B
-void ld_b_b(GameBoyCore* core) {
-        // todo
+void Instruction::ld_b_b(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD C C
-void ld_c_c(GameBoyCore* core) {
-        // todo
+void Instruction::ld_c_c(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD C B
-void ld_c_b(GameBoyCore* core) {
-        // todo
+void Instruction::ld_c_b(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD B A
-void ld_b_a(GameBoyCore* core) {
-        // todo
+void Instruction::ld_b_a(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD B (HL)
-void ld_b__hl_(GameBoyCore* core) {
-        // todo
+void Instruction::ld_b__hl_(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD B L
-void ld_b_l(GameBoyCore* core) {
-        // todo
+void Instruction::ld_b_l(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD B H
-void ld_b_h(GameBoyCore* core) {
-        // todo
+void Instruction::ld_b_h(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD C H
-void ld_c_h(GameBoyCore* core) {
-        // todo
+void Instruction::ld_c_h(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD C E
-void ld_c_e(GameBoyCore* core) {
-        // todo
+void Instruction::ld_c_e(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD C D
-void ld_c_d(GameBoyCore* core) {
-        // todo
+void Instruction::ld_c_d(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD BC d16
-void ld_bc_d16(GameBoyCore* core) {
-        // todo
+void Instruction::ld_bc_d16(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD (BC) A
-void ld__bc__a(GameBoyCore* core) {
-        // todo
+void Instruction::ld__bc__a(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD C A
-void ld_c_a(GameBoyCore* core) {
-        // todo
+void Instruction::ld_c_a(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD B d8
-void ld_b_d8(GameBoyCore* core) {
-        // todo
+void Instruction::ld_b_d8(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD C (HL)
-void ld_c__hl_(GameBoyCore* core) {
-        // todo
+void Instruction::ld_c__hl_(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD C L
-void ld_c_l(GameBoyCore* core) {
-        // todo
+void Instruction::ld_c_l(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD (a16) SP
-void ld__a16__sp(GameBoyCore* core) {
-        // todo
+void Instruction::ld__a16__sp(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD D H
-void ld_d_h(GameBoyCore* core) {
-        // todo
+void Instruction::ld_d_h(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD D E
-void ld_d_e(GameBoyCore* core) {
-        // todo
+void Instruction::ld_d_e(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD D D
-void ld_d_d(GameBoyCore* core) {
-        // todo
+void Instruction::ld_d_d(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD D C
-void ld_d_c(GameBoyCore* core) {
-        // todo
+void Instruction::ld_d_c(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD (a16) A
-void ld__a16__a(GameBoyCore* core) {
-        // todo
+void Instruction::ld__a16__a(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD D B
-void ld_d_b(GameBoyCore* core) {
-        // todo
+void Instruction::ld_d_b(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD E C
-void ld_e_c(GameBoyCore* core) {
-        // todo
+void Instruction::ld_e_c(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD E B
-void ld_e_b(GameBoyCore* core) {
-        // todo
+void Instruction::ld_e_b(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD D A
-void ld_d_a(GameBoyCore* core) {
-        // todo
+void Instruction::ld_d_a(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD D (HL)
-void ld_d__hl_(GameBoyCore* core) {
-        // todo
+void Instruction::ld_d__hl_(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD D L
-void ld_d_l(GameBoyCore* core) {
-        // todo
+void Instruction::ld_d_l(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD E L
-void ld_e_l(GameBoyCore* core) {
-        // todo
+void Instruction::ld_e_l(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD E H
-void ld_e_h(GameBoyCore* core) {
-        // todo
+void Instruction::ld_e_h(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD E E
-void ld_e_e(GameBoyCore* core) {
-        // todo
+void Instruction::ld_e_e(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD E D
-void ld_e_d(GameBoyCore* core) {
-        // todo
+void Instruction::ld_e_d(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD E A
-void ld_e_a(GameBoyCore* core) {
-        // todo
+void Instruction::ld_e_a(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD E (HL)
-void ld_e__hl_(GameBoyCore* core) {
-        // todo
+void Instruction::ld_e__hl_(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD H L
-void ld_h_l(GameBoyCore* core) {
-        // todo
+void Instruction::ld_h_l(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD H H
-void ld_h_h(GameBoyCore* core) {
-        // todo
+void Instruction::ld_h_h(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD H E
-void ld_h_e(GameBoyCore* core) {
-        // todo
+void Instruction::ld_h_e(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD H D
-void ld_h_d(GameBoyCore* core) {
-        // todo
+void Instruction::ld_h_d(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD H C
-void ld_h_c(GameBoyCore* core) {
-        // todo
+void Instruction::ld_h_c(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD A (a16)
-void ld_a__a16_(GameBoyCore* core) {
-        // todo
+void Instruction::ld_a__a16_(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD H B
-void ld_h_b(GameBoyCore* core) {
-        // todo
+void Instruction::ld_h_b(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD A (BC)
-void ld_a__bc_(GameBoyCore* core) {
-        // todo
+void Instruction::ld_a__bc_(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD L C
-void ld_l_c(GameBoyCore* core) {
-        // todo
+void Instruction::ld_l_c(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD C d8
-void ld_c_d8(GameBoyCore* core) {
-        // todo
+void Instruction::ld_c_d8(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD L B
-void ld_l_b(GameBoyCore* core) {
-        // todo
+void Instruction::ld_l_b(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD H A
-void ld_h_a(GameBoyCore* core) {
-        // todo
+void Instruction::ld_h_a(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD H (HL)
-void ld_h__hl_(GameBoyCore* core) {
-        // todo
+void Instruction::ld_h__hl_(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD L (HL)
-void ld_l__hl_(GameBoyCore* core) {
-        // todo
+void Instruction::ld_l__hl_(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD L L
-void ld_l_l(GameBoyCore* core) {
-        // todo
+void Instruction::ld_l_l(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD L H
-void ld_l_h(GameBoyCore* core) {
-        // todo
+void Instruction::ld_l_h(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD L E
-void ld_l_e(GameBoyCore* core) {
-        // todo
+void Instruction::ld_l_e(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD L D
-void ld_l_d(GameBoyCore* core) {
-        // todo
+void Instruction::ld_l_d(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD L A
-void ld_l_a(GameBoyCore* core) {
-        // todo
+void Instruction::ld_l_a(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD (HL) L
-void ld__hl__l(GameBoyCore* core) {
-        // todo
+void Instruction::ld__hl__l(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD (HL) H
-void ld__hl__h(GameBoyCore* core) {
-        // todo
+void Instruction::ld__hl__h(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD (HL) E
-void ld__hl__e(GameBoyCore* core) {
-        // todo
+void Instruction::ld__hl__e(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD (HL) D
-void ld__hl__d(GameBoyCore* core) {
-        // todo
+void Instruction::ld__hl__d(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD (HL) C
-void ld__hl__c(GameBoyCore* core) {
-        // todo
+void Instruction::ld__hl__c(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD (HL) B
-void ld__hl__b(GameBoyCore* core) {
-        // todo
+void Instruction::ld__hl__b(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD A C
-void ld_a_c(GameBoyCore* core) {
-        // todo
+void Instruction::ld_a_c(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD A B
-void ld_a_b(GameBoyCore* core) {
-        // todo
+void Instruction::ld_a_b(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD (HL) A
-void ld__hl__a(GameBoyCore* core) {
-        // todo
+void Instruction::ld__hl__a(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD A A
-void ld_a_a(GameBoyCore* core) {
-        // todo
+void Instruction::ld_a_a(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD A (HL)
-void ld_a__hl_(GameBoyCore* core) {
-        // todo
+void Instruction::ld_a__hl_(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD A L
-void ld_a_l(GameBoyCore* core) {
-        // todo
+void Instruction::ld_a_l(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD A H
-void ld_a_h(GameBoyCore* core) {
-        // todo
+void Instruction::ld_a_h(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD A E
-void ld_a_e(GameBoyCore* core) {
-        // todo
+void Instruction::ld_a_e(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // LD A D
-void ld_a_d(GameBoyCore* core) {
-        // todo
+void Instruction::ld_a_d(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // RRCA
-void rrca__(GameBoyCore* core) {
-        // todo
+void Instruction::rrca__(GameBoyCore* core) {
+    bool c;
+
+// todo
+    core->SetFlags(false, false, false, c);
 }
 
 // XOR B
-void xor_b_(GameBoyCore* core) {
-        // todo
+void Instruction::xor_b_(GameBoyCore* core) {
+    bool z;
+
+// todo
+    core->SetFlags(z, false, false, false);
 }
 
 // XOR C
-void xor_c_(GameBoyCore* core) {
-        // todo
+void Instruction::xor_c_(GameBoyCore* core) {
+    bool z;
+
+// todo
+    core->SetFlags(z, false, false, false);
 }
 
 // XOR A
-void xor_a_(GameBoyCore* core) {
-        // todo
+void Instruction::xor_a_(GameBoyCore* core) {
+    bool z;
+
+// todo
+    core->SetFlags(z, false, false, false);
 }
 
 // XOR (HL)
-void xor__hl__(GameBoyCore* core) {
-        // todo
+void Instruction::xor__hl__(GameBoyCore* core) {
+    bool z;
+
+// todo
+    core->SetFlags(z, false, false, false);
 }
 
 // XOR L
-void xor_l_(GameBoyCore* core) {
-        // todo
+void Instruction::xor_l_(GameBoyCore* core) {
+    bool z;
+
+// todo
+    core->SetFlags(z, false, false, false);
 }
 
 // XOR H
-void xor_h_(GameBoyCore* core) {
-        // todo
+void Instruction::xor_h_(GameBoyCore* core) {
+    bool z;
+
+// todo
+    core->SetFlags(z, false, false, false);
 }
 
 // XOR E
-void xor_e_(GameBoyCore* core) {
-        // todo
+void Instruction::xor_e_(GameBoyCore* core) {
+    bool z;
+
+// todo
+    core->SetFlags(z, false, false, false);
 }
 
 // XOR D
-void xor_d_(GameBoyCore* core) {
-        // todo
+void Instruction::xor_d_(GameBoyCore* core) {
+    bool z;
+
+// todo
+    core->SetFlags(z, false, false, false);
 }
 
 // XOR d8
-void xor_d8_(GameBoyCore* core) {
-        // todo
+void Instruction::xor_d8_(GameBoyCore* core) {
+    bool z;
+
+// todo
+    core->SetFlags(z, false, false, false);
 }
 
 // CPL
-void cpl__(GameBoyCore* core) {
-        // todo
+void Instruction::cpl__(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), true, true, core->getCpu().getFlagRegister().getZ());
 }
 
 // RLCA
-void rlca__(GameBoyCore* core) {
-        // todo
+void Instruction::rlca__(GameBoyCore* core) {
+    bool c;
+
+// todo
+    core->SetFlags(false, false, false, c);
 }
 
 // PUSH BC
-void push_bc_(GameBoyCore* core) {
-        // todo
+void Instruction::push_bc_(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // PUSH DE
-void push_de_(GameBoyCore* core) {
-        // todo
+void Instruction::push_de_(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // PUSH HL
-void push_hl_(GameBoyCore* core) {
-        // todo
+void Instruction::push_hl_(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // PUSH AF
-void push_af_(GameBoyCore* core) {
-        // todo
+void Instruction::push_af_(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // INC D
-void inc_d_(GameBoyCore* core) {
-        // todo
+void Instruction::inc_d_(GameBoyCore* core) {
+    bool z;
+    bool h;
+
+// todo
+    core->SetFlags(z, false, h, core->getCpu().getFlagRegister().getZ());
 }
 
 // INC DE
-void inc_de_(GameBoyCore* core) {
-        // todo
+void Instruction::inc_de_(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // INC E
-void inc_e_(GameBoyCore* core) {
-        // todo
+void Instruction::inc_e_(GameBoyCore* core) {
+    bool z;
+    bool h;
+
+// todo
+    core->SetFlags(z, false, h, core->getCpu().getFlagRegister().getZ());
 }
 
 // INC H
-void inc_h_(GameBoyCore* core) {
-        // todo
+void Instruction::inc_h_(GameBoyCore* core) {
+    bool z;
+    bool h;
+
+// todo
+    core->SetFlags(z, false, h, core->getCpu().getFlagRegister().getZ());
 }
 
 // INC HL
-void inc_hl_(GameBoyCore* core) {
-        // todo
+void Instruction::inc_hl_(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // INC L
-void inc_l_(GameBoyCore* core) {
-        // todo
+void Instruction::inc_l_(GameBoyCore* core) {
+    bool z;
+    bool h;
+
+// todo
+    core->SetFlags(z, false, h, core->getCpu().getFlagRegister().getZ());
 }
 
 // INC (HL)
-void inc__hl__(GameBoyCore* core) {
-        // todo
+void Instruction::inc__hl__(GameBoyCore* core) {
+    bool z;
+    bool h;
+
+// todo
+    core->SetFlags(z, false, h, core->getCpu().getFlagRegister().getZ());
 }
 
 // INC SP
-void inc_sp_(GameBoyCore* core) {
-        // todo
+void Instruction::inc_sp_(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // INC A
-void inc_a_(GameBoyCore* core) {
-        // todo
+void Instruction::inc_a_(GameBoyCore* core) {
+    bool z;
+    bool h;
+
+// todo
+    core->SetFlags(z, false, h, core->getCpu().getFlagRegister().getZ());
 }
 
 // INC BC
-void inc_bc_(GameBoyCore* core) {
-        // todo
+void Instruction::inc_bc_(GameBoyCore* core) {
+
+// todo
+    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // INC B
-void inc_b_(GameBoyCore* core) {
-        // todo
+void Instruction::inc_b_(GameBoyCore* core) {
+    bool z;
+    bool h;
+
+// todo
+    core->SetFlags(z, false, h, core->getCpu().getFlagRegister().getZ());
 }
 
 // INC C
-void inc_c_(GameBoyCore* core) {
-        // todo
+void Instruction::inc_c_(GameBoyCore* core) {
+    bool z;
+    bool h;
+
+// todo
+    core->SetFlags(z, false, h, core->getCpu().getFlagRegister().getZ());
 }
 
-}; //namespace Instruction
+
 
 InstructionFun Instruction::DecodeInstruction(unsigned long long opcode) {
     static std::map<unsigned long long, InstructionFun> instructionMap{
