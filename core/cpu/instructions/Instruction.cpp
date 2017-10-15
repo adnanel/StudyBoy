@@ -192,12 +192,21 @@ void Instruction::add_a_a(GameBoyCore* core, unsigned long long) {
 }
 
 // ADD HL DE
-void Instruction::add_hl_de(GameBoyCore* core, unsigned long long opcode) {
-    bool h;
-    bool c;
+void Instruction::add_hl_de(GameBoyCore* core, unsigned long long) {
+    bool h = false;
+    bool c = false;
 
-// todo
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), false, h, c);
+    auto hl = core->getCpu()->getCpuRegisters()->getHL();
+    auto de = core->getCpu()->getCpuRegisters()->getDE();
+
+    hl += de;
+
+    core->getCpu()->getCpuRegisters()->setHL(hl);
+
+    // todo skontaj kako postaviti H i C. kaze tamo
+    // H - set if carry from bit 3
+    // C - set if carry from bit 7
+    core->SetFlags(!hl.any(), false, h, c);
 }
 
 // ADC A d8
