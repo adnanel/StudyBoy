@@ -20,12 +20,19 @@ void update_flags_add(const Register<N>& oldVal,
     core->SetFlags(!newVal.any(), false, false, false);
 }
 
+void update_flags_inc(unsigned long long oldVal,
+                      unsigned long long newVal,
+                      GameBoyCore* core,
+                      unsigned long long opcode) {
+    core->SetFlags(newVal == 0, false, false, false);
+}
+
 template<unsigned int N>
 void update_flags_inc(const Register<N>& oldVal,
                       const Register<N>& newVal,
                       GameBoyCore* core,
-                      unsigned long long) {
-    core->SetFlags(!newVal.any(), false, false, false);
+                      unsigned long long opcode) {
+    update_flags_inc(oldVal.to_ullong(), newVal.to_ullong(), core, opcode);
 }
 
 
@@ -1915,62 +1922,60 @@ void Instruction::push_af_(GameBoyCore* core, unsigned long long) {
 }
 
 // INC D
-void Instruction::inc_d_(GameBoyCore* core, unsigned long long) {
-    bool z;
-    bool h;
+void Instruction::inc_d_(GameBoyCore* core, unsigned long long opcode) {
+    auto oldVal = core->getCpu()->getCpuRegisters()->getD();
+    auto newVal = oldVal + 1;
 
-// todo
-    core->SetFlags(z, false, h, core->getCpu()->getFlagRegister()->getZ());
+    update_flags_inc(oldVal, newVal, core, opcode);
 }
 
 // INC DE
-void Instruction::inc_de_(GameBoyCore* core, unsigned long long) {
+void Instruction::inc_de_(GameBoyCore* core, unsigned long long opcode) {
+    auto oldVal = core->getCpu()->getCpuRegisters()->getDE();
+    auto newVal = oldVal + 1;
 
-// todo
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
+    update_flags_inc(oldVal, newVal, core, opcode);
 }
 
 // INC E
-void Instruction::inc_e_(GameBoyCore* core, unsigned long long) {
-    bool z;
-    bool h;
+void Instruction::inc_e_(GameBoyCore* core, unsigned long long opcode) {
+    auto oldVal = core->getCpu()->getCpuRegisters()->getE();
+    auto newVal = oldVal + 1;
 
-// todo
-    core->SetFlags(z, false, h, core->getCpu()->getFlagRegister()->getZ());
+    update_flags_inc(oldVal, newVal, core, opcode);
 }
 
 // INC H
-void Instruction::inc_h_(GameBoyCore* core, unsigned long long) {
-    bool z;
-    bool h;
+void Instruction::inc_h_(GameBoyCore* core, unsigned long long opcode) {
+    auto oldVal = core->getCpu()->getCpuRegisters()->getH();
+    auto newVal = oldVal + 1;
 
-// todo
-    core->SetFlags(z, false, h, core->getCpu()->getFlagRegister()->getZ());
+    update_flags_inc(oldVal, newVal, core, opcode);
 }
 
 // INC HL
-void Instruction::inc_hl_(GameBoyCore* core, unsigned long long) {
+void Instruction::inc_hl_(GameBoyCore* core, unsigned long long opcode) {
+    auto oldVal = core->getCpu()->getCpuRegisters()->getHL();
+    auto newVal = oldVal + 1;
 
-// todo
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
+    update_flags_inc(oldVal, newVal, core, opcode);
 }
 
 // INC L
-void Instruction::inc_l_(GameBoyCore* core, unsigned long long) {
-    bool z;
-    bool h;
+void Instruction::inc_l_(GameBoyCore* core, unsigned long long opcode) {
+    auto oldVal = core->getCpu()->getCpuRegisters()->getL();
+    auto newVal = oldVal + 1;
 
-// todo
-    core->SetFlags(z, false, h, core->getCpu()->getFlagRegister()->getZ());
+    update_flags_inc(oldVal, newVal, core, opcode);
 }
 
 // INC (HL)
-void Instruction::inc__hl__(GameBoyCore* core, unsigned long long) {
-    bool z;
-    bool h;
+void Instruction::inc__hl__(GameBoyCore* core, unsigned long long opcode) {
+    auto addr = core->getCpu()->getCpuRegisters()->getHL();
+    auto oldVal = core->getWorkRam()->ReadData<16>(addr.to_ullong());
+    auto newVal = std::bitset<16>(oldVal.to_ullong() + 1);
 
-// todo
-    core->SetFlags(z, false, h, core->getCpu()->getFlagRegister()->getZ());
+    update_flags_inc(oldVal.to_ullong(), newVal.to_ullong(), core, opcode);
 }
 
 // INC SP
