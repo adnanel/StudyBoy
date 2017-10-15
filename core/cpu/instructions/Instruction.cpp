@@ -6,37 +6,40 @@
 
 // RET NZ
 void Instruction::ret_nz_(GameBoyCore* core) {
+    if ( core->getCpu().getFlagRegister().getZ() )
+        return;
 
-// todo
-    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
+    ret__(core);
 }
 
 // RET
 void Instruction::ret__(GameBoyCore* core) {
 
 // todo
-    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
 }
 
 // RET Z
 void Instruction::ret_z_(GameBoyCore* core) {
+    if ( !core->getCpu().getFlagRegister().getZ() )
+        return;
 
-// todo
-    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
+    ret__(core);
 }
 
 // RET NC
 void Instruction::ret_nc_(GameBoyCore* core) {
+    if ( core->getCpu().getFlagRegister().getN() )
+        return;
 
-// todo
-    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
+    ret__(core);
 }
 
 // RET C
 void Instruction::ret_c_(GameBoyCore* core) {
+    if ( !core->getCpu().getFlagRegister().getC() )
+        return;
 
-// todo
-    core->SetFlags(core->getCpu().getFlagRegister().getN(), core->getCpu().getFlagRegister().getH(), core->getCpu().getFlagRegister().getC(), core->getCpu().getFlagRegister().getZ());
+    ret__(core);
 }
 
 // RRA
