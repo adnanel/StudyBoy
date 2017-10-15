@@ -32,8 +32,9 @@ void Instruction::ret_nz_(GameBoyCore* core, unsigned long long opcode) {
 
 // RET
 void Instruction::ret__(GameBoyCore* core, unsigned long long opcode) {
-
-// todo
+    // pop 2 bytes from stack and jump to that address
+    auto sp = core->getCpu()->getCpuRegisters()->getSP();
+    // todo
 }
 
 // RET Z
@@ -1720,16 +1721,15 @@ void Instruction::ld__hl__b(GameBoyCore* core, unsigned long long opcode) {
 
 // LD A C
 void Instruction::ld_a_c(GameBoyCore* core, unsigned long long opcode) {
-
-// todo
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
+    auto c = core->getCpu()->getCpuRegisters()->getC();
+    core->getCpu()->getCpuRegisters()->setA(c);
 }
 
 // LD A B
-void Instruction::ld_a_b(GameBoyCore* core, unsigned long long opcode) {
+void Instruction::ld_a_b(GameBoyCore* core, unsigned long long) {
+    auto b = core->getCpu()->getCpuRegisters()->getB();
 
-// todo
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
+    core->getCpu()->getCpuRegisters()->setA(b);
 }
 
 // LD (HL) A
@@ -1756,30 +1756,26 @@ void Instruction::ld_a__hl_(GameBoyCore* core, unsigned long long opcode) {
 
 // LD A L
 void Instruction::ld_a_l(GameBoyCore* core, unsigned long long opcode) {
-
-// todo
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
+    auto l = core->getCpu()->getCpuRegisters()->getL();
+    core->getCpu()->getCpuRegisters()->setA(l);
 }
 
 // LD A H
 void Instruction::ld_a_h(GameBoyCore* core, unsigned long long opcode) {
-
-// todo
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
+    auto h = core->getCpu()->getCpuRegisters()->getH();
+    core->getCpu()->getCpuRegisters()->setA(h);
 }
 
 // LD A E
 void Instruction::ld_a_e(GameBoyCore* core, unsigned long long opcode) {
-
-// todo
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
+    auto e = core->getCpu()->getCpuRegisters()->getE();
+    core->getCpu()->getCpuRegisters()->setA(e);
 }
 
 // LD A D
 void Instruction::ld_a_d(GameBoyCore* core, unsigned long long opcode) {
-
-// todo
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
+    auto d = core->getCpu()->getCpuRegisters()->getD();
+    core->getCpu()->getCpuRegisters()->setA(d);
 }
 
 // RRCA
