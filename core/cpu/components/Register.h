@@ -165,4 +165,10 @@ inline static Register<A + B> CombineRegisters(const Register<A>& a, const Regis
     return res;
 };
 
+template<unsigned int A, unsigned int B>
+inline static void SplitRegister(const Register<A+B>& reg, Register<A>& high, Register<B>& low) {
+    high = reg.to_ullong() >> B;
+    low = (reg.to_ullong() << A) >> A;
+};
+
 #endif //STUDYBOY_REGISTER_H

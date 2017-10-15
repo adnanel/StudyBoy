@@ -102,6 +102,18 @@ public:
         CpuRegisters::PC = PC;
     }
 
+    void setHL(const Register<16>& hl) {
+        SplitRegister(hl, H, L);
+    }
+
+    void setBC(const Register<16>& hl) {
+        SplitRegister(hl, B, C);
+    }
+
+    void setDE(const Register<16>& hl) {
+        SplitRegister(hl, D, E);
+    }
+
     Register<16> getBC() const {
         return CombineRegisters<8,8>(B, C);
     }
