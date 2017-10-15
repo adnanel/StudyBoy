@@ -20,6 +20,14 @@ void update_flags_add(const Register<N>& oldVal,
     core->SetFlags(!newVal.any(), false, false, false);
 }
 
+template<unsigned int N>
+void update_flags_inc(const Register<N>& oldVal,
+                      const Register<N>& newVal,
+                      GameBoyCore* core,
+                      unsigned long long) {
+    core->SetFlags(!newVal.any(), false, false, false);
+}
+
 
 
 // RET NZ
@@ -1966,51 +1974,50 @@ void Instruction::inc__hl__(GameBoyCore* core, unsigned long long) {
 }
 
 // INC SP
-void Instruction::inc_sp_(GameBoyCore* core, unsigned long long) {
+void Instruction::inc_sp_(GameBoyCore* core, unsigned long long opcode) {
+    auto oldVal = core->getCpu()->getCpuRegisters()->getSP();
+    auto newVal = oldVal + 1;
 
-// todo
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
+    update_flags_inc(oldVal, newVal, core, opcode);
 }
 
 // INC A
-void Instruction::inc_a_(GameBoyCore* core, unsigned long long) {
-    bool z;
-    bool h;
+void Instruction::inc_a_(GameBoyCore* core, unsigned long long opcode) {
+    auto oldVal = core->getCpu()->getCpuRegisters()->getA();
+    auto newVal = oldVal + 1;
 
-// todo
-    core->SetFlags(z, false, h, core->getCpu()->getFlagRegister()->getZ());
+    update_flags_inc(oldVal, newVal, core, opcode);
 }
 
 // INC BC
-void Instruction::inc_bc_(GameBoyCore* core, unsigned long long) {
+void Instruction::inc_bc_(GameBoyCore* core, unsigned long long opcode) {
+    auto oldVal = core->getCpu()->getCpuRegisters()->getBC();
+    auto newVal = oldVal + 1;
 
-// todo
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
+    update_flags_inc(oldVal, newVal, core, opcode);
 }
 
 // INC B
-void Instruction::inc_b_(GameBoyCore* core, unsigned long long) {
-    bool z;
-    bool h;
+void Instruction::inc_b_(GameBoyCore* core, unsigned long long opcode) {
+    auto oldVal = core->getCpu()->getCpuRegisters()->getB();
+    auto newVal = oldVal + 1;
 
-// todo
-    core->SetFlags(z, false, h, core->getCpu()->getFlagRegister()->getZ());
+    update_flags_inc(oldVal, newVal, core, opcode);
 }
 
 // INC C
-void Instruction::inc_c_(GameBoyCore* core, unsigned long long) {
-    bool z;
-    bool h;
+void Instruction::inc_c_(GameBoyCore* core, unsigned long long opcode) {
+    auto oldVal = core->getCpu()->getCpuRegisters()->getC();
+    auto newVal = oldVal + 1;
 
-// todo
-    core->SetFlags(z, false, h, core->getCpu()->getFlagRegister()->getZ());
+    update_flags_inc(oldVal, newVal, core, opcode);
 }
 
 
 
 
 
-InstructionFun Instruction::DecodeInstruction(unsigned long long) {
+InstructionFun Instruction::DecodeInstruction(unsigned long long opcode) {
     static std::map<unsigned long long, InstructionFun> instructionMap{
             {
                     0xc0, ret_nz_
