@@ -31,9 +31,15 @@ class Register {
 public:
     inline Register() {}
 
+    template<typename T>
+    inline Register(const T& src) {
+        mData = src;
+    }
+
     inline Register(const Register<N>& src) {
         mData = src.mData;
     }
+
 
     inline Register(Register<N>&& src) noexcept {
         mData = src.mData;
@@ -81,7 +87,7 @@ public:
 
 
     template<typename T>
-    inline Register<N> operator^(const T& other) {
+    inline Register<N> operator^(const T& other) const  {
         Register<N> res(*this);
         res ^= other;
         return res;
@@ -89,14 +95,14 @@ public:
 
 
     template<typename T>
-    inline Register<N> operator&(const T& other) {
+    inline Register<N> operator&(const T& other) const  {
         Register<N> res(*this);
         res.mData &= other;
         return res;
     };
 
     template<typename T>
-    inline Register<N> operator>>(const T& other) {
+    inline Register<N> operator>>(const T& other) const {
         Register<N> res(*this);
         res.mData >>= other;
         return res;
@@ -104,7 +110,7 @@ public:
 
 
     template<typename T>
-    inline Register<N> operator<<(const T& other) {
+    inline Register<N> operator<<(const T& other) const  {
         Register<N> res(*this);
         res.mData <<= other;
         return res;
@@ -112,7 +118,7 @@ public:
 
 
     template<typename T>
-    inline Register<N> operator|(const T& other) {
+    inline Register<N> operator|(const T& other) const  {
         Register<N> res(*this);
         res.mData |= other;
         return res;

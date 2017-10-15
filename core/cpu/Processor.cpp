@@ -15,7 +15,7 @@ Processor::Processor()
 }
 
 void Processor::HardReset() {
-    mCpuRegisters.PC = 0x100;
-    mCpuRegisters.SP = 0xFFFE;
+    mCpuRegisters.setPC(0x100);
+    mCpuRegisters.setSP(0xFFFE);
 }
 
