@@ -53,52 +53,9 @@ void Instruction::rra__(GameBoyCore* core, unsigned long long) {
     core->SetFlags(!reg.any(), false, false, old);
 }
 
-// ADD A d8
-void Instruction::add_a_d8(GameBoyCore* core, unsigned long long) {
-    bool z;
-    bool h;
-    bool c;
 
-    auto reg = core->getCpu().getCpuRegisters().getA();
-
-    // reg +=
-    //core->getCpu().getCpuRegisters().A +=
-// todo
-    core->SetFlags(z, false, h, c);
-}
-
-// ADD A C
-void Instruction::add_a_c(GameBoyCore* core, unsigned long long) {
-    auto cReg = core->getCpu().getCpuRegisters().getA();
-
-    cReg += core->getCpu().getCpuRegisters().getC();
-    cReg += static_cast<int>(core->getCpu().getFlagRegister().getC());
-
-    core->getCpu().getCpuRegisters().setA(cReg);
-
-    // todo skontaj kako postaviti H i C. kaze tamo
-    // H - set if carry from bit 3
-    // C - set if carry from bit 7
-    core->SetFlags(!cReg.any(), false, false, false);
-}
-
-// ADD A B
-void Instruction::add_a_b(GameBoyCore* core, unsigned long long) {
-    auto cReg = core->getCpu().getCpuRegisters().getA();
-
-    cReg += core->getCpu().getCpuRegisters().getB();
-    cReg += static_cast<int>(core->getCpu().getFlagRegister().getC());
-
-    core->getCpu().getCpuRegisters().setA(cReg);
-
-    // todo skontaj kako postaviti H i C. kaze tamo
-    // H - set if carry from bit 3
-    // C - set if carry from bit 7
-    core->SetFlags(!cReg.any(), false, false, false);
-}
-
-// ADD A A
-void Instruction::add_a_a(GameBoyCore* core, unsigned long long) {
+// ADC A (HL)
+void Instruction::adc_a__hl_(GameBoyCore* core, unsigned long long opcode) {
     auto cReg = core->getCpu().getCpuRegisters().getA();
 
     cReg += cReg;
@@ -110,16 +67,6 @@ void Instruction::add_a_a(GameBoyCore* core, unsigned long long) {
     // H - set if carry from bit 3
     // C - set if carry from bit 7
     core->SetFlags(!cReg.any(), false, false, false);
-}
-
-// ADC A (HL)
-void Instruction::adc_a__hl_(GameBoyCore* core, unsigned long long opcode) {
-    bool z;
-    bool h;
-    bool c;
-
-// todo
-    core->SetFlags(z, false, h, c);
 }
 
 // ADC A L
@@ -160,6 +107,63 @@ void Instruction::adc_a_d(GameBoyCore* core, unsigned long long opcode) {
 
 // todo
     core->SetFlags(z, false, h, c);
+}
+
+
+// ADD A d8
+void Instruction::add_a_d8(GameBoyCore* core, unsigned long long) {
+    bool z;
+    bool h;
+    bool c;
+
+    auto reg = core->getCpu().getCpuRegisters().getA();
+
+    // reg +=
+    //core->getCpu().getCpuRegisters().A +=
+// todo
+    core->SetFlags(z, false, h, c);
+}
+
+// ADD A C
+void Instruction::add_a_c(GameBoyCore* core, unsigned long long) {
+    auto cReg = core->getCpu().getCpuRegisters().getA();
+
+    cReg += core->getCpu().getCpuRegisters().getC();
+
+    core->getCpu().getCpuRegisters().setA(cReg);
+
+    // todo skontaj kako postaviti H i C. kaze tamo
+    // H - set if carry from bit 3
+    // C - set if carry from bit 7
+    core->SetFlags(!cReg.any(), false, false, false);
+}
+
+// ADD A B
+void Instruction::add_a_b(GameBoyCore* core, unsigned long long) {
+    auto cReg = core->getCpu().getCpuRegisters().getA();
+
+    cReg += core->getCpu().getCpuRegisters().getB();
+
+    core->getCpu().getCpuRegisters().setA(cReg);
+
+    // todo skontaj kako postaviti H i C. kaze tamo
+    // H - set if carry from bit 3
+    // C - set if carry from bit 7
+    core->SetFlags(!cReg.any(), false, false, false);
+}
+
+// ADD A A
+void Instruction::add_a_a(GameBoyCore* core, unsigned long long) {
+    auto cReg = core->getCpu().getCpuRegisters().getA();
+
+    cReg += cReg;
+
+    core->getCpu().getCpuRegisters().setA(cReg);
+
+    // todo skontaj kako postaviti H i C. kaze tamo
+    // H - set if carry from bit 3
+    // C - set if carry from bit 7
+    core->SetFlags(!cReg.any(), false, false, false);
 }
 
 // ADD HL DE
