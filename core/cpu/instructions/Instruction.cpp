@@ -43,18 +43,18 @@ void Instruction::ret_c_(GameBoyCore* core, unsigned long long opcode) {
 }
 
 // RRA
-void Instruction::rra__(GameBoyCore* core, unsigned long long opcode) {
+void Instruction::rra__(GameBoyCore* core, unsigned long long) {
     auto reg = core->getCpu().getCpuRegisters().getA();
     bool old = reg[0];
     reg = (reg >> 1) | (old << 7) ;
 
     core->getCpu().getCpuRegisters().setA(reg);
 
-    core->SetFlags(reg.any(), false, false, old);
+    core->SetFlags(!reg.any(), false, false, old);
 }
 
-// ADC A d8
-void Instruction::adc_a_d8(GameBoyCore* core, unsigned long long opcode) {
+// ADD A d8
+void Instruction::add_a_d8(GameBoyCore* core, unsigned long long) {
     bool z;
     bool h;
     bool c;
@@ -67,12 +67,8 @@ void Instruction::adc_a_d8(GameBoyCore* core, unsigned long long opcode) {
     core->SetFlags(z, false, h, c);
 }
 
-// ADC A C
-void Instruction::adc_a_c(GameBoyCore* core, unsigned long long opcode) {
-    bool z;
-    bool h;
-    bool c;
-
+// ADD A C
+void Instruction::add_a_c(GameBoyCore* core, unsigned long long) {
     auto cReg = core->getCpu().getCpuRegisters().getA();
 
     cReg += core->getCpu().getCpuRegisters().getC();
@@ -80,27 +76,40 @@ void Instruction::adc_a_c(GameBoyCore* core, unsigned long long opcode) {
 
     core->getCpu().getCpuRegisters().setA(cReg);
 
-    core->SetFlags(z, false, h, c);
+    // todo skontaj kako postaviti H i C. kaze tamo
+    // H - set if carry from bit 3
+    // C - set if carry from bit 7
+    core->SetFlags(!cReg.any(), false, false, false);
 }
 
-// ADC A B
-void Instruction::adc_a_b(GameBoyCore* core, unsigned long long opcode) {
-    bool z;
-    bool h;
-    bool c;
+// ADD A B
+void Instruction::add_a_b(GameBoyCore* core, unsigned long long) {
+    auto cReg = core->getCpu().getCpuRegisters().getA();
 
-// todo
-    core->SetFlags(z, false, h, c);
+    cReg += core->getCpu().getCpuRegisters().getB();
+    cReg += static_cast<int>(core->getCpu().getFlagRegister().getC());
+
+    core->getCpu().getCpuRegisters().setA(cReg);
+
+    // todo skontaj kako postaviti H i C. kaze tamo
+    // H - set if carry from bit 3
+    // C - set if carry from bit 7
+    core->SetFlags(!cReg.any(), false, false, false);
 }
 
-// ADC A A
-void Instruction::adc_a_a(GameBoyCore* core, unsigned long long opcode) {
-    bool z;
-    bool h;
-    bool c;
+// ADD A A
+void Instruction::add_a_a(GameBoyCore* core, unsigned long long) {
+    auto cReg = core->getCpu().getCpuRegisters().getA();
 
-// todo
-    core->SetFlags(z, false, h, c);
+    cReg += cReg;
+    cReg += static_cast<int>(core->getCpu().getFlagRegister().getC());
+
+    core->getCpu().getCpuRegisters().setA(cReg);
+
+    // todo skontaj kako postaviti H i C. kaze tamo
+    // H - set if carry from bit 3
+    // C - set if carry from bit 7
+    core->SetFlags(!cReg.any(), false, false, false);
 }
 
 // ADC A (HL)
@@ -162,8 +171,8 @@ void Instruction::add_hl_de(GameBoyCore* core, unsigned long long opcode) {
     core->SetFlags(core->getCpu().getFlagRegister().getN(), false, h, c);
 }
 
-// ADD A d8
-void Instruction::add_a_d8(GameBoyCore* core, unsigned long long opcode) {
+// ADC A d8
+void Instruction::adc_a_d8(GameBoyCore* core, unsigned long long opcode) {
     bool z;
     bool h;
     bool c;
@@ -208,8 +217,8 @@ void Instruction::add_hl_bc(GameBoyCore* core, unsigned long long opcode) {
     core->SetFlags(core->getCpu().getFlagRegister().getN(), false, h, c);
 }
 
-// ADD A A
-void Instruction::add_a_a(GameBoyCore* core, unsigned long long opcode) {
+// ADC A A
+void Instruction::adc_a_a(GameBoyCore* core, unsigned long long opcode) {
     bool z;
     bool h;
     bool c;
@@ -268,8 +277,8 @@ void Instruction::add_a_d(GameBoyCore* core, unsigned long long opcode) {
     core->SetFlags(z, false, h, c);
 }
 
-// ADD A C
-void Instruction::add_a_c(GameBoyCore* core, unsigned long long opcode) {
+// ADC A C
+void Instruction::adc_a_c(GameBoyCore* core, unsigned long long opcode) {
     bool z;
     bool h;
     bool c;
@@ -278,8 +287,8 @@ void Instruction::add_a_c(GameBoyCore* core, unsigned long long opcode) {
     core->SetFlags(z, false, h, c);
 }
 
-// ADD A B
-void Instruction::add_a_b(GameBoyCore* core, unsigned long long opcode) {
+// ADC A B
+void Instruction::adc_a_b(GameBoyCore* core, unsigned long long opcode) {
     bool z;
     bool h;
     bool c;

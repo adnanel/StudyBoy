@@ -124,9 +124,14 @@ public:
         return res;
     };
 
+    inline Register<N>& operator+=(const Register<N>& other) {
+        mData = mData.to_ullong() + other.mData.to_ullong();
+        return *this;
+    }
+
     template<typename T>
     inline Register<N>& operator+=(const T& other) {
-        mData += other;
+        mData = mData.to_ullong() + other;
         return *this;
     }
 
