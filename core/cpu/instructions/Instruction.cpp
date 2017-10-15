@@ -87,17 +87,23 @@ void Instruction::adc_a_l(GameBoyCore* core, unsigned long long) {
 }
 
 // ADC A H
-void Instruction::adc_a_h(GameBoyCore* core, unsigned long long opcode) {
-    bool z;
-    bool h;
-    bool c;
+void Instruction::adc_a_h(GameBoyCore* core, unsigned long long) {
+    bool h = false;
+    bool c = false;
 
-// todo
-    core->SetFlags(z, false, h, c);
+    auto cReg = core->getCpu()->getCpuRegisters()->getA();
+    cReg += core->getCpu()->getCpuRegisters()->getH();
+
+    core->getCpu()->getCpuRegisters()->setA(cReg);
+
+    // todo skontaj kako postaviti H i C. kaze tamo
+    // H - set if carry from bit 3
+    // C - set if carry from bit 7
+    core->SetFlags(!cReg.any(), false, h, c);
 }
 
 // ADC A E
-void Instruction::adc_a_e(GameBoyCore* core, unsigned long long opcode) {
+void Instruction::adc_a_e(GameBoyCore* core, unsigned long long) {
     bool z;
     bool h;
     bool c;
@@ -107,7 +113,7 @@ void Instruction::adc_a_e(GameBoyCore* core, unsigned long long opcode) {
 }
 
 // ADC A D
-void Instruction::adc_a_d(GameBoyCore* core, unsigned long long opcode) {
+void Instruction::adc_a_d(GameBoyCore* core, unsigned long long) {
     bool z;
     bool h;
     bool c;
