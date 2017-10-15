@@ -55,7 +55,7 @@ void Instruction::rra__(GameBoyCore* core, unsigned long long) {
 
 
 // ADC A (HL)
-void Instruction::adc_a__hl_(GameBoyCore* core, unsigned long long opcode) {
+void Instruction::adc_a__hl_(GameBoyCore* core, unsigned long long) {
     // A += MEMORY[ HL ]
     auto cReg = core->getCpu()->getCpuRegisters()->getA();
     auto hl = core->getCpu()->getCpuRegisters()->getHL();
@@ -72,13 +72,18 @@ void Instruction::adc_a__hl_(GameBoyCore* core, unsigned long long opcode) {
 }
 
 // ADC A L
-void Instruction::adc_a_l(GameBoyCore* core, unsigned long long opcode) {
-    bool z;
-    bool h;
-    bool c;
+void Instruction::adc_a_l(GameBoyCore* core, unsigned long long) {
+    bool h = false;
+    bool c = false;
 
-// todo
-    core->SetFlags(z, false, h, c);
+    auto cReg = core->getCpu()->getCpuRegisters()->getA();
+    cReg += core->getCpu()->getCpuRegisters()->getL();
+
+    // todo skontaj kako postaviti H i C. kaze tamo
+    // H - set if carry from bit 3
+    // C - set if carry from bit 7
+    core->getCpu()->getCpuRegisters()->setA(cReg);
+    core->SetFlags(!cReg.any(), false, h, c);
 }
 
 // ADC A H
