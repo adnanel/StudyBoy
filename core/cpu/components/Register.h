@@ -74,26 +74,50 @@ public:
         mData ^= other;
         return *this;
     }
+
+    inline bool any() const {
+        return mData.any();
+    }
+
+
+    template<typename T>
+    inline Register<N> operator^(const T& other) {
+        Register<N> res(*this);
+        res ^= other;
+        return res;
+    }
+
+
+    template<typename T>
+    inline Register<N> operator&(const T& other) {
+        Register<N> res(*this);
+        res.mData &= other;
+        return res;
+    };
+
+    template<typename T>
+    inline Register<N> operator>>(const T& other) {
+        Register<N> res(*this);
+        res.mData >>= other;
+        return res;
+    };
+
+
+    template<typename T>
+    inline Register<N> operator<<(const T& other) {
+        Register<N> res(*this);
+        res.mData <<= other;
+        return res;
+    };
+
+
+    template<typename T>
+    inline Register<N> operator|(const T& other) {
+        Register<N> res(*this);
+        res.mData |= other;
+        return res;
+    };
 };
 
-
-template<typename T, unsigned int N>
-inline Register<N> operator^(const Register<N>& reg, const T& other) {
-    Register<N> res(reg);
-    res ^= other;
-    return res;
-}
-
-template<typename T, unsigned int N>
-inline Register<N> operator^(const T& other, const Register<N>& reg) {
-    return reg ^ other;
-};
-
-template<typename T, unsigned int N>
-inline Register<N> operator&(const Register<N>& reg, const T& other) {
-    Register<N> res(reg);
-    res.mData &= other;
-    return res;
-};
 
 #endif //STUDYBOY_REGISTER_H

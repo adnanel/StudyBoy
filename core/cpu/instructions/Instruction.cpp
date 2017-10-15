@@ -44,10 +44,11 @@ void Instruction::ret_c_(GameBoyCore* core) {
 
 // RRA
 void Instruction::rra__(GameBoyCore* core) {
-    bool c;
+    auto& reg = core->getCpu().getCpuRegisters().A;
+    bool old = reg[0];
+    reg = (reg >> 1) | (old << 7) ;
 
-// todo
-    core->SetFlags(false, false, false, c);
+    core->SetFlags(reg.any(), false, false, old);
 }
 
 // ADC A d8

@@ -42,6 +42,13 @@ public:
     const FlagRegister& getFlagRegister() const {
         return mFlagRegister;
     }
+
+    const CpuRegisters& getCpuRegisters() const {
+        return mCpuRegisters;
+    }
+    CpuRegisters& getCpuRegisters() {
+        return mCpuRegisters;
+    }
 };
 
 

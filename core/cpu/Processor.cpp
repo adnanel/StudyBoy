@@ -18,3 +18,4 @@ void Processor::HardReset() {
     mCpuRegisters.PC = 0x100;
     mCpuRegisters.SP = 0xFFFE;
 }
+
