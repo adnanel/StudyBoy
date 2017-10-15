@@ -123,6 +123,18 @@ public:
         res.mData |= other;
         return res;
     };
+
+    template<typename T>
+    inline Register<N>& operator+=(const T& other) {
+        mData += other;
+        return *this;
+    }
+
+    template<typename T>
+    inline Register<N> operator+(const T& other) {
+        Register copy(*this);
+        return copy += other;
+    }
 };
 
 

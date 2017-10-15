@@ -73,7 +73,13 @@ void Instruction::adc_a_c(GameBoyCore* core, unsigned long long opcode) {
     bool h;
     bool c;
 
-// todo
+    auto cReg = core->getCpu().getCpuRegisters().getA();
+
+    cReg += core->getCpu().getCpuRegisters().getC();
+    cReg += static_cast<int>(core->getCpu().getFlagRegister().getC());
+
+    core->getCpu().getCpuRegisters().setA(cReg);
+
     core->SetFlags(z, false, h, c);
 }
 
