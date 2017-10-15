@@ -23,19 +23,32 @@ public:
     GameBoyCore(const GameBoyConfig& gbConfig);
     ~GameBoyCore();
 
-
-    Processor& getCpu() {
-        return mCpu;
+    Processor* getCpu() {
+        return &mCpu;
     }
-    const Processor& getCpu() const {
-        return mCpu;
+    const Processor* getCpu() const {
+        return &mCpu;
+    }
+
+    MemoryMap* getWorkRam() {
+        return &mWorkRam;
+    }
+    const MemoryMap* getWorkRam() const {
+        return &mWorkRam;
+    }
+
+    MemoryMap* getDisplayRam() {
+        return &mDisplayRam;
+    }
+    const MemoryMap* getDisplayRam() const {
+        return &mDisplayRam;
     }
 
     void SetFlags(bool z, bool n, bool h, bool c) {
-        mCpu.getFlagRegister().setZ(z);
-        mCpu.getFlagRegister().setN(n);
-        mCpu.getFlagRegister().setH(h);
-        mCpu.getFlagRegister().setC(c);
+        mCpu.getFlagRegister()->setZ(z);
+        mCpu.getFlagRegister()->setN(n);
+        mCpu.getFlagRegister()->setH(h);
+        mCpu.getFlagRegister()->setC(c);
     }
 };
 

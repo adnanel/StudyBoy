@@ -36,18 +36,18 @@ public:
 
     virtual void HardReset();
 
-    FlagRegister& getFlagRegister() {
-        return mFlagRegister;
+    FlagRegister* getFlagRegister() {
+        return &mFlagRegister;
     }
-    const FlagRegister& getFlagRegister() const {
-        return mFlagRegister;
+    const FlagRegister* getFlagRegister() const {
+        return &mFlagRegister;
     }
 
-    const CpuRegisters& getCpuRegisters() const {
-        return mCpuRegisters;
+    const CpuRegisters* getCpuRegisters() const {
+        return &mCpuRegisters;
     }
-    CpuRegisters& getCpuRegisters() {
-        return mCpuRegisters;
+    CpuRegisters* getCpuRegisters() {
+        return &mCpuRegisters;
     }
 };
 

@@ -7,6 +7,8 @@
 
 
 #include <cstdio>
+#include <bitset>
+#include <stdexcept>
 
 class MemoryMap {
     char* mMemory;
@@ -23,6 +25,28 @@ public:
     void WriteData(int targetAddress, char* data, size_t size);
     void CopyData(int targetAddress, char* target, size_t size);
 
+
+    template<unsigned int BitCount>
+    std::bitset<BitCount> ReadData(unsigned long long targetAddress) {
+        if ( BitCount % 8 != 0 ) throw std::invalid_argument("BitCount unsupported!");
+        std::bitset<BitCount> res;
+        int byteCount = BitCount % 8;
+
+        for ( int i = 0; i < byteCount; ++ i ) {
+            res = (res.to_ullong() << 8) | mMemory[targetAddress + i];
+        }
+        return res;
+    }
+
+    template<typename T>
+    T* ReadData(unsigned long long targetAddress) {
+        return reinterpret_cast<T*>(mMemory[targetAddress]);
+    }
+
+    template<typename T>
+    const T* ReadData(unsigned long long targetAddress) const {
+        return reinterpret_cast<T*>(mMemory[targetAddress]);
+    }
 };
 
 

@@ -101,6 +101,18 @@ public:
     void setPC(const Register<16> &PC) {
         CpuRegisters::PC = PC;
     }
+
+    Register<16> getBC() const {
+        return CombineRegisters<8,8>(B, C);
+    }
+
+    Register<16> getDE() const {
+        return CombineRegisters<8,8>(D, E);
+    }
+
+    Register<16> getHL() const {
+        return CombineRegisters<8,8>(H, L);
+    }
 };
 
 #endif //STUDYBOY_CPUREGISTERS_H

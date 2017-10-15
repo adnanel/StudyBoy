@@ -62,6 +62,10 @@ public:
         return *this;
     }
 
+    unsigned long long to_ullong() const {
+        return mData.to_ullong();
+    }
+
     inline IndexWrapperHelper operator[](size_t n) {
         return IndexWrapperHelper(mData, n);
     }
@@ -129,6 +133,16 @@ public:
         return *this;
     }
 
+    inline Register<N>& operator+=(const std::bitset<N>& other) {
+        mData = mData.to_ullong() + other.to_ullong();
+        return *this;
+    }
+
+    inline Register<N>& operator-=(const std::bitset<N>& other) {
+        mData = mData.to_ullong() - other.to_ullong();
+        return *this;
+    }
+
     template<typename T>
     inline Register<N>& operator+=(const T& other) {
         mData = mData.to_ullong() + other;
@@ -142,12 +156,13 @@ public:
     }
 
 
-    template<unsigned int A, unsigned int B>
-    inline static Register<A + B> CombineRegisters(const Register<A>& a, const Register<B>& b) {
-        Register<A + B> res = (a.mData.to_ullong() << B) | b;
-        return res;
-    };
 };
 
+
+template<unsigned int A, unsigned int B>
+inline static Register<A + B> CombineRegisters(const Register<A>& a, const Register<B>& b) {
+    Register<A + B> res = (a.to_ullong() << B) | b.to_ullong();
+    return res;
+};
 
 #endif //STUDYBOY_REGISTER_H

@@ -14,3 +14,4 @@ GameBoyCore::GameBoyCore(const GameBoyConfig& gbConfig)
 GameBoyCore::~GameBoyCore() {
 
 }
+
