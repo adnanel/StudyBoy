@@ -96,6 +96,25 @@ public:
     }
 
 
+    inline Register<N> operator&(const Register<N>& other) const  {
+        Register<N> res(*this);
+        res.mData &= other.mData;
+        return res;
+    };
+
+
+    inline Register<N> operator|(const Register<N>& other) const  {
+        Register<N> res(*this);
+        res.mData |= other.mData;
+        return res;
+    };
+
+    inline Register<N> operator^(const Register<N>& other) const  {
+        Register<N> res(*this);
+        res.mData ^= other.mData;
+        return res;
+    };
+
     template<typename T>
     inline Register<N> operator&(const T& other) const  {
         Register<N> res(*this);
