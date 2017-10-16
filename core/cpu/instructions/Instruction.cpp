@@ -8,6 +8,7 @@ void update_flags_adc(unsigned long long oldVal,
                       unsigned long long newVal,
                       GameBoyCore* core,
                       unsigned long long opcode) {
+    // todo
     core->SetFlags(newVal == 0, false, false, false);
 }
 
@@ -16,6 +17,7 @@ void update_flags_adc(const Register<N>& oldVal,
                       const Register<N>& newVal,
                       GameBoyCore* core,
                       unsigned long long opcode) {
+    // todo
     update_flags_adc(oldVal.to_ullong(), newVal.to_ullong(), core, opcode);
 }
 
@@ -23,6 +25,7 @@ void update_flags_add(unsigned long long oldVal,
                       unsigned long long newVal,
                       GameBoyCore* core,
                       unsigned long long opcode) {
+    // todo
     core->SetFlags(newVal == 0, false, false, false);
 }
 
@@ -31,6 +34,7 @@ void update_flags_add(const Register<N>& oldVal,
                       const Register<N>& newVal,
                       GameBoyCore* core,
                       unsigned long long opcode) {
+    // todo
     update_flags_add(oldVal.to_ullong(), newVal.to_ullong(), core, opcode);
 }
 
@@ -38,6 +42,7 @@ void update_flags_inc(unsigned long long oldVal,
                       unsigned long long newVal,
                       GameBoyCore* core,
                       unsigned long long opcode) {
+    // todo
     core->SetFlags(newVal == 0, false, false, false);
 }
 
@@ -46,6 +51,7 @@ void update_flags_inc(const Register<N>& oldVal,
                       const Register<N>& newVal,
                       GameBoyCore* core,
                       unsigned long long opcode) {
+    // todo
     update_flags_inc(oldVal.to_ullong(), newVal.to_ullong(), core, opcode);
 }
 
@@ -53,6 +59,7 @@ void update_flags_dec(unsigned long long oldVal,
                       unsigned long long newVal,
                       GameBoyCore* core,
                       unsigned long long) {
+    // todo
     core->SetFlags(newVal == 0, false, false, false);
 }
 
@@ -61,6 +68,7 @@ void update_flags_dec(const Register<N>& oldVal,
                       const Register<N>& newVal,
                       GameBoyCore* core,
                       unsigned long long opcode) {
+    // todo
     update_flags_dec(oldVal.to_ullong(), newVal.to_ullong(), core, opcode);
 }
 
@@ -68,6 +76,7 @@ void update_flags_sub(unsigned long long oldVal,
                       unsigned long long newVal,
                       GameBoyCore* core,
                       unsigned long long opcode) {
+    // todo
     core->SetFlags(newVal == 0, false, false, false);
 }
 
@@ -90,6 +99,7 @@ void update_flags_sbc(unsigned long long oldVal,
                       unsigned long long newVal,
                       GameBoyCore* core,
                       unsigned long long opcode) {
+    // todo
     core->SetFlags(newVal == 0, false, false, false);
 }
 
@@ -113,6 +123,7 @@ void update_flags_and(unsigned long long oldVal,
                       unsigned long long newVal,
                       GameBoyCore* core,
                       unsigned long long opcode) {
+    // todo
     core->SetFlags(newVal == 0, false, false, false);
 }
 
@@ -152,6 +163,29 @@ void update_flags_or(const Register<N>& t1, unsigned long long t2, GameBoyCore* 
 template<unsigned int N>
 void update_flags_or(const Register<N>& t1, const Register<N>& t2, GameBoyCore* core, unsigned long long opcode) {
     return update_flags_or(t1.to_ullong(), t2.to_ullong(), core, opcode);
+}
+
+
+void update_flags_xor(unsigned long long oldVal,
+                     unsigned long long newVal,
+                     GameBoyCore* core,
+                     unsigned long long opcode) {
+    core->SetFlags(newVal == 0, false, false, false);
+}
+
+template<unsigned int N>
+void update_flags_xor(unsigned long long t1, const Register<N>& t2, GameBoyCore* core, unsigned long long opcode) {
+    return update_flags_xor(t1, t2.to_ullong(), core, opcode);
+}
+
+template<unsigned int N>
+void update_flags_xor(const Register<N>& t1, unsigned long long t2, GameBoyCore* core, unsigned long long opcode) {
+    return update_flags_xor(t1.to_ullong(), t2, core, opcode);
+}
+
+template<unsigned int N>
+void update_flags_xor(const Register<N>& t1, const Register<N>& t2, GameBoyCore* core, unsigned long long opcode) {
+    return update_flags_xor(t1.to_ullong(), t2.to_ullong(), core, opcode);
 }
 
 
@@ -2013,67 +2047,93 @@ void Instruction::rrca__(GameBoyCore* core, unsigned long long) {
 }
 
 // XOR B
-void Instruction::xor_b_(GameBoyCore* core, unsigned long long) {
-    bool z;
+void Instruction::xor_b_(GameBoyCore* core, unsigned long long opcode) {
+    auto a = core->getCpu()->getCpuRegisters()->getA();
+    auto b = core->getCpu()->getCpuRegisters()->getB();
 
-// todo
-    core->SetFlags(z, false, false, false);
+    auto nA = a ^ b;
+    core->getCpu()->getCpuRegisters()->setA(nA);
+
+    update_flags_xor(a, nA, core, opcode);
 }
 
 // XOR C
-void Instruction::xor_c_(GameBoyCore* core, unsigned long long) {
-    bool z;
+void Instruction::xor_c_(GameBoyCore* core, unsigned long long opcode) {
+    auto a = core->getCpu()->getCpuRegisters()->getA();
+    auto b = core->getCpu()->getCpuRegisters()->getC();
 
-// todo
-    core->SetFlags(z, false, false, false);
+    auto nA = a ^ b;
+    core->getCpu()->getCpuRegisters()->setA(nA);
+
+    update_flags_xor(a, nA, core, opcode);
 }
 
 // XOR A
-void Instruction::xor_a_(GameBoyCore* core, unsigned long long) {
-    bool z;
+void Instruction::xor_a_(GameBoyCore* core, unsigned long long opcode) {
+    auto a = core->getCpu()->getCpuRegisters()->getA();
+    auto b = core->getCpu()->getCpuRegisters()->getA();
 
-// todo
-    core->SetFlags(z, false, false, false);
+    auto nA = a ^ b;
+    core->getCpu()->getCpuRegisters()->setA(nA);
+
+    update_flags_xor(a, nA, core, opcode);
 }
 
 // XOR (HL)
-void Instruction::xor__hl__(GameBoyCore* core, unsigned long long) {
-    bool z;
+void Instruction::xor__hl__(GameBoyCore* core, unsigned long long opcode) {
+    auto hl = core->getCpu()->getCpuRegisters()->getHL();
 
-// todo
-    core->SetFlags(z, false, false, false);
+    auto a = core->getCpu()->getCpuRegisters()->getA();
+    auto b = core->getWorkRam()->ReadData<8>(hl.to_ullong()).to_ullong();
+
+    auto nA = a ^ b;
+    core->getCpu()->getCpuRegisters()->setA(nA);
+
+    update_flags_xor(a, nA, core, opcode);
 }
 
 // XOR L
-void Instruction::xor_l_(GameBoyCore* core, unsigned long long) {
-    bool z;
+void Instruction::xor_l_(GameBoyCore* core, unsigned long long opcode) {
+    auto a = core->getCpu()->getCpuRegisters()->getA();
+    auto b = core->getCpu()->getCpuRegisters()->getL();
 
-// todo
-    core->SetFlags(z, false, false, false);
+    auto nA = a ^ b;
+    core->getCpu()->getCpuRegisters()->setA(nA);
+
+    update_flags_xor(a, nA, core, opcode);
 }
 
 // XOR H
-void Instruction::xor_h_(GameBoyCore* core, unsigned long long) {
-    bool z;
+void Instruction::xor_h_(GameBoyCore* core, unsigned long long opcode) {
+    auto a = core->getCpu()->getCpuRegisters()->getA();
+    auto b = core->getCpu()->getCpuRegisters()->getH();
 
-// todo
-    core->SetFlags(z, false, false, false);
+    auto nA = a ^ b;
+    core->getCpu()->getCpuRegisters()->setA(nA);
+
+    update_flags_xor(a, nA, core, opcode);
 }
 
 // XOR E
-void Instruction::xor_e_(GameBoyCore* core, unsigned long long) {
-    bool z;
+void Instruction::xor_e_(GameBoyCore* core, unsigned long long opcode) {
+    auto a = core->getCpu()->getCpuRegisters()->getA();
+    auto b = core->getCpu()->getCpuRegisters()->getE();
 
-// todo
-    core->SetFlags(z, false, false, false);
+    auto nA = a ^ b;
+    core->getCpu()->getCpuRegisters()->setA(nA);
+
+    update_flags_xor(a, nA, core, opcode);
 }
 
 // XOR D
-void Instruction::xor_d_(GameBoyCore* core, unsigned long long) {
-    bool z;
+void Instruction::xor_d_(GameBoyCore* core, unsigned long long opcode) {
+    auto a = core->getCpu()->getCpuRegisters()->getA();
+    auto b = core->getCpu()->getCpuRegisters()->getD();
 
-// todo
-    core->SetFlags(z, false, false, false);
+    auto nA = a ^ b;
+    core->getCpu()->getCpuRegisters()->setA(nA);
+
+    update_flags_xor(a, nA, core, opcode);
 }
 
 // XOR d8
