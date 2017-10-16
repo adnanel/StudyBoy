@@ -1,5 +1,5 @@
 # StudyBoy
 WIP
 
-# Author
+## Author
 Adnan Elezović
