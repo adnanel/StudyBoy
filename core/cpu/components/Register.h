@@ -217,4 +217,9 @@ inline static void SplitRegister(const Register<A+B>& reg, Register<A>& high, Re
     low = (reg.to_ullong() << A) >> A;
 };
 
+template<typename T, unsigned int N>
+inline Register<N> operator&(const T& t, const Register<N>& other) {
+    return other & t;
+}
+
 #endif //STUDYBOY_REGISTER_H

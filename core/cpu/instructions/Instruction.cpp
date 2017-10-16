@@ -2,6 +2,7 @@
 // Created by adnan on 14/10/2017.
 //
 
+#include <assert.h>
 #include "Instruction.h"
 
 void update_flags_adc(unsigned long long oldVal,
@@ -298,7 +299,9 @@ void Instruction::ret_c_(GameBoyCore* core, unsigned long long opcode) {
 void Instruction::rra__(GameBoyCore* core, unsigned long long) {
     auto reg = core->getCpu()->getCpuRegisters()->getA();
     bool old = reg[0];
-    reg = (reg >> 1) | (old << 7) ;
+    Register<8> oldCarry = core->getCpu()->getFlagRegister()->getC();
+
+    reg = (reg >> 1) | (oldCarry << 7) ;
 
     core->getCpu()->getCpuRegisters()->setA(reg);
 
@@ -656,10 +659,25 @@ void Instruction::jp_c_a16(GameBoyCore* core, unsigned long long) {
 
 // RLA
 void Instruction::rla__(GameBoyCore* core, unsigned long long) {
-    bool c;
+    auto a = core->getCpu()->getCpuRegisters()->getA();
 
-// todo
-    core->SetFlags(false, false, false, c);
+    auto carry = (a >> 7).to_ullong();
+    assert(carry == 0 || carry == 1);
+
+    a = (a << 1) | static_cast<int>(core->getCpu()->getFlagRegister()->getC());
+
+    /*
+        Z - Set if result is zero.
+        N - Reset.
+        H - Reset.
+        C - Contains old bit 7 data.
+     */
+    core->getCpu()->getFlagRegister()->setZ(a.to_ullong() == 0);
+    core->getCpu()->getFlagRegister()->setN(false);
+    core->getCpu()->getFlagRegister()->setH(false);
+    core->getCpu()->getFlagRegister()->setC(static_cast<bool>(carry));
+
+    core->getCpu()->getCpuRegisters()->setA(a);
 }
 
 // JR r8
@@ -2142,10 +2160,25 @@ void Instruction::ld_a_d(GameBoyCore* core, unsigned long long) {
 
 // RRCA
 void Instruction::rrca__(GameBoyCore* core, unsigned long long) {
-    bool c;
+    auto a = core->getCpu()->getCpuRegisters()->getA();
 
-// todo
-    core->SetFlags(false, false, false, c);
+    auto carry = (0x1 & a).to_ullong();
+    assert(carry == 1 || carry == 0);
+
+    a = a >> 1;
+
+    core->getCpu()->getCpuRegisters()->setA(a);
+
+    /*
+    Z - Set if result is zero.
+    N - Reset.
+    H - Reset.
+    C - Contains old bit 0 data
+     */
+    core->getCpu()->getFlagRegister()->setZ(a.to_ullong() == 0);
+    core->getCpu()->getFlagRegister()->setN(false);
+    core->getCpu()->getFlagRegister()->setH(false);
+    core->getCpu()->getFlagRegister()->setC(static_cast<bool>(carry));
 }
 
 // XOR B
@@ -2258,10 +2291,25 @@ void Instruction::cpl__(GameBoyCore* core, unsigned long long) {
 
 // RLCA
 void Instruction::rlca__(GameBoyCore* core, unsigned long long) {
-    bool c;
+    auto a = core->getCpu()->getCpuRegisters()->getA();
 
-// todo
-    core->SetFlags(false, false, false, c);
+    auto carry = (a >> 7).to_ullong();
+    assert(carry == 0 || carry == 1);
+
+    a = (a << 1) | carry;
+
+    /*
+        Z - Set if result is zero.
+        N - Reset.
+        H - Reset.
+        C - Contains old bit 7 data.
+     */
+    core->getCpu()->getFlagRegister()->setZ(a.to_ullong() == 0);
+    core->getCpu()->getFlagRegister()->setN(false);
+    core->getCpu()->getFlagRegister()->setH(false);
+    core->getCpu()->getFlagRegister()->setC(static_cast<bool>(carry));
+
+    core->getCpu()->getCpuRegisters()->setA(a);
 }
 
 // PUSH BC
