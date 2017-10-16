@@ -1167,11 +1167,36 @@ void Instruction::stop_0_(GameBoyCore* core, unsigned long long) {
 
 // DAA
 void Instruction::daa__(GameBoyCore* core, unsigned long long) {
-    bool z;
-    bool c;
+    /*
+     * When this instruction is executed, the A register is BCD corrected using the contents of the flags.
+     * The exact process is the following: if the least significant four bits of A contain a non-BCD digit
+     * (i. e. it is greater than 9) or the H flag is set, then $06 is added to the register. Then the four
+     * most significant bits are checked. If this more significant digit also happens to be greater than 9
+     * or the C flag is set, then $60 is added.
+     */
 
-// todo
-    core->SetFlags(z, core->getCpu()->getFlagRegister()->getH(), false, c);
+    auto a = core->getCpu()->getCpuRegisters()->getA();
+    auto nA = a;
+
+    Register<4> high;
+    Register<4> low;
+
+    SplitRegister(a, high, low);
+
+    if ( low.to_ullong() > 9 || core->getCpu()->getFlagRegister()->getH() ) {
+        nA += 0x06;
+
+        if ( high.to_ullong() > 9 || core->getCpu()->getFlagRegister()->getC() ) {
+            nA += 0x60;
+        }
+    }
+
+    core->getCpu()->getFlagRegister()->setH(false);
+    core->getCpu()->getFlagRegister()->setZ(nA.to_ullong() == 0);
+
+    // todo C flag set or reset according to operation ( ? )
+
+    core->getCpu()->getCpuRegisters()->setA(nA);
 }
 
 // CCF
