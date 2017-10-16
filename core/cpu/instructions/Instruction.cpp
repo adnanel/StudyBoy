@@ -2363,30 +2363,22 @@ void Instruction::rlca__(GameBoyCore* core, unsigned long long) {
 
 // PUSH BC
 void Instruction::push_bc_(GameBoyCore* core, unsigned long long) {
-
-// todo
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
+    core->PushToStack(core->getCpu()->getCpuRegisters()->getBC());
 }
 
 // PUSH DE
 void Instruction::push_de_(GameBoyCore* core, unsigned long long) {
-
-// todo
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
+    core->PushToStack(core->getCpu()->getCpuRegisters()->getDE());
 }
 
 // PUSH HL
 void Instruction::push_hl_(GameBoyCore* core, unsigned long long) {
-
-// todo
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
+    core->PushToStack(core->getCpu()->getCpuRegisters()->getHL());
 }
 
 // PUSH AF
 void Instruction::push_af_(GameBoyCore* core, unsigned long long) {
-
-// todo
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
+    core->PushToStack(core->getCpu()->getCpuRegisters()->getAF());
 }
 
 // INC D

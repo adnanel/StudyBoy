@@ -18,20 +18,12 @@ class MemoryMap {
 public:
     explicit MemoryMap(const size_t& memSize = 32 * 1024, bool readonly = false);
 
-    // Access memory data directly via the [] operator
-    const char& operator[](const int& addr) const;
-    char& operator[](const int& addr);
-
-
-    void WriteData(int targetAddress, char* data, size_t size);
-    void CopyData(int targetAddress, char* target, size_t size);
-
 
     template<unsigned int BitCount>
     std::bitset<BitCount> ReadData(unsigned long long targetAddress) const {
         if ( BitCount % 8 != 0 ) throw std::invalid_argument("BitCount unsupported!");
         std::bitset<BitCount> res;
-        int byteCount = BitCount % 8;
+        int byteCount = BitCount / 8;
 
         for ( int i = byteCount; i >= 0; -- i ) {
             res = (res.to_ullong() << 8) | mMemory[targetAddress + i];
@@ -43,7 +35,7 @@ public:
     void WriteData(unsigned long long address, const Register<BitCount>& reg) {
         if ( BitCount % 8 != 0 ) throw std::invalid_argument("BitCount unsupported!");
 
-        int byteCount = BitCount % 8;
+        int byteCount = BitCount / 8;
 
         auto data = reg.to_ullong();
         for ( int i = 0; i < byteCount; ++ i ) {

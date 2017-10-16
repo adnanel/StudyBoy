@@ -6,6 +6,7 @@
 #define STUDYBOY_GAMEBOYCORE_H
 
 
+#include <cassert>
 #include "memory/MemoryMap.h"
 #include "cpu/Processor.h"
 #include "GameBoyConfig.h"
@@ -23,32 +24,50 @@ public:
     GameBoyCore(const GameBoyConfig& gbConfig);
     ~GameBoyCore();
 
-    Processor* getCpu() {
+    inline Processor* getCpu() {
         return &mCpu;
     }
-    const Processor* getCpu() const {
+    inline const Processor* getCpu() const {
         return &mCpu;
     }
 
-    MemoryMap* getWorkRam() {
+    inline MemoryMap* getWorkRam() {
         return &mWorkRam;
     }
-    const MemoryMap* getWorkRam() const {
+    inline const MemoryMap* getWorkRam() const {
         return &mWorkRam;
     }
 
-    MemoryMap* getDisplayRam() {
+    inline MemoryMap* getDisplayRam() {
         return &mDisplayRam;
     }
-    const MemoryMap* getDisplayRam() const {
+    inline const MemoryMap* getDisplayRam() const {
         return &mDisplayRam;
     }
 
-    void SetFlags(bool z, bool n, bool h, bool c) {
+    inline void SetFlags(bool z, bool n, bool h, bool c) {
         mCpu.getFlagRegister()->setZ(z);
         mCpu.getFlagRegister()->setN(n);
         mCpu.getFlagRegister()->setH(h);
         mCpu.getFlagRegister()->setC(c);
+    }
+
+
+    template<unsigned int N>
+    inline void PushToStack(Register<N> reg)
+    {
+        assert( N % 8 == 0 );
+
+        int bytes = N / 8;
+
+        auto& cpu = *getCpu();
+        for ( int i = 0; i < bytes; ++ i ) {
+            cpu.getCpuRegisters()->setSP(cpu.getCpuRegisters()->getSP() - 1);
+
+            Register<8> r = 0xFF & (reg >> 8).to_ullong();
+
+            getWorkRam()->WriteData<8>(cpu.getCpuRegisters()->getSP().to_ullong(), r);
+        }
     }
 };
 

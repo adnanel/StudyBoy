@@ -114,6 +114,10 @@ public:
         SplitRegister(hl, D, E);
     }
 
+    void setAF(const Register<16>& af) {
+        SplitRegister(af, A, F);
+    }
+
     Register<16> getBC() const {
         return CombineRegisters<8,8>(B, C);
     }
@@ -124,6 +128,10 @@ public:
 
     Register<16> getHL() const {
         return CombineRegisters<8,8>(H, L);
+    }
+
+    Register<16> getAF() const {
+        return CombineRegisters<8,8>(A, F);
     }
 };
 
