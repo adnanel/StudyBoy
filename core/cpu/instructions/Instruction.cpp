@@ -12,9 +12,8 @@ void update_flags_adc(unsigned long long oldVal,
     core->SetFlags(newVal == 0, false, false, false);
 }
 
-template<unsigned int N>
-void update_flags_adc(const Register<N>& oldVal,
-                      const Register<N>& newVal,
+void update_flags_adc(const Register<8>& oldVal,
+                      const Register<8>& newVal,
                       GameBoyCore* core,
                       unsigned long long opcode) {
     // todo
@@ -29,9 +28,8 @@ void update_flags_add(unsigned long long oldVal,
     core->SetFlags(newVal == 0, false, false, false);
 }
 
-template<unsigned int N>
-void update_flags_add(const Register<N>& oldVal,
-                      const Register<N>& newVal,
+void update_flags_add(const Register<8>& oldVal,
+                      const Register<8>& newVal,
                       GameBoyCore* core,
                       unsigned long long opcode) {
     // todo
@@ -46,9 +44,8 @@ void update_flags_inc(unsigned long long oldVal,
     core->SetFlags(newVal == 0, false, false, false);
 }
 
-template<unsigned int N>
-void update_flags_inc(const Register<N>& oldVal,
-                      const Register<N>& newVal,
+void update_flags_inc(const Register<8>& oldVal,
+                      const Register<8>& newVal,
                       GameBoyCore* core,
                       unsigned long long opcode) {
     // todo
@@ -63,9 +60,8 @@ void update_flags_dec(unsigned long long oldVal,
     core->SetFlags(newVal == 0, false, false, false);
 }
 
-template<unsigned int N>
-void update_flags_dec(const Register<N>& oldVal,
-                      const Register<N>& newVal,
+void update_flags_dec(const Register<8>& oldVal,
+                      const Register<8>& newVal,
                       GameBoyCore* core,
                       unsigned long long opcode) {
     // todo
@@ -80,18 +76,15 @@ void update_flags_sub(unsigned long long oldVal,
     core->SetFlags(newVal == 0, false, false, false);
 }
 
-template<unsigned int N>
-void update_flags_sub(unsigned long long t1, const Register<N>& t2, GameBoyCore* core, unsigned long long opcode) {
+void update_flags_sub(unsigned long long t1, const Register<8>& t2, GameBoyCore* core, unsigned long long opcode) {
     return update_flags_sub(t1, t2.to_ullong(), core, opcode);
 }
 
-template<unsigned int N>
-void update_flags_sub(const Register<N>& t1, unsigned long long t2, GameBoyCore* core, unsigned long long opcode) {
+void update_flags_sub(const Register<8>& t1, unsigned long long t2, GameBoyCore* core, unsigned long long opcode) {
     return update_flags_sub(t1.to_ullong(), t2, core, opcode);
 }
 
-template<unsigned int N>
-void update_flags_sub(const Register<N>& t1, const Register<N>& t2, GameBoyCore* core, unsigned long long opcode) {
+void update_flags_sub(const Register<8>& t1, const Register<8>& t2, GameBoyCore* core, unsigned long long opcode) {
     return update_flags_sub(t1.to_ullong(), t2.to_ullong(), core, opcode);
 }
 
@@ -103,18 +96,15 @@ void update_flags_sbc(unsigned long long oldVal,
     core->SetFlags(newVal == 0, false, false, false);
 }
 
-template<unsigned int N>
-void update_flags_sbc(unsigned long long t1, const Register<N>& t2, GameBoyCore* core, unsigned long long opcode) {
+void update_flags_sbc(unsigned long long t1, const Register<8>& t2, GameBoyCore* core, unsigned long long opcode) {
     return update_flags_sbc(t1, t2.to_ullong(), core, opcode);
 }
 
-template<unsigned int N>
-void update_flags_sbc(const Register<N>& t1, unsigned long long t2, GameBoyCore* core, unsigned long long opcode) {
+void update_flags_sbc(const Register<8>& t1, unsigned long long t2, GameBoyCore* core, unsigned long long opcode) {
     return update_flags_sbc(t1.to_ullong(), t2, core, opcode);
 }
 
-template<unsigned int N>
-void update_flags_sbc(const Register<N>& t1, const Register<N>& t2, GameBoyCore* core, unsigned long long opcode) {
+void update_flags_sbc(const Register<8>& t1, const Register<8>& t2, GameBoyCore* core, unsigned long long opcode) {
     return update_flags_sbc(t1.to_ullong(), t2.to_ullong(), core, opcode);
 }
 
@@ -127,18 +117,15 @@ void update_flags_and(unsigned long long oldVal,
     core->SetFlags(newVal == 0, false, false, false);
 }
 
-template<unsigned int N>
-void update_flags_and(unsigned long long t1, const Register<N>& t2, GameBoyCore* core, unsigned long long opcode) {
+void update_flags_and(unsigned long long t1, const Register<8>& t2, GameBoyCore* core, unsigned long long opcode) {
     return update_flags_and(t1, t2.to_ullong(), core, opcode);
 }
 
-template<unsigned int N>
-void update_flags_and(const Register<N>& t1, unsigned long long t2, GameBoyCore* core, unsigned long long opcode) {
+void update_flags_and(const Register<8>& t1, unsigned long long t2, GameBoyCore* core, unsigned long long opcode) {
     return update_flags_and(t1.to_ullong(), t2, core, opcode);
 }
 
-template<unsigned int N>
-void update_flags_and(const Register<N>& t1, const Register<N>& t2, GameBoyCore* core, unsigned long long opcode) {
+void update_flags_and(const Register<8>& t1, const Register<8>& t2, GameBoyCore* core, unsigned long long opcode) {
     return update_flags_and(t1.to_ullong(), t2.to_ullong(), core, opcode);
 }
 
@@ -150,18 +137,15 @@ void update_flags_or(unsigned long long oldVal,
     core->SetFlags(newVal == 0, false, false, false);
 }
 
-template<unsigned int N>
-void update_flags_or(unsigned long long t1, const Register<N>& t2, GameBoyCore* core, unsigned long long opcode) {
+void update_flags_or(unsigned long long t1, const Register<8>& t2, GameBoyCore* core, unsigned long long opcode) {
     return update_flags_or(t1, t2.to_ullong(), core, opcode);
 }
 
-template<unsigned int N>
-void update_flags_or(const Register<N>& t1, unsigned long long t2, GameBoyCore* core, unsigned long long opcode) {
+void update_flags_or(const Register<8>& t1, unsigned long long t2, GameBoyCore* core, unsigned long long opcode) {
     return update_flags_or(t1.to_ullong(), t2, core, opcode);
 }
 
-template<unsigned int N>
-void update_flags_or(const Register<N>& t1, const Register<N>& t2, GameBoyCore* core, unsigned long long opcode) {
+void update_flags_or(const Register<8>& t1, const Register<8>& t2, GameBoyCore* core, unsigned long long opcode) {
     return update_flags_or(t1.to_ullong(), t2.to_ullong(), core, opcode);
 }
 
@@ -173,18 +157,15 @@ void update_flags_xor(unsigned long long oldVal,
     core->SetFlags(newVal == 0, false, false, false);
 }
 
-template<unsigned int N>
-void update_flags_xor(unsigned long long t1, const Register<N>& t2, GameBoyCore* core, unsigned long long opcode) {
+void update_flags_xor(unsigned long long t1, const Register<8>& t2, GameBoyCore* core, unsigned long long opcode) {
     return update_flags_xor(t1, t2.to_ullong(), core, opcode);
 }
 
-template<unsigned int N>
-void update_flags_xor(const Register<N>& t1, unsigned long long t2, GameBoyCore* core, unsigned long long opcode) {
+void update_flags_xor(const Register<8>& t1, unsigned long long t2, GameBoyCore* core, unsigned long long opcode) {
     return update_flags_xor(t1.to_ullong(), t2, core, opcode);
 }
 
-template<unsigned int N>
-void update_flags_xor(const Register<N>& t1, const Register<N>& t2, GameBoyCore* core, unsigned long long opcode) {
+void update_flags_xor(const Register<8>& t1, const Register<8>& t2, GameBoyCore* core, unsigned long long opcode) {
     return update_flags_xor(t1.to_ullong(), t2.to_ullong(), core, opcode);
 }
 
@@ -197,20 +178,79 @@ void update_flags_cp(unsigned long long oldVal,
     core->SetFlags(newVal == 0, true, false, false);
 }
 
-template<unsigned int N>
-void update_flags_cp(unsigned long long t1, const Register<N>& t2, GameBoyCore* core, unsigned long long opcode) {
+void update_flags_cp(unsigned long long t1, const Register<8>& t2, GameBoyCore* core, unsigned long long opcode) {
     return update_flags_cp(t1, t2.to_ullong(), core, opcode);
 }
 
-template<unsigned int N>
-void update_flags_cp(const Register<N>& t1, unsigned long long t2, GameBoyCore* core, unsigned long long opcode) {
+void update_flags_cp(const Register<8>& t1, unsigned long long t2, GameBoyCore* core, unsigned long long opcode) {
     return update_flags_cp(t1.to_ullong(), t2, core, opcode);
 }
 
-template<unsigned int N>
-void update_flags_cp(const Register<N>& t1, const Register<N>& t2, GameBoyCore* core, unsigned long long opcode) {
+void update_flags_cp(const Register<8>& t1, const Register<8>& t2, GameBoyCore* core, unsigned long long opcode) {
     return update_flags_cp(t1.to_ullong(), t2.to_ullong(), core, opcode);
 }
+
+void update_flags_add_16(unsigned long long oldVal,
+                     unsigned long long newVal,
+                     GameBoyCore* core,
+                     unsigned long long opcode) {
+    // todo
+    core->SetFlags(newVal == 0, true, false, false);
+}
+
+void update_flags_add_16(unsigned long long t1, const Register<16>& t2, GameBoyCore* core, unsigned long long opcode) {
+    return update_flags_add_16(t1, t2.to_ullong(), core, opcode);
+}
+
+void update_flags_add_16(const Register<16>& t1, unsigned long long t2, GameBoyCore* core, unsigned long long opcode) {
+    return update_flags_add_16(t1.to_ullong(), t2, core, opcode);
+}
+
+void update_flags_add_16(const Register<16>& t1, const Register<16>& t2, GameBoyCore* core, unsigned long long opcode) {
+    return update_flags_add_16(t1.to_ullong(), t2.to_ullong(), core, opcode);
+}
+
+void update_flags_dec_16(unsigned long long oldVal,
+                         unsigned long long newVal,
+                         GameBoyCore* core,
+                         unsigned long long opcode) {
+    // todo
+    core->SetFlags(newVal == 0, true, false, false);
+}
+
+void update_flags_dec_16(unsigned long long t1, const Register<16>& t2, GameBoyCore* core, unsigned long long opcode) {
+    return update_flags_dec_16(t1, t2.to_ullong(), core, opcode);
+}
+
+void update_flags_dec_16(const Register<16>& t1, unsigned long long t2, GameBoyCore* core, unsigned long long opcode) {
+    return update_flags_dec_16(t1.to_ullong(), t2, core, opcode);
+}
+
+void update_flags_dec_16(const Register<16>& t1, const Register<16>& t2, GameBoyCore* core, unsigned long long opcode) {
+    return update_flags_dec_16(t1.to_ullong(), t2.to_ullong(), core, opcode);
+}
+
+
+void update_flags_inc_16(unsigned long long oldVal,
+                         unsigned long long newVal,
+                         GameBoyCore* core,
+                         unsigned long long opcode) {
+    // todo
+    core->SetFlags(newVal == 0, true, false, false);
+}
+
+void update_flags_inc_16(unsigned long long t1, const Register<16>& t2, GameBoyCore* core, unsigned long long opcode) {
+    return update_flags_inc_16(t1, t2.to_ullong(), core, opcode);
+}
+
+void update_flags_inc_16(const Register<16>& t1, unsigned long long t2, GameBoyCore* core, unsigned long long opcode) {
+    return update_flags_inc_16(t1.to_ullong(), t2, core, opcode);
+}
+
+void update_flags_inc_16(const Register<16>& t1, const Register<16>& t2, GameBoyCore* core, unsigned long long opcode) {
+    return update_flags_inc_16(t1.to_ullong(), t2.to_ullong(), core, opcode);
+}
+
 
 
 
@@ -392,7 +432,7 @@ void Instruction::add_hl_de(GameBoyCore* core, unsigned long long opcode) {
 
     core->getCpu()->getCpuRegisters()->setHL(hl);
 
-    update_flags_add(oldVal, hl, core, opcode);
+    update_flags_add_16(oldVal, hl, core, opcode);
 }
 
 // ADC A d8
@@ -413,7 +453,7 @@ void Instruction::add_hl_hl(GameBoyCore* core, unsigned long long opcode) {
 
     core->getCpu()->getCpuRegisters()->setHL(hl);
 
-    update_flags_add(oldVal, hl, core, opcode);
+    update_flags_add_16(oldVal, hl, core, opcode);
 }
 
 // ADD SP r8
@@ -437,7 +477,7 @@ void Instruction::add_hl_sp(GameBoyCore* core, unsigned long long opcode) {
 
     core->getCpu()->getCpuRegisters()->setHL(hl);
 
-    update_flags_add(oldVal, hl, core, opcode);
+    update_flags_add_16(oldVal, hl, core, opcode);
 }
 
 // ADD HL BC
@@ -450,7 +490,7 @@ void Instruction::add_hl_bc(GameBoyCore* core, unsigned long long opcode) {
 
     core->getCpu()->getCpuRegisters()->setHL(hl);
 
-    update_flags_add(oldVal, hl, core, opcode);
+    update_flags_add_16(oldVal, hl, core, opcode);
 }
 
 // ADC A A
@@ -1024,7 +1064,7 @@ void Instruction::dec_de_(GameBoyCore* core, unsigned long long opcode) {
     auto newVal = oldVal - 1;
     core->getCpu()->getCpuRegisters()->setDE(newVal);
 
-    update_flags_dec(oldVal, newVal, core, opcode);
+    update_flags_dec_16(oldVal, newVal, core, opcode);
 }
 
 // DEC H
@@ -1051,7 +1091,7 @@ void Instruction::dec_hl_(GameBoyCore* core, unsigned long long opcode) {
     auto newVal = oldVal - 1;
     core->getCpu()->getCpuRegisters()->setHL(newVal);
 
-    update_flags_dec(oldVal, newVal, core, opcode);
+    update_flags_dec_16(oldVal, newVal, core, opcode);
 }
 
 // DEC (HL)
@@ -1072,7 +1112,7 @@ void Instruction::dec_sp_(GameBoyCore* core, unsigned long long opcode) {
     auto newVal = oldVal - 1;
     core->getCpu()->getCpuRegisters()->setSP(newVal);
 
-    update_flags_dec(oldVal, newVal, core, opcode);
+    update_flags_dec_16(oldVal, newVal, core, opcode);
 }
 
 // DEC A
@@ -1099,7 +1139,7 @@ void Instruction::dec_bc_(GameBoyCore* core, unsigned long long opcode) {
     auto newVal = oldVal - 1;
     core->getCpu()->getCpuRegisters()->setBC(newVal);
 
-    update_flags_dec(oldVal, newVal, core, opcode);
+    update_flags_dec_16(oldVal, newVal, core, opcode);
 }
 
 // DEC C
@@ -2228,7 +2268,7 @@ void Instruction::inc_de_(GameBoyCore* core, unsigned long long opcode) {
     auto newVal = oldVal + 1;
     core->getCpu()->getCpuRegisters()->setDE(newVal);
 
-    update_flags_inc(oldVal, newVal, core, opcode);
+    update_flags_inc_16(oldVal, newVal, core, opcode);
 }
 
 // INC E
@@ -2255,7 +2295,7 @@ void Instruction::inc_hl_(GameBoyCore* core, unsigned long long opcode) {
     auto newVal = oldVal + 1;
     core->getCpu()->getCpuRegisters()->setHL(newVal);
 
-    update_flags_inc(oldVal, newVal, core, opcode);
+    update_flags_inc_16(oldVal, newVal, core, opcode);
 }
 
 // INC L
@@ -2283,7 +2323,7 @@ void Instruction::inc_sp_(GameBoyCore* core, unsigned long long opcode) {
     auto newVal = oldVal + 1;
     core->getCpu()->getCpuRegisters()->setSP(newVal);
 
-    update_flags_inc(oldVal, newVal, core, opcode);
+    update_flags_inc_16(oldVal, newVal, core, opcode);
 }
 
 // INC A
@@ -2301,7 +2341,7 @@ void Instruction::inc_bc_(GameBoyCore* core, unsigned long long opcode) {
     auto newVal = oldVal + 1;
     core->getCpu()->getCpuRegisters()->setBC(newVal);
 
-    update_flags_inc(oldVal, newVal, core, opcode);
+    update_flags_inc_16(oldVal, newVal, core, opcode);
 }
 
 // INC B
