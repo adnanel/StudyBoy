@@ -9,7 +9,7 @@ Processor::~Processor() {
 }
 
 Processor::Processor()
-    : mRam(127)
+    : mRam(127), codeLoader(nullptr)
 {
     HardReset();
 }

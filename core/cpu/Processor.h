@@ -14,6 +14,7 @@
 #include "components/IORegisters.h"
 #include "components/CpuRegisters.h"
 #include "components/FlagRegister.h"
+#include "codeloaders/CodeLoader.h"
 
 class Processor {
 protected:
@@ -30,6 +31,8 @@ protected:
     IORegisters mIORegisters;
     CpuRegisters mCpuRegisters;
     FlagRegister mFlagRegister;
+
+    CodeLoader* codeLoader;
 public:
     Processor();
     virtual ~Processor();
@@ -48,6 +51,16 @@ public:
     }
     CpuRegisters* getCpuRegisters() {
         return &mCpuRegisters;
+    }
+
+    inline CodeLoader* setCodeLoader( CodeLoader* loader ) {
+        auto old = this->codeLoader;
+        this->codeLoader = loader;
+        return old;
+    }
+
+    inline CodeLoader* getCodeLoader() {
+        return this->codeLoader;
     }
 };
 
