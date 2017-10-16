@@ -32,12 +32,10 @@ public:
     inline Register() {}
 
     template<typename T>
-    inline Register(const T& src) {
-        mData = src;
+    inline Register(const T& src) : mData(src) {
     }
 
-    inline Register(const Register<N>& src) {
-        mData = src.mData;
+    inline Register(const Register<N>& src) : mData(src.mData) {
     }
 
 
