@@ -845,44 +845,48 @@ void Instruction::dec__hl__(GameBoyCore* core, unsigned long long opcode) {
 }
 
 // DEC SP
-void Instruction::dec_sp_(GameBoyCore* core, unsigned long long) {
+void Instruction::dec_sp_(GameBoyCore* core, unsigned long long opcode) {
+    auto oldVal = core->getCpu()->getCpuRegisters()->getSP();
+    auto newVal = oldVal - 1;
+    core->getCpu()->getCpuRegisters()->setSP(newVal);
 
-// todo
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
+    update_flags_dec(oldVal, newVal, core, opcode);
 }
 
 // DEC A
-void Instruction::dec_a_(GameBoyCore* core, unsigned long long) {
-    bool z;
-    bool h;
+void Instruction::dec_a_(GameBoyCore* core, unsigned long long opcode) {
+    auto oldVal = core->getCpu()->getCpuRegisters()->getA();
+    auto newVal = oldVal - 1;
+    core->getCpu()->getCpuRegisters()->setA(newVal);
 
-// todo
-    core->SetFlags(z, true, h, core->getCpu()->getFlagRegister()->getZ());
+    update_flags_dec(oldVal, newVal, core, opcode);
 }
 
 // DEC B
-void Instruction::dec_b_(GameBoyCore* core, unsigned long long) {
-    bool z;
-    bool h;
+void Instruction::dec_b_(GameBoyCore* core, unsigned long long opcode) {
+    auto oldVal = core->getCpu()->getCpuRegisters()->getB();
+    auto newVal = oldVal - 1;
+    core->getCpu()->getCpuRegisters()->setB(newVal);
 
-// todo
-    core->SetFlags(z, true, h, core->getCpu()->getFlagRegister()->getZ());
+    update_flags_dec(oldVal, newVal, core, opcode);
 }
 
 // DEC BC
-void Instruction::dec_bc_(GameBoyCore* core, unsigned long long) {
+void Instruction::dec_bc_(GameBoyCore* core, unsigned long long opcode) {
+    auto oldVal = core->getCpu()->getCpuRegisters()->getBC();
+    auto newVal = oldVal - 1;
+    core->getCpu()->getCpuRegisters()->setBC(newVal);
 
-// todo
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
+    update_flags_dec(oldVal, newVal, core, opcode);
 }
 
 // DEC C
-void Instruction::dec_c_(GameBoyCore* core, unsigned long long) {
-    bool z;
-    bool h;
+void Instruction::dec_c_(GameBoyCore* core, unsigned long long opcode) {
+    auto oldVal = core->getCpu()->getCpuRegisters()->getC();
+    auto newVal = oldVal - 1;
+    core->getCpu()->getCpuRegisters()->setC(newVal);
 
-// todo
-    core->SetFlags(z, true, h, core->getCpu()->getFlagRegister()->getZ());
+    update_flags_dec(oldVal, newVal, core, opcode);
 }
 
 // EI
