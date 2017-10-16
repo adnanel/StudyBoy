@@ -2,7 +2,7 @@
 // Created by adnan on 14/10/2017.
 //
 
-#include <assert.h>
+#include <cassert>
 #include "Instruction.h"
 
 void update_flags_adc(unsigned long long oldVal,

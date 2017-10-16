@@ -11,20 +11,26 @@
 #include "../components/Register.h"
 
 class CodeLoader {
-    unsigned char* mCodeMemory;
-public:
-    CodeLoader(const unsigned char* data, size_t size) {
-        mCodeMemory = new unsigned char[size];
-        memcpy(mCodeMemory, data, size);
-    }
+    char* mCodeMemory;
+    size_t mCodeSize;
 
-    unsigned char operator[](size_t index) const {
+public:
+    CodeLoader(char* data, size_t size) {
+        mCodeMemory = data;
+        mCodeSize = size;
+    }
+    CodeLoader(const CodeLoader&) = delete;
+    CodeLoader& operator=(const CodeLoader&) = delete;
+
+    char operator[](size_t index) const {
         return mCodeMemory[index];
     }
 
 
     template<unsigned int N>
     Register<N * 8> ReadBytes(size_t addr) {
+        addr /= 4;
+
         Register<N * 8> res = 0;
 
         for ( auto i = addr; i < addr + N; ++ i ) {
@@ -33,6 +39,9 @@ public:
         return res;
     }
 
+    virtual ~CodeLoader() {
+        delete mCodeMemory;
+    }
 };
 
 

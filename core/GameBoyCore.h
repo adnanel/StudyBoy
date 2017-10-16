@@ -7,6 +7,7 @@
 
 
 #include <cassert>
+#include <iostream>
 #include "memory/MemoryMap.h"
 #include "cpu/Processor.h"
 #include "GameBoyConfig.h"
@@ -45,16 +46,11 @@ public:
         return &mDisplayRam;
     }
 
-    inline void SetFlags(bool z, bool n, bool h, bool c) {
-        mCpu.getFlagRegister()->setZ(z);
-        mCpu.getFlagRegister()->setN(n);
-        mCpu.getFlagRegister()->setH(h);
-        mCpu.getFlagRegister()->setC(c);
-    }
+    void SetFlags(bool z, bool n, bool h, bool c);
 
 
     template<unsigned int N>
-    inline void PushToStack(Register<N> reg)
+    void PushToStack(Register<N> reg)
     {
         assert( N % 8 == 0 );
 
@@ -69,6 +65,9 @@ public:
             getWorkRam()->WriteData<8>(cpu.getCpuRegisters()->getSP().to_ullong(), r);
         }
     }
+
+
+    void Step();
 };
 
 

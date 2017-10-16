@@ -1,6 +1,7 @@
 #include <iostream>
 #include "core/GameBoyConfig.h"
 #include "core/GameBoyCore.h"
+#include "core/RomReader.h"
 
 int main() {
     GameBoyConfig testConfig;
@@ -10,6 +11,15 @@ int main() {
 
     GameBoyCore core(testConfig);
 
+
+    RomReader reader("C:/Users/adnan/CLionProjects/StudyBoy/roms/Bounce.gb");
+
+
+    core.getCpu()->setCodeLoader(new CodeLoader(reader.allocRomBuffer(), reader.getRomSize()));
+
+    for ( int i = 0; i < 50; ++ i ) {
+        core.Step();
+    }
 
     return 0;
 }

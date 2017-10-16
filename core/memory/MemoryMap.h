@@ -22,6 +22,8 @@ public:
     template<unsigned int BitCount>
     std::bitset<BitCount> ReadData(unsigned long long targetAddress) const {
         if ( BitCount % 8 != 0 ) throw std::invalid_argument("BitCount unsupported!");
+        targetAddress /= 4;
+
         std::bitset<BitCount> res;
         int byteCount = BitCount / 8;
 
@@ -34,6 +36,7 @@ public:
     template<unsigned int BitCount>
     void WriteData(unsigned long long address, const Register<BitCount>& reg) {
         if ( BitCount % 8 != 0 ) throw std::invalid_argument("BitCount unsupported!");
+        address /= 4;
 
         int byteCount = BitCount / 8;
 

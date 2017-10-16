@@ -35,7 +35,9 @@ protected:
     CodeLoader* codeLoader;
 public:
     Processor();
-    virtual ~Processor();
+    virtual ~Processor() {
+        delete codeLoader;
+    }
 
     virtual void HardReset();
 

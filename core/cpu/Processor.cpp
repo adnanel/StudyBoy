@@ -4,9 +4,6 @@
 
 #include "Processor.h"
 
-Processor::~Processor() {
-
-}
 
 Processor::Processor()
     : mRam(127), codeLoader(nullptr)

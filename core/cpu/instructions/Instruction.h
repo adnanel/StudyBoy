@@ -5,11 +5,13 @@
 #ifndef STUDYBOY_INSTRUCTION_H
 #define STUDYBOY_INSTRUCTION_H
 
+
 #include <string>
 #include <map>
 #include <functional>
 
 #include "./../../GameBoyCore.h"
+
 
 typedef std::function<void(GameBoyCore*, unsigned long long)> InstructionFun;
 namespace Instruction {
