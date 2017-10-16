@@ -1207,7 +1207,7 @@ void Instruction::ccf__(GameBoyCore* core, unsigned long long) {
         H - Reset.
         C - Complemented.
      */
-    
+
     core->getCpu()->getFlagRegister()->setN(false);
     core->getCpu()->getFlagRegister()->setH(false);
     core->getCpu()->getFlagRegister()->setC(!core->getCpu()->getFlagRegister()->getC());
@@ -1499,9 +1499,16 @@ void Instruction::and_d8_(GameBoyCore* core, unsigned long long) {
 
 // SCF
 void Instruction::scf__(GameBoyCore* core, unsigned long long) {
+    /*
+    Z - Not affected.
+    N - Reset.
+    H - Reset.
+    C - Set.
+     */
 
-// todo
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), false, false, true);
+    core->getCpu()->getFlagRegister()->setN(false);
+    core->getCpu()->getFlagRegister()->setH(false);
+    core->getCpu()->getFlagRegister()->setC(true);
 }
 
 // LD D d8
