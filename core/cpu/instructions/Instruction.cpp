@@ -1806,9 +1806,9 @@ void Instruction::ld_c_l(GameBoyCore* core, unsigned long long) {
 
 // LD (a16) SP
 void Instruction::ld__a16__sp(GameBoyCore* core, unsigned long long) {
-
-// todo
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
+    auto sp   = core->getCpu()->getCpuRegisters()->getSP();
+    auto addr = core->getCpu()->getCpuRegisters()->getPC().to_ullong() + 1;
+    core->getWorkRam()->WriteData<16>(addr, sp);
 }
 
 // LD D H
@@ -1841,9 +1841,9 @@ void Instruction::ld_d_c(GameBoyCore* core, unsigned long long) {
 
 // LD (a16) A
 void Instruction::ld__a16__a(GameBoyCore* core, unsigned long long) {
-
-// todo
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
+    auto a    = core->getCpu()->getCpuRegisters()->getA();
+    auto addr = core->getCpu()->getCpuRegisters()->getPC().to_ullong() + 1;
+    core->getWorkRam()->WriteData<8>(addr, a);
 }
 
 // LD D B
@@ -1969,9 +1969,10 @@ void Instruction::ld_h_c(GameBoyCore* core, unsigned long long) {
 
 // LD A (a16)
 void Instruction::ld_a__a16_(GameBoyCore* core, unsigned long long) {
+    auto pc = core->getCpu()->getCpuRegisters()->getPC();
+    auto data = core->getWorkRam()->ReadData<8>(pc.to_ullong() + 1);
 
-// todo
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
+    core->getCpu()->getCpuRegisters()->setA(data);
 }
 
 // LD H B
@@ -1998,9 +1999,9 @@ void Instruction::ld_l_c(GameBoyCore* core, unsigned long long) {
 
 // LD C d8
 void Instruction::ld_c_d8(GameBoyCore* core, unsigned long long) {
+    auto pc = core->getCpu()->getCpuRegisters()->getPC();
 
-// todo
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
+    core->getCpu()->getCpuRegisters()->setC(0); // todo get byte from pc + 1
 }
 
 // LD L B
