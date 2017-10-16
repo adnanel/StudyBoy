@@ -2237,9 +2237,12 @@ void Instruction::xor_d8_(GameBoyCore* core, unsigned long long) {
 
 // CPL
 void Instruction::cpl__(GameBoyCore* core, unsigned long long) {
+    auto a = core->getCpu()->getCpuRegisters()->getA();
 
-// todo
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), true, true, core->getCpu()->getFlagRegister()->getZ());
+    core->getCpu()->getCpuRegisters()->setA(~a);
+
+    core->getCpu()->getFlagRegister()->setN(true);
+    core->getCpu()->getFlagRegister()->setH(true);
 }
 
 // RLCA

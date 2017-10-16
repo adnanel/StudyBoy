@@ -184,6 +184,12 @@ public:
         return copy -= other;
     }
 
+    inline Register<N> operator~() const {
+        Register copy(*this);
+        copy.mData = ~copy.mData;
+        return copy;
+    }
+
     inline operator std::bitset<N>() {
         return mData;
     }
