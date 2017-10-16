@@ -878,11 +878,16 @@ void Instruction::or_a_(GameBoyCore* core, unsigned long long opcode) {
 }
 
 // OR (HL)
-void Instruction::or__hl__(GameBoyCore* core, unsigned long long) {
-    bool z;
+void Instruction::or__hl__(GameBoyCore* core, unsigned long long opcode) {
+    auto hl = core->getCpu()->getCpuRegisters()->getHL();
 
-// todo
-    core->SetFlags(z, false, false, false);
+    auto a = core->getCpu()->getCpuRegisters()->getA();
+    auto b = core->getWorkRam()->ReadData<8>(hl.to_ullong()).to_ullong();
+
+    auto nA = a | b;
+    core->getCpu()->getCpuRegisters()->setA(nA);
+
+    update_flags_or(a, nA, core, opcode);
 }
 
 // OR L
