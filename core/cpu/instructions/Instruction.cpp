@@ -132,6 +132,30 @@ void update_flags_and(const Register<N>& t1, const Register<N>& t2, GameBoyCore*
 }
 
 
+void update_flags_or(unsigned long long oldVal,
+                      unsigned long long newVal,
+                      GameBoyCore* core,
+                      unsigned long long opcode) {
+    core->SetFlags(newVal == 0, false, false, false);
+}
+
+template<unsigned int N>
+void update_flags_or(unsigned long long t1, const Register<N>& t2, GameBoyCore* core, unsigned long long opcode) {
+    return update_flags_or(t1, t2.to_ullong(), core, opcode);
+}
+
+template<unsigned int N>
+void update_flags_or(const Register<N>& t1, unsigned long long t2, GameBoyCore* core, unsigned long long opcode) {
+    return update_flags_or(t1.to_ullong(), t2, core, opcode);
+}
+
+template<unsigned int N>
+void update_flags_or(const Register<N>& t1, const Register<N>& t2, GameBoyCore* core, unsigned long long opcode) {
+    return update_flags_or(t1.to_ullong(), t2.to_ullong(), core, opcode);
+}
+
+
+
 
 // RET NZ
 void Instruction::ret_nz_(GameBoyCore* core, unsigned long long opcode) {
@@ -821,27 +845,36 @@ void Instruction::sub_c_(GameBoyCore* core, unsigned long long opcode) {
 }
 
 // OR C
-void Instruction::or_c_(GameBoyCore* core, unsigned long long) {
-    bool z;
+void Instruction::or_c_(GameBoyCore* core, unsigned long long opcode) {
+    auto a = core->getCpu()->getCpuRegisters()->getA();
+    auto b = core->getCpu()->getCpuRegisters()->getC();
 
-// todo
-    core->SetFlags(z, false, false, false);
+    auto nA = a | b;
+    core->getCpu()->getCpuRegisters()->setA(nA);
+
+    update_flags_or(a, nA, core, opcode);
 }
 
 // OR B
-void Instruction::or_b_(GameBoyCore* core, unsigned long long) {
-    bool z;
+void Instruction::or_b_(GameBoyCore* core, unsigned long long opcode) {
+    auto a = core->getCpu()->getCpuRegisters()->getA();
+    auto b = core->getCpu()->getCpuRegisters()->getB();
 
-// todo
-    core->SetFlags(z, false, false, false);
+    auto nA = a | b;
+    core->getCpu()->getCpuRegisters()->setA(nA);
+
+    update_flags_or(a, nA, core, opcode);
 }
 
 // OR A
-void Instruction::or_a_(GameBoyCore* core, unsigned long long) {
-    bool z;
+void Instruction::or_a_(GameBoyCore* core, unsigned long long opcode) {
+    auto a = core->getCpu()->getCpuRegisters()->getA();
+    auto b = core->getCpu()->getCpuRegisters()->getA();
 
-// todo
-    core->SetFlags(z, false, false, false);
+    auto nA = a | b;
+    core->getCpu()->getCpuRegisters()->setA(nA);
+
+    update_flags_or(a, nA, core, opcode);
 }
 
 // OR (HL)
@@ -853,35 +886,47 @@ void Instruction::or__hl__(GameBoyCore* core, unsigned long long) {
 }
 
 // OR L
-void Instruction::or_l_(GameBoyCore* core, unsigned long long) {
-    bool z;
+void Instruction::or_l_(GameBoyCore* core, unsigned long long opcode) {
+    auto a = core->getCpu()->getCpuRegisters()->getA();
+    auto b = core->getCpu()->getCpuRegisters()->getL();
 
-// todo
-    core->SetFlags(z, false, false, false);
+    auto nA = a | b;
+    core->getCpu()->getCpuRegisters()->setA(nA);
+
+    update_flags_or(a, nA, core, opcode);
 }
 
 // OR H
-void Instruction::or_h_(GameBoyCore* core, unsigned long long) {
-    bool z;
+void Instruction::or_h_(GameBoyCore* core, unsigned long long opcode) {
+    auto a = core->getCpu()->getCpuRegisters()->getA();
+    auto b = core->getCpu()->getCpuRegisters()->getH();
 
-// todo
-    core->SetFlags(z, false, false, false);
+    auto nA = a | b;
+    core->getCpu()->getCpuRegisters()->setA(nA);
+
+    update_flags_or(a, nA, core, opcode);
 }
 
 // OR E
-void Instruction::or_e_(GameBoyCore* core, unsigned long long) {
-    bool z;
+void Instruction::or_e_(GameBoyCore* core, unsigned long long opcode) {
+    auto a = core->getCpu()->getCpuRegisters()->getA();
+    auto b = core->getCpu()->getCpuRegisters()->getE();
 
-// todo
-    core->SetFlags(z, false, false, false);
+    auto nA = a | b;
+    core->getCpu()->getCpuRegisters()->setA(nA);
+
+    update_flags_or(a, nA, core, opcode);
 }
 
 // OR D
-void Instruction::or_d_(GameBoyCore* core, unsigned long long) {
-    bool z;
+void Instruction::or_d_(GameBoyCore* core, unsigned long long opcode) {
+    auto a = core->getCpu()->getCpuRegisters()->getA();
+    auto b = core->getCpu()->getCpuRegisters()->getD();
 
-// todo
-    core->SetFlags(z, false, false, false);
+    auto nA = a | b;
+    core->getCpu()->getCpuRegisters()->setA(nA);
+
+    update_flags_or(a, nA, core, opcode);
 }
 
 // OR d8
