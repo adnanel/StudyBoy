@@ -724,16 +724,27 @@ void Instruction::reti__(GameBoyCore* core, unsigned long long) {
 
 // LDH (a8) A
 void Instruction::ldh__a8__a(GameBoyCore* core, unsigned long long) {
+    auto a = core->getCpu()->getCpuRegisters()->getA();
+    auto pc = core->getCpu()->getCpuRegisters()->getPC();
+    core->getCpu()->getCpuRegisters()->setPC(pc + 1);
 
-// todo
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
+    auto& codeLoader = *core->getCpu()->getCodeLoader();
+
+    auto a8 = 0xFF00 + codeLoader.ReadBytes<1>(pc.to_ullong() + 1).to_ullong();
+
+    core->getWorkRam()->WriteData<8>( a8, a );
 }
 
 // LDH A (a8)
 void Instruction::ldh_a__a8_(GameBoyCore* core, unsigned long long) {
+    auto pc = core->getCpu()->getCpuRegisters()->getPC();
+    core->getCpu()->getCpuRegisters()->setPC(pc.to_ullong() + 1);
 
-// todo
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
+    auto a8 = 0xFF00 + core->getCpu()->getCodeLoader()->ReadBytes<1>(pc.to_ullong() + 1);
+
+    auto data = core->getWorkRam()->ReadData<8>(a8.to_ullong());
+
+    core->getCpu()->getCpuRegisters()->setA(data);
 }
 
 // SBC A d8
@@ -1812,10 +1823,7 @@ void Instruction::ld__a16__sp(GameBoyCore* core, unsigned long long) {
     auto pc = core->getCpu()->getCpuRegisters()->getPC();
     core->getCpu()->getCpuRegisters()->setPC(pc + 2);
 
-    unsigned char lower = codeLoader[ pc.to_ullong() + 1 ];
-    unsigned char higher = codeLoader[ pc.to_ullong() + 2 ];
-
-    Register<16> reg = (static_cast<unsigned long long>(lower) << 8) | higher;
+    Register<16> reg = codeLoader.ReadBytes<2>(pc.to_ullong() + 1);
 
     core->getWorkRam()->WriteData<16>(reg.to_ullong(), sp);
 }
@@ -1856,10 +1864,7 @@ void Instruction::ld__a16__a(GameBoyCore* core, unsigned long long) {
 
     core->getCpu()->getCpuRegisters()->setPC(pc + 2);
 
-    unsigned char lower = codeLoader[ pc.to_ullong() + 1 ];
-    unsigned char higher = codeLoader[ pc.to_ullong() + 2 ];
-
-    Register<16> reg = (static_cast<unsigned long long>(lower) << 8) | higher;
+    Register<16> reg = codeLoader.ReadBytes<2>(pc.to_ullong() + 1);
 
     core->getWorkRam()->WriteData<8>( reg.to_ullong(), a );
 }
@@ -1991,8 +1996,10 @@ void Instruction::ld_a__a16_(GameBoyCore* core, unsigned long long) {
 
     auto codeLoader = core->getCpu()->getCodeLoader();
 
-    auto data = codeLoader->ReadBytes(pc.to_ullong() + 1, 1);
+    auto addr = codeLoader->ReadBytes<2>(pc.to_ullong() + 1);
+    core->getCpu()->getCpuRegisters()->setPC(pc + 2);
 
+    auto data = core->getWorkRam()->ReadData<8>( addr.to_ullong() );
     core->getCpu()->getCpuRegisters()->setA(data);
 }
 
@@ -2020,10 +2027,12 @@ void Instruction::ld_l_c(GameBoyCore* core, unsigned long long) {
 
 // LD C d8
 void Instruction::ld_c_d8(GameBoyCore* core, unsigned long long) {
-    //FIXME
     auto pc = core->getCpu()->getCpuRegisters()->getPC();
+    core->getCpu()->getCpuRegisters()->setPC(pc + 1);
 
-    core->getCpu()->getCpuRegisters()->setC(0); // todo get byte from pc + 1
+    auto d8 = core->getCpu()->getCodeLoader()->ReadBytes<1>(pc.to_ullong() + 1);
+
+    core->getCpu()->getCpuRegisters()->setC(d8);
 }
 
 // LD L B

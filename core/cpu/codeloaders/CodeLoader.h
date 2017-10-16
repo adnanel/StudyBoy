@@ -24,10 +24,10 @@ public:
 
 
     template<unsigned int N>
-    Register<N * 8> ReadBytes(size_t addr, int bytes) {
+    Register<N * 8> ReadBytes(size_t addr) {
         Register<N * 8> res = 0;
 
-        for ( auto i = addr; i < addr + bytes; ++ i ) {
+        for ( auto i = addr; i < addr + N; ++ i ) {
             res = (res << 8) | mCodeMemory[ i ];
         }
         return res;
