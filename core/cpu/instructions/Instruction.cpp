@@ -64,6 +64,29 @@ void update_flags_dec(const Register<N>& oldVal,
     update_flags_dec(oldVal.to_ullong(), newVal.to_ullong(), core, opcode);
 }
 
+void update_flags_sub(unsigned long long oldVal,
+                      unsigned long long newVal,
+                      GameBoyCore* core,
+                      unsigned long long opcode) {
+    core->SetFlags(newVal == 0, false, false, false);
+}
+
+template<unsigned int N>
+void update_flags_sub(unsigned long long t1, const Register<N>& t2, GameBoyCore* core, unsigned long long opcode) {
+    return update_flags_sub(t1, t2.to_ullong(), core, opcode);
+}
+
+template<unsigned int N>
+void update_flags_sub(const Register<N>& t1, unsigned long long t2, GameBoyCore* core, unsigned long long opcode) {
+    return update_flags_sub(t1.to_ullong(), t2, core, opcode);
+}
+
+template<unsigned int N>
+void update_flags_sub(const Register<N>& t1, const Register<N>& t2, GameBoyCore* core, unsigned long long opcode) {
+    return update_flags_sub(t1.to_ullong(), t2.to_ullong(), core, opcode);
+}
+
+
 // RET NZ
 void Instruction::ret_nz_(GameBoyCore* core, unsigned long long opcode) {
     if ( core->getCpu()->getFlagRegister()->getZ() )
@@ -635,83 +658,86 @@ void Instruction::sub_d8_(GameBoyCore* core, unsigned long long) {
 }
 
 // SUB B
-void Instruction::sub_b_(GameBoyCore* core, unsigned long long) {
-    bool z;
-    bool h;
-    bool c;
+void Instruction::sub_b_(GameBoyCore* core, unsigned long long opcode) {
+    auto a = core->getCpu()->getCpuRegisters()->getA();
+    auto b = core->getCpu()->getCpuRegisters()->getB();
+    auto nA = a - b;
+    core->getCpu()->getCpuRegisters()->setA(nA);
 
-// todo
-    core->SetFlags(z, true, h, c);
+    update_flags_sub(a, nA, core, opcode);
 }
 
 // SUB A
-void Instruction::sub_a_(GameBoyCore* core, unsigned long long) {
-    bool z;
-    bool h;
-    bool c;
+void Instruction::sub_a_(GameBoyCore* core, unsigned long long opcode) {
+    auto a = core->getCpu()->getCpuRegisters()->getA();
+    auto b = core->getCpu()->getCpuRegisters()->getA();
+    auto nA = a - b;
+    core->getCpu()->getCpuRegisters()->setA(nA);
 
-// todo
-    core->SetFlags(z, true, h, c);
+    update_flags_sub(a, nA, core, opcode);
 }
 
 // SUB (HL)
-void Instruction::sub__hl__(GameBoyCore* core, unsigned long long) {
-    bool z;
-    bool h;
-    bool c;
+void Instruction::sub__hl__(GameBoyCore* core, unsigned long long opcode) {
+    auto a = core->getCpu()->getCpuRegisters()->getA();
+    auto hl = core->getCpu()->getCpuRegisters()->getHL();
 
-// todo
-    core->SetFlags(z, true, h, c);
+    auto b = core->getWorkRam()->ReadData<8>(hl.to_ullong());
+
+    auto nA = a - b;
+    core->getCpu()->getCpuRegisters()->setA(nA);
+
+    update_flags_sub(a, nA, core, opcode);
 }
 
 // SUB L
-void Instruction::sub_l_(GameBoyCore* core, unsigned long long) {
-    bool z;
-    bool h;
-    bool c;
+void Instruction::sub_l_(GameBoyCore* core, unsigned long long opcode) {
+    auto a = core->getCpu()->getCpuRegisters()->getA();
+    auto b = core->getCpu()->getCpuRegisters()->getL();
+    auto nA = a - b;
+    core->getCpu()->getCpuRegisters()->setA(nA);
 
-// todo
-    core->SetFlags(z, true, h, c);
+    update_flags_sub(a, nA, core, opcode);
 }
 
 // SUB H
-void Instruction::sub_h_(GameBoyCore* core, unsigned long long) {
-    bool z;
-    bool h;
-    bool c;
+void Instruction::sub_h_(GameBoyCore* core, unsigned long long opcode) {
+    auto a = core->getCpu()->getCpuRegisters()->getA();
+    auto b = core->getCpu()->getCpuRegisters()->getH();
+    auto nA = a - b;
+    core->getCpu()->getCpuRegisters()->setA(nA);
 
-// todo
-    core->SetFlags(z, true, h, c);
+    update_flags_sub(a, nA, core, opcode);
 }
 
 // SUB E
-void Instruction::sub_e_(GameBoyCore* core, unsigned long long) {
-    bool z;
-    bool h;
-    bool c;
+void Instruction::sub_e_(GameBoyCore* core, unsigned long long opcode) {
+    auto a = core->getCpu()->getCpuRegisters()->getA();
+    auto b = core->getCpu()->getCpuRegisters()->getE();
+    auto nA = a - b;
+    core->getCpu()->getCpuRegisters()->setA(nA);
 
-// todo
-    core->SetFlags(z, true, h, c);
+    update_flags_sub(a, nA, core, opcode);
 }
 
 // SUB D
-void Instruction::sub_d_(GameBoyCore* core, unsigned long long) {
-    bool z;
-    bool h;
-    bool c;
+void Instruction::sub_d_(GameBoyCore* core, unsigned long long opcode) {
+    auto a = core->getCpu()->getCpuRegisters()->getA();
+    auto b = core->getCpu()->getCpuRegisters()->getD();
+    auto nA = a - b;
+    core->getCpu()->getCpuRegisters()->setA(nA);
 
-// todo
-    core->SetFlags(z, true, h, c);
+    update_flags_sub(a, nA, core, opcode);
 }
 
 // SUB C
-void Instruction::sub_c_(GameBoyCore* core, unsigned long long) {
-    bool z;
-    bool h;
-    bool c;
+void Instruction::sub_c_(GameBoyCore* core, unsigned long long opcode) {
+    auto a = core->getCpu()->getCpuRegisters()->getA();
+    auto b = core->getCpu()->getCpuRegisters()->getC();
+    auto nA = a - b;
+    core->getCpu()->getCpuRegisters()->setA(nA);
 
-// todo
-    core->SetFlags(z, true, h, c);
+    update_flags_sub(a, nA, core, opcode);
 }
 
 // OR C

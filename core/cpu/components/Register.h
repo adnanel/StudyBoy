@@ -154,20 +154,31 @@ public:
     }
 
     template<typename T>
-    inline Register<N> operator+(const T& other) {
+    inline Register<N> operator+(const T& other) const {
         Register copy(*this);
         return copy += other;
     }
 
     template<typename T>
-    inline Register<N> operator-(const T& other) {
+    inline Register<N> operator-(const T& other) const {
         Register copy(*this);
         return copy -= other;
     }
 
+    inline operator std::bitset<N>() {
+        return mData;
+    }
 
 };
+template<unsigned int N, typename T>
+inline Register<N> operator+(const T& other, const Register<N>& reg) {
+    return reg + other;
+};
 
+template<unsigned int N, typename T>
+inline Register<N> operator-(const T& other, const Register<N>& reg) {
+    return reg - other;
+};
 
 template<unsigned int A, unsigned int B>
 inline static Register<A + B> CombineRegisters(const Register<A>& a, const Register<B>& b) {
