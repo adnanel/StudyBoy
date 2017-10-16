@@ -1772,9 +1772,13 @@ void Instruction::ld_c_d(GameBoyCore* core, unsigned long long) {
 
 // LD BC d16
 void Instruction::ld_bc_d16(GameBoyCore* core, unsigned long long) {
+    auto pc = core->getCpu()->getCpuRegisters()->getPC();
 
-// todo
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
+    core->getCpu()->getCpuRegisters()->setPC(pc.to_ullong() + 2);
+
+    auto data = core->getCpu()->getCodeLoader()->ReadBytes<2>(pc.to_ullong() + 1);
+
+    core->getCpu()->getCpuRegisters()->setBC(data);
 }
 
 // LD (BC) A
@@ -1794,9 +1798,12 @@ void Instruction::ld_c_a(GameBoyCore* core, unsigned long long) {
 
 // LD B d8
 void Instruction::ld_b_d8(GameBoyCore* core, unsigned long long) {
+    auto pc = core->getCpu()->getCpuRegisters()->getPC();
+    core->getCpu()->getCpuRegisters()->setPC(pc + 1);
 
-// todo
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
+    auto d8 = core->getCpu()->getCodeLoader()->ReadBytes<1>(pc.to_ullong() + 1);
+
+    core->getCpu()->getCpuRegisters()->setB(d8);
 }
 
 // LD C (HL)
@@ -2321,11 +2328,16 @@ void Instruction::xor_d_(GameBoyCore* core, unsigned long long opcode) {
 }
 
 // XOR d8
-void Instruction::xor_d8_(GameBoyCore* core, unsigned long long) {
-    bool z;
+void Instruction::xor_d8_(GameBoyCore* core, unsigned long long opcode) {
+    auto a = core->getCpu()->getCpuRegisters()->getA();
 
-// todo
-    core->SetFlags(z, false, false, false);
+    auto pc = core->getCpu()->getCpuRegisters()->getPC();
+    core->getCpu()->getCpuRegisters()->setPC(pc + 1);
+
+    auto data = core->getCpu()->getCodeLoader()->ReadBytes<1>(pc.to_ullong() + 1);
+    auto nA = a ^ data;
+
+    update_flags_xor(a, nA, core, opcode);
 }
 
 // CPL
