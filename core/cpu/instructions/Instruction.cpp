@@ -1987,9 +1987,11 @@ void Instruction::ld_h_c(GameBoyCore* core, unsigned long long) {
 
 // LD A (a16)
 void Instruction::ld_a__a16_(GameBoyCore* core, unsigned long long) {
-    //FIXME
     auto pc = core->getCpu()->getCpuRegisters()->getPC();
-    auto data = core->getWorkRam()->ReadData<8>(pc.to_ullong() + 1);
+
+    auto codeLoader = core->getCpu()->getCodeLoader();
+
+    auto data = codeLoader->ReadBytes(pc.to_ullong() + 1, 1);
 
     core->getCpu()->getCpuRegisters()->setA(data);
 }

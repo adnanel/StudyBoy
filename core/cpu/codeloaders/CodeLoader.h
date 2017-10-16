@@ -8,6 +8,7 @@
 
 #include <cstdio>
 #include <cstring>
+#include "../components/Register.h"
 
 class CodeLoader {
     unsigned char* mCodeMemory;
@@ -21,6 +22,16 @@ public:
         return mCodeMemory[index];
     }
 
+
+    template<unsigned int N>
+    Register<N * 8> ReadBytes(size_t addr, int bytes) {
+        Register<N * 8> res = 0;
+
+        for ( auto i = addr; i < addr + bytes; ++ i ) {
+            res = (res << 8) | mCodeMemory[ i ];
+        }
+        return res;
+    }
 
 };
 
