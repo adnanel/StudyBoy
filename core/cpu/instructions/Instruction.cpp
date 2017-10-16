@@ -1201,10 +1201,16 @@ void Instruction::daa__(GameBoyCore* core, unsigned long long) {
 
 // CCF
 void Instruction::ccf__(GameBoyCore* core, unsigned long long) {
-    bool c;
-
-// todo
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), false, false, c);
+    /*
+        Z - Not affected.
+        N - Reset.
+        H - Reset.
+        C - Complemented.
+     */
+    
+    core->getCpu()->getFlagRegister()->setN(false);
+    core->getCpu()->getFlagRegister()->setH(false);
+    core->getCpu()->getFlagRegister()->setC(!core->getCpu()->getFlagRegister()->getC());
 }
 
 // CP C
