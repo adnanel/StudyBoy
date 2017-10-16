@@ -1809,8 +1809,11 @@ void Instruction::ld__a16__sp(GameBoyCore* core, unsigned long long) {
     auto sp   = core->getCpu()->getCpuRegisters()->getSP();
     auto& codeLoader = *core->getCpu()->getCodeLoader();
 
-    unsigned char lower = codeLoader[ core->getCpu()->getCpuRegisters()->getPC().to_ullong() + 1 ];
-    unsigned char higher = codeLoader[ core->getCpu()->getCpuRegisters()->getPC().to_ullong() + 2 ];
+    auto pc = core->getCpu()->getCpuRegisters()->getPC();
+    core->getCpu()->getCpuRegisters()->setPC(pc + 2);
+
+    unsigned char lower = codeLoader[ pc.to_ullong() + 1 ];
+    unsigned char higher = codeLoader[ pc.to_ullong() + 2 ];
 
     Register<16> reg = (static_cast<unsigned long long>(lower) << 8) | higher;
 
@@ -1847,10 +1850,18 @@ void Instruction::ld_d_c(GameBoyCore* core, unsigned long long) {
 
 // LD (a16) A
 void Instruction::ld__a16__a(GameBoyCore* core, unsigned long long) {
-    //FIXME
-    auto a    = core->getCpu()->getCpuRegisters()->getA();
-    auto addr = core->getCpu()->getCpuRegisters()->getPC().to_ullong() + 1;
-    core->getWorkRam()->WriteData<8>(addr, a);
+    auto a = core->getCpu()->getCpuRegisters()->getA();
+    auto pc = core->getCpu()->getCpuRegisters()->getPC();
+    auto& codeLoader = *core->getCpu()->getCodeLoader();
+
+    core->getCpu()->getCpuRegisters()->setPC(pc + 2);
+
+    unsigned char lower = codeLoader[ pc.to_ullong() + 1 ];
+    unsigned char higher = codeLoader[ pc.to_ullong() + 2 ];
+
+    Register<16> reg = (static_cast<unsigned long long>(lower) << 8) | higher;
+
+    core->getWorkRam()->WriteData<8>( reg.to_ullong(), a );
 }
 
 // LD D B
