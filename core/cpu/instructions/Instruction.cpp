@@ -1307,9 +1307,7 @@ void Instruction::cp_d8_(GameBoyCore* core, unsigned long long) {
 
 // NOP
 void Instruction::nop__(GameBoyCore* core, unsigned long long) {
-
-// todo
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
+    // nope nope nope nope nope
 }
 
 // POP BC
