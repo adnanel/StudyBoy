@@ -11,6 +11,7 @@ int main() {
 
     GameBoyCore core(testConfig);
 
+    // Privremeno dok je u test fazi...
 
     RomReader reader("C:/Users/adnan/CLionProjects/StudyBoy/roms/Bounce.gb");
 
