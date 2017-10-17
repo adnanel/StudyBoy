@@ -2,6 +2,7 @@
 // Created by adnan on 14/10/2017.
 //
 
+#include <iomanip>
 #include "GameBoyCore.h"
 #include "cpu/instructions/Instruction.h"
 
@@ -19,10 +20,12 @@ void GameBoyCore::Step() {
 
     auto instruction = getCpu()->getCodeLoader()->ReadBytes<1>(pc.to_ullong());
 
-    std::cout<<"Decoding instruction - pc = "<<std::hex<<pc.to_ullong()<<", (pc) = "<<std::hex<<instruction.to_ullong()<<std::endl;
+    std::cout<<"Decoding instruction - pc = "<<std::hex<<std::setw(5)<<pc.to_ullong()<<", (pc) = "<<std::setw(5)<<std::hex<<instruction.to_ullong();
     auto fun = Instruction::DecodeInstruction(instruction.to_ullong());
 
-    fun(this, instruction.to_ullong());
+    std::cout<<"  | "<<fun.instructionText<<std::endl;
+
+    fun.instructionFun(this, instruction.to_ullong());
 
     pc = getCpu()->getCpuRegisters()->getPC();
     getCpu()->getCpuRegisters()->setPC(pc + 1);

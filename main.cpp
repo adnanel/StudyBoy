@@ -26,7 +26,7 @@ int main() {
             std::cout<<ex.what();
             break;
         } catch ( const std::exception& ex ) {
-            std::cout<<std::endl<<"SHIET";
+            std::cout<<std::endl<<"SHIET "<<ex.what();
             break;
         }
     }

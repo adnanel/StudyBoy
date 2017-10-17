@@ -65,7 +65,7 @@ public:
 
     MemoryMap* GetMemoryForAddress(unsigned long long targetAddress) {
         if ( targetAddress <= 0x4000 ) {
-            throw std::invalid_argument("ROM bank #0"); // ROM bank #0
+            return mCpu.getCodeLoader()->getMemoryMap();
         } else if ( targetAddress <= 0x8000 ) {
             throw std::invalid_argument("switchable ROM bank not implemented"); // switchable ROM bank
         } else if ( targetAddress <= 0xA000 ) {
@@ -93,7 +93,7 @@ public:
 
     const MemoryMap* GetMemoryForAddress(unsigned long long targetAddress) const {
         if ( targetAddress <= 0x4000 ) {
-            throw std::invalid_argument(" ROM bank #0 not implemented"); //  ROM bank #0
+            return mCpu.getCodeLoader()->getMemoryMap();
         } else if ( targetAddress <= 0x8000 ) {
             throw std::invalid_argument("switchable ROM bank not implemented"); // switchable ROM bank
         } else if ( targetAddress <= 0xA000 ) {

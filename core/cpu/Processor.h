@@ -64,6 +64,9 @@ public:
     inline CodeLoader* getCodeLoader() {
         return this->codeLoader;
     }
+    inline const CodeLoader* getCodeLoader() const {
+        return this->codeLoader;
+    }
 };
 
 

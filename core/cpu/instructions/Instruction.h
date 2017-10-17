@@ -12,8 +12,13 @@
 
 #include "./../../GameBoyCore.h"
 
-
 typedef std::function<void(GameBoyCore*, unsigned long long)> InstructionFun;
+
+struct CpuInstruction {
+    InstructionFun instructionFun;
+    const char* instructionText;
+};
+
 namespace Instruction {
     // RET NZ
     void ret_nz_(GameBoyCore* core, unsigned long long opcode);
@@ -753,7 +758,7 @@ namespace Instruction {
 
 
 
-    InstructionFun DecodeInstruction(unsigned long long opcode);
+    CpuInstruction DecodeInstruction(unsigned long long opcode);
 };
 
 

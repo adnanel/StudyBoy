@@ -30,6 +30,13 @@ public:
         return mCodeMemory.ReadData<N * 8>(addr);
     }
 
+    const MemoryMap* getMemoryMap() const {
+        return &mCodeMemory;
+    }
+    MemoryMap* getMemoryMap() {
+        return &mCodeMemory;
+    }
+
 };
 
 

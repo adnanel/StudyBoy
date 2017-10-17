@@ -271,7 +271,7 @@ void Instruction::ret__(GameBoyCore* core, unsigned long long) {
     // pop 2 bytes from stack and jump to that address
     auto sp = core->getCpu()->getCpuRegisters()->getSP();
     // todo
-throw std::exception();
+throw std::invalid_argument(__FUNCTION__);;
 }
 
 // RET Z
@@ -389,7 +389,7 @@ void Instruction::add_a_d8(GameBoyCore* core, unsigned long long) {
     // reg +=
     //core->getCpu()->getCpuRegisters()->A +=
 // todo
-throw std::exception();
+throw std::invalid_argument(__FUNCTION__);;
     core->SetFlags(z, false, h, c);
 }
 
@@ -449,7 +449,7 @@ void Instruction::adc_a_d8(GameBoyCore* core, unsigned long long) {
     bool c;
 
 // todo
-throw std::exception();
+throw std::invalid_argument(__FUNCTION__);;
     core->SetFlags(z, false, h, c);
 }
 
@@ -472,7 +472,7 @@ void Instruction::add_sp_r8(GameBoyCore* core, unsigned long long) {
     auto sp = core->getCpu()->getCpuRegisters()->getSP();
 
 // todo
-throw std::exception();
+throw std::invalid_argument(__FUNCTION__);;
     core->SetFlags(false, false, h, c);
 }
 
@@ -583,7 +583,7 @@ void Instruction::adc_a_b(GameBoyCore* core, unsigned long long opcode) {
 void Instruction::call_nz_a16(GameBoyCore* core, unsigned long long) {
 
 // todo
-throw std::exception();
+throw std::invalid_argument(__FUNCTION__);;
     core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
 }
 
@@ -591,7 +591,7 @@ throw std::exception();
 void Instruction::call_nc_a16(GameBoyCore* core, unsigned long long) {
 
 // todo
-throw std::exception();
+throw std::invalid_argument(__FUNCTION__);;
     core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
 }
 
@@ -599,7 +599,7 @@ throw std::exception();
 void Instruction::call_a16_(GameBoyCore* core, unsigned long long) {
 
 // todo
-throw std::exception();
+throw std::invalid_argument(__FUNCTION__);;
     core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
 }
 
@@ -607,7 +607,7 @@ throw std::exception();
 void Instruction::call_z_a16(GameBoyCore* core, unsigned long long) {
 
 // todo
-throw std::exception();
+throw std::invalid_argument(__FUNCTION__);;
     core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
 }
 
@@ -615,7 +615,7 @@ throw std::exception();
 void Instruction::call_c_a16(GameBoyCore* core, unsigned long long) {
 
 // todo
-throw std::exception();
+throw std::invalid_argument(__FUNCTION__);;
     core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
 }
 
@@ -623,7 +623,7 @@ throw std::exception();
 void Instruction::di__(GameBoyCore* core, unsigned long long) {
 
 // todo
-throw std::exception();
+throw std::invalid_argument(__FUNCTION__);;
     core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
 }
 
@@ -631,7 +631,7 @@ throw std::exception();
 void Instruction::jp_nz_a16(GameBoyCore* core, unsigned long long) {
 
 // todo
-throw std::exception();
+throw std::invalid_argument(__FUNCTION__);;
     core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
 }
 
@@ -639,7 +639,7 @@ throw std::exception();
 void Instruction::jp_a16_(GameBoyCore* core, unsigned long long) {
 
 // todo
-throw std::exception();
+throw std::invalid_argument(__FUNCTION__);;
     core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
 }
 
@@ -647,7 +647,7 @@ throw std::exception();
 void Instruction::jp_nc_a16(GameBoyCore* core, unsigned long long) {
 
 // todo
-throw std::exception();
+throw std::invalid_argument(__FUNCTION__);;
     core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
 }
 
@@ -655,7 +655,7 @@ throw std::exception();
 void Instruction::jp__hl__(GameBoyCore* core, unsigned long long) {
 
 // todo
-throw std::exception();
+throw std::invalid_argument(__FUNCTION__);;
     core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
 }
 
@@ -663,7 +663,7 @@ throw std::exception();
 void Instruction::jp_z_a16(GameBoyCore* core, unsigned long long) {
 
 // todo
-throw std::exception();
+throw std::invalid_argument(__FUNCTION__);;
     core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
 }
 
@@ -671,7 +671,7 @@ throw std::exception();
 void Instruction::jp_c_a16(GameBoyCore* core, unsigned long long) {
 
 // todo
-throw std::exception();
+throw std::invalid_argument(__FUNCTION__);;
     core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
 }
 
@@ -702,7 +702,7 @@ void Instruction::rla__(GameBoyCore* core, unsigned long long) {
 void Instruction::jr_r8_(GameBoyCore* core, unsigned long long) {
 
 // todo
-throw std::exception();
+throw std::invalid_argument(__FUNCTION__);;
     core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
 }
 
@@ -754,7 +754,7 @@ void Instruction::jr_c_r8(GameBoyCore* core, unsigned long long) {
 void Instruction::reti__(GameBoyCore* core, unsigned long long) {
 
 // todo
-throw std::exception();
+throw std::invalid_argument(__FUNCTION__);;
     core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
 }
 
@@ -790,7 +790,7 @@ void Instruction::sbc_a_d8(GameBoyCore* core, unsigned long long) {
     bool c;
 
 // todo
-throw std::exception();
+throw std::invalid_argument(__FUNCTION__);;
     core->SetFlags(z, true, h, c);
 }
 
@@ -912,7 +912,7 @@ void Instruction::sbc_a_d(GameBoyCore* core, unsigned long long opcode) {
 void Instruction::halt__(GameBoyCore* core, unsigned long long) {
 
 // todo
-throw std::exception();
+throw std::invalid_argument(__FUNCTION__);;
     core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
 }
 
@@ -923,7 +923,7 @@ void Instruction::sub_d8_(GameBoyCore* core, unsigned long long) {
     bool c;
 
 // todo
-throw std::exception();
+throw std::invalid_argument(__FUNCTION__);;
     core->SetFlags(z, true, h, c);
 }
 
@@ -1105,7 +1105,7 @@ void Instruction::or_d8_(GameBoyCore* core, unsigned long long) {
     bool z;
 
 // todo
-throw std::exception();
+throw std::invalid_argument(__FUNCTION__);;
     core->SetFlags(z, false, false, false);
 }
 
@@ -1224,7 +1224,7 @@ void Instruction::dec_c_(GameBoyCore* core, unsigned long long opcode) {
 void Instruction::ei__(GameBoyCore* core, unsigned long long) {
 
 // todo
-throw std::exception();
+throw std::invalid_argument(__FUNCTION__);;
     core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
 }
 
@@ -1232,7 +1232,7 @@ throw std::exception();
 void Instruction::stop_0_(GameBoyCore* core, unsigned long long) {
 
 // todo
-throw std::exception();
+throw std::invalid_argument(__FUNCTION__);;
     core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
 }
 
@@ -1266,7 +1266,7 @@ void Instruction::daa__(GameBoyCore* core, unsigned long long) {
     core->getCpu()->getFlagRegister()->setZ(nA.to_ullong() == 0);
 
     // todo
-throw std::exception();
+throw std::invalid_argument(__FUNCTION__);;
 
     core->getCpu()->getCpuRegisters()->setA(nA);
 }
@@ -1374,7 +1374,7 @@ void Instruction::cp_d8_(GameBoyCore* core, unsigned long long) {
     bool c;
 
 // todo
-throw std::exception();
+throw std::invalid_argument(__FUNCTION__);;
     core->SetFlags(z, true, h, c);
 }
 
@@ -1387,27 +1387,27 @@ void Instruction::nop__(GameBoyCore* core, unsigned long long) {
 void Instruction::pop_bc_(GameBoyCore* core, unsigned long long) {
 
 // todo
-throw std::exception();
+throw std::invalid_argument(__FUNCTION__);;
 }
 
 // POP DE
 void Instruction::pop_de_(GameBoyCore* core, unsigned long long) {
 
 // todo
-throw std::exception();
+throw std::invalid_argument(__FUNCTION__);;
 }
 
 // POP HL
 void Instruction::pop_hl_(GameBoyCore* core, unsigned long long) {
 
 // todo
-throw std::exception();
+throw std::invalid_argument(__FUNCTION__);;
 }
 
 // POP AF
 void Instruction::pop_af_(GameBoyCore* core, unsigned long long) {
 // todo
-throw std::exception();
+throw std::invalid_argument(__FUNCTION__);;
 }
 
 // RST 00H
@@ -1485,7 +1485,7 @@ void Instruction::rst_38h_(GameBoyCore* core, unsigned long long) {
 // PREFIX CB
 void Instruction::prefix_cb_(GameBoyCore* core, unsigned long long) {
 // todo
-throw std::exception();
+throw std::invalid_argument(__FUNCTION__);;
 }
 
 // AND B
@@ -1668,7 +1668,7 @@ void Instruction::ld_h_d8(GameBoyCore* core, unsigned long long) {
 void Instruction::ld__hlplus__a(GameBoyCore* core, unsigned long long) {
 
 // todo
-throw std::exception();
+throw std::invalid_argument(__FUNCTION__);;
     core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
 }
 
@@ -1701,7 +1701,7 @@ void Instruction::ld_l_d8(GameBoyCore* core, unsigned long long) {
 void Instruction::ld__hlminus__a(GameBoyCore* core, unsigned long long) {
 
 // todo
-throw std::exception();
+throw std::invalid_argument(__FUNCTION__);;
     core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
 }
 
@@ -1719,7 +1719,7 @@ void Instruction::ld_sp_d16(GameBoyCore* core, unsigned long long) {
 void Instruction::ld__hl__d8(GameBoyCore* core, unsigned long long) {
 
 // todo
-throw std::exception();
+throw std::invalid_argument(__FUNCTION__);;
     core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
 }
 
@@ -1727,7 +1727,7 @@ throw std::exception();
 void Instruction::ld_a__hlminus_(GameBoyCore* core, unsigned long long) {
 
 // todo
-throw std::exception();
+throw std::invalid_argument(__FUNCTION__);;
     core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
 }
 
@@ -1765,7 +1765,7 @@ void Instruction::ld_hl_spplusr8(GameBoyCore* core, unsigned long long) {
     bool c;
 
 // todo
-throw std::exception();
+throw std::invalid_argument(__FUNCTION__);;
     core->SetFlags(false, false, h, c);
 }
 
@@ -2598,742 +2598,742 @@ void Instruction::inc_c_(GameBoyCore* core, unsigned long long opcode) {
 
 
 
-InstructionFun Instruction::DecodeInstruction(unsigned long long opcode) {
-    static std::map<unsigned long long, InstructionFun> instructionMap{
+CpuInstruction Instruction::DecodeInstruction(unsigned long long opcode) {
+    static std::map<unsigned long long, CpuInstruction> instructionMap{
             {
-                    0xc0, ret_nz_
+                    0xc0, { ret_nz_, "RET NZ " }
             },
             {
-                    0xc9, ret__
+                    0xc9, { ret__, "RET  " }
             },
             {
-                    0xc8, ret_z_
+                    0xc8, { ret_z_, "RET Z " }
             },
             {
-                    0xd0, ret_nc_
+                    0xd0, { ret_nc_, "RET NC " }
             },
             {
-                    0xd8, ret_c_
+                    0xd8, { ret_c_, "RET C " }
             },
             {
-                    0x1f, rra__
+                    0x1f, { rra__, "RRA  " }
             },
             {
-                    0xce, adc_a_d8
+                    0xce, { adc_a_d8, "ADC A d8" }
             },
             {
-                    0x89, adc_a_c
+                    0x89, { adc_a_c, "ADC A C" }
             },
             {
-                    0x88, adc_a_b
+                    0x88, { adc_a_b, "ADC A B" }
             },
             {
-                    0x8f, adc_a_a
+                    0x8f, { adc_a_a, "ADC A A" }
             },
             {
-                    0x8e, adc_a__hl_
+                    0x8e, { adc_a__hl_, "ADC A (HL)" }
             },
             {
-                    0x8d, adc_a_l
+                    0x8d, { adc_a_l, "ADC A L" }
             },
             {
-                    0x8c, adc_a_h
+                    0x8c, { adc_a_h, "ADC A H" }
             },
             {
-                    0x8b, adc_a_e
+                    0x8b, { adc_a_e, "ADC A E" }
             },
             {
-                    0x8a, adc_a_d
+                    0x8a, { adc_a_d, "ADC A D" }
             },
             {
-                    0x19, add_hl_de
+                    0x19, { add_hl_de, "ADD HL DE" }
             },
             {
-                    0xc6, add_a_d8
+                    0xc6, { add_a_d8, "ADD A d8" }
             },
             {
-                    0x29, add_hl_hl
+                    0x29, { add_hl_hl, "ADD HL HL" }
             },
             {
-                    0xe8, add_sp_r8
+                    0xe8, { add_sp_r8, "ADD SP r8" }
             },
             {
-                    0x39, add_hl_sp
+                    0x39, { add_hl_sp, "ADD HL SP" }
             },
             {
-                    0x09, add_hl_bc
+                    0x09, { add_hl_bc, "ADD HL BC" }
             },
             {
-                    0x87, add_a_a
+                    0x87, { add_a_a, "ADD A A" }
             },
             {
-                    0x86, add_a__hl_
+                    0x86, { add_a__hl_, "ADD A (HL)" }
             },
             {
-                    0x85, add_a_l
+                    0x85, { add_a_l, "ADD A L" }
             },
             {
-                    0x84, add_a_h
+                    0x84, { add_a_h, "ADD A H" }
             },
             {
-                    0x83, add_a_e
+                    0x83, { add_a_e, "ADD A E" }
             },
             {
-                    0x82, add_a_d
+                    0x82, { add_a_d, "ADD A D" }
             },
             {
-                    0x81, add_a_c
+                    0x81, { add_a_c, "ADD A C" }
             },
             {
-                    0x80, add_a_b
+                    0x80, { add_a_b, "ADD A B" }
             },
             {
-                    0xc4, call_nz_a16
+                    0xc4, { call_nz_a16, "CALL NZ a16" }
             },
             {
-                    0xd4, call_nc_a16
+                    0xd4, { call_nc_a16, "CALL NC a16" }
             },
             {
-                    0xcd, call_a16_
+                    0xcd, { call_a16_, "CALL a16 " }
             },
             {
-                    0xcc, call_z_a16
+                    0xcc, { call_z_a16, "CALL Z a16" }
             },
             {
-                    0xdc, call_c_a16
+                    0xdc, { call_c_a16, "CALL C a16" }
             },
             {
-                    0xf3, di__
+                    0xf3, { di__, "DI  " }
             },
             {
-                    0xc2, jp_nz_a16
+                    0xc2, { jp_nz_a16, "JP NZ a16" }
             },
             {
-                    0xc3, jp_a16_
+                    0xc3, { jp_a16_, "JP a16 " }
             },
             {
-                    0xd2, jp_nc_a16
+                    0xd2, { jp_nc_a16, "JP NC a16" }
             },
             {
-                    0xe9, jp__hl__
+                    0xe9, { jp__hl__, "JP (HL) " }
             },
             {
-                    0xca, jp_z_a16
+                    0xca, { jp_z_a16, "JP Z a16" }
             },
             {
-                    0xda, jp_c_a16
+                    0xda, { jp_c_a16, "JP C a16" }
             },
             {
-                    0x17, rla__
+                    0x17, { rla__, "RLA  " }
             },
             {
-                    0x18, jr_r8_
+                    0x18, { jr_r8_, "JR r8 " }
             },
             {
-                    0x20, jr_nz_r8
+                    0x20, { jr_nz_r8, "JR NZ r8" }
             },
             {
-                    0x28, jr_z_r8
+                    0x28, { jr_z_r8, "JR Z r8" }
             },
             {
-                    0x30, jr_nc_r8
+                    0x30, { jr_nc_r8, "JR NC r8" }
             },
             {
-                    0x38, jr_c_r8
+                    0x38, { jr_c_r8, "JR C r8" }
             },
             {
-                    0xd9, reti__
+                    0xd9, { reti__, "RETI  " }
             },
             {
-                    0xe0, ldh__a8__a
+                    0xe0, { ldh__a8__a, "LDH (a8) A" }
             },
             {
-                    0xf0, ldh_a__a8_
+                    0xf0, { ldh_a__a8_, "LDH A (a8)" }
             },
             {
-                    0xde, sbc_a_d8
+                    0xde, { sbc_a_d8, "SBC A d8" }
             },
             {
-                    0x98, sbc_a_b
+                    0x98, { sbc_a_b, "SBC A B" }
             },
             {
-                    0x99, sbc_a_c
+                    0x99, { sbc_a_c, "SBC A C" }
             },
             {
-                    0x9f, sbc_a_a
+                    0x9f, { sbc_a_a, "SBC A A" }
             },
             {
-                    0x9e, sbc_a__hl_
+                    0x9e, { sbc_a__hl_, "SBC A (HL)" }
             },
             {
-                    0x9d, sbc_a_l
+                    0x9d, { sbc_a_l, "SBC A L" }
             },
             {
-                    0x9c, sbc_a_h
+                    0x9c, { sbc_a_h, "SBC A H" }
             },
             {
-                    0x9b, sbc_a_e
+                    0x9b, { sbc_a_e, "SBC A E" }
             },
             {
-                    0x9a, sbc_a_d
+                    0x9a, { sbc_a_d, "SBC A D" }
             },
             {
-                    0x76, halt__
+                    0x76, { halt__, "HALT  " }
             },
             {
-                    0xd6, sub_d8_
+                    0xd6, { sub_d8_, "SUB d8 " }
             },
             {
-                    0x90, sub_b_
+                    0x90, { sub_b_, "SUB B " }
             },
             {
-                    0x97, sub_a_
+                    0x97, { sub_a_, "SUB A " }
             },
             {
-                    0x96, sub__hl__
+                    0x96, { sub__hl__, "SUB (HL) " }
             },
             {
-                    0x95, sub_l_
+                    0x95, { sub_l_, "SUB L " }
             },
             {
-                    0x94, sub_h_
+                    0x94, { sub_h_, "SUB H " }
             },
             {
-                    0x93, sub_e_
+                    0x93, { sub_e_, "SUB E " }
             },
             {
-                    0x92, sub_d_
+                    0x92, { sub_d_, "SUB D " }
             },
             {
-                    0x91, sub_c_
+                    0x91, { sub_c_, "SUB C " }
             },
             {
-                    0xb1, or_c_
+                    0xb1, { or_c_, "OR C " }
             },
             {
-                    0xb0, or_b_
+                    0xb0, { or_b_, "OR B " }
             },
             {
-                    0xb7, or_a_
+                    0xb7, { or_a_, "OR A " }
             },
             {
-                    0xb6, or__hl__
+                    0xb6, { or__hl__, "OR (HL) " }
             },
             {
-                    0xb5, or_l_
+                    0xb5, { or_l_, "OR L " }
             },
             {
-                    0xb4, or_h_
+                    0xb4, { or_h_, "OR H " }
             },
             {
-                    0xb3, or_e_
+                    0xb3, { or_e_, "OR E " }
             },
             {
-                    0xb2, or_d_
+                    0xb2, { or_d_, "OR D " }
             },
             {
-                    0xf6, or_d8_
+                    0xf6, { or_d8_, "OR d8 " }
             },
             {
-                    0x15, dec_d_
+                    0x15, { dec_d_, "DEC D " }
             },
             {
-                    0x1d, dec_e_
+                    0x1d, { dec_e_, "DEC E " }
             },
             {
-                    0x1b, dec_de_
+                    0x1b, { dec_de_, "DEC DE " }
             },
             {
-                    0x25, dec_h_
+                    0x25, { dec_h_, "DEC H " }
             },
             {
-                    0x2d, dec_l_
+                    0x2d, { dec_l_, "DEC L " }
             },
             {
-                    0x2b, dec_hl_
+                    0x2b, { dec_hl_, "DEC HL " }
             },
             {
-                    0x35, dec__hl__
+                    0x35, { dec__hl__, "DEC (HL) " }
             },
             {
-                    0x3b, dec_sp_
+                    0x3b, { dec_sp_, "DEC SP " }
             },
             {
-                    0x3d, dec_a_
+                    0x3d, { dec_a_, "DEC A " }
             },
             {
-                    0x05, dec_b_
+                    0x05, { dec_b_, "DEC B " }
             },
             {
-                    0x0b, dec_bc_
+                    0x0b, { dec_bc_, "DEC BC " }
             },
             {
-                    0x0d, dec_c_
+                    0x0d, { dec_c_, "DEC C " }
             },
             {
-                    0xfb, ei__
+                    0xfb, { ei__, "EI  " }
             },
             {
-                    0x10, stop_0_
+                    0x10, { stop_0_, "STOP 0 " }
             },
             {
-                    0x27, daa__
+                    0x27, { daa__, "DAA  " }
             },
             {
-                    0x3f, ccf__
+                    0x3f, { ccf__, "CCF  " }
             },
             {
-                    0xb9, cp_c_
+                    0xb9, { cp_c_, "CP C " }
             },
             {
-                    0xb8, cp_b_
+                    0xb8, { cp_b_, "CP B " }
             },
             {
-                    0xba, cp_d_
+                    0xba, { cp_d_, "CP D " }
             },
             {
-                    0xbf, cp_a_
+                    0xbf, { cp_a_, "CP A " }
             },
             {
-                    0xbe, cp__hl__
+                    0xbe, { cp__hl__, "CP (HL) " }
             },
             {
-                    0xbd, cp_l_
+                    0xbd, { cp_l_, "CP L " }
             },
             {
-                    0xbc, cp_h_
+                    0xbc, { cp_h_, "CP H " }
             },
             {
-                    0xbb, cp_e_
+                    0xbb, { cp_e_, "CP E " }
             },
             {
-                    0xfe, cp_d8_
+                    0xfe, { cp_d8_, "CP d8 " }
             },
             {
-                    0x00, nop__
+                    0x00, { nop__, "NOP  " }
             },
             {
-                    0xc1, pop_bc_
+                    0xc1, { pop_bc_, "POP BC " }
             },
             {
-                    0xd1, pop_de_
+                    0xd1, { pop_de_, "POP DE " }
             },
             {
-                    0xe1, pop_hl_
+                    0xe1, { pop_hl_, "POP HL " }
             },
             {
-                    0xf1, pop_af_
+                    0xf1, { pop_af_, "POP AF " }
             },
             {
-                    0xc7, rst_00h_
+                    0xc7, { rst_00h_, "RST 00H " }
             },
             {
-                    0xd7, rst_10h_
+                    0xd7, { rst_10h_, "RST 10H " }
             },
             {
-                    0xe7, rst_20h_
+                    0xe7, { rst_20h_, "RST 20H " }
             },
             {
-                    0xcf, rst_08h_
+                    0xcf, { rst_08h_, "RST 08H " }
             },
             {
-                    0xf7, rst_30h_
+                    0xf7, { rst_30h_, "RST 30H " }
             },
             {
-                    0xdf, rst_18h_
+                    0xdf, { rst_18h_, "RST 18H " }
             },
             {
-                    0xef, rst_28h_
+                    0xef, { rst_28h_, "RST 28H " }
             },
             {
-                    0xff, rst_38h_
+                    0xff, { rst_38h_, "RST 38H " }
             },
             {
-                    0xcb, prefix_cb_
+                    0xcb, { prefix_cb_, "PREFIX CB " }
             },
             {
-                    0xa0, and_b_
+                    0xa0, { and_b_, "AND B " }
             },
             {
-                    0xa7, and_a_
+                    0xa7, { and_a_, "AND A " }
             },
             {
-                    0xa6, and__hl__
+                    0xa6, { and__hl__, "AND (HL) " }
             },
             {
-                    0xa5, and_l_
+                    0xa5, { and_l_, "AND L " }
             },
             {
-                    0xa4, and_h_
+                    0xa4, { and_h_, "AND H " }
             },
             {
-                    0xa3, and_e_
+                    0xa3, { and_e_, "AND E " }
             },
             {
-                    0xa2, and_d_
+                    0xa2, { and_d_, "AND D " }
             },
             {
-                    0xa1, and_c_
+                    0xa1, { and_c_, "AND C " }
             },
             {
-                    0xe6, and_d8_
+                    0xe6, { and_d8_, "AND d8 " }
             },
             {
-                    0x37, scf__
+                    0x37, { scf__, "SCF  " }
             },
             {
-                    0x16, ld_d_d8
+                    0x16, { ld_d_d8, "LD D d8" }
             },
             {
-                    0x12, ld__de__a
+                    0x12, { ld__de__a, "LD (DE) A" }
             },
             {
-                    0x11, ld_de_d16
+                    0x11, { ld_de_d16, "LD DE d16" }
             },
             {
-                    0x1e, ld_e_d8
+                    0x1e, { ld_e_d8, "LD E d8" }
             },
             {
-                    0x1a, ld_a__de_
+                    0x1a, { ld_a__de_, "LD A (DE)" }
             },
             {
-                    0x21, ld_hl_d16
+                    0x21, { ld_hl_d16, "LD HL d16" }
             },
             {
-                    0x26, ld_h_d8
+                    0x26, { ld_h_d8, "LD H d8" }
             },
             {
-                    0x22, ld__hlplus__a
+                    0x22, { ld__hlplus__a, "LD (HL+) A" }
             },
             {
-                    0x2a, ld_a__hlplus_
+                    0x2a, { ld_a__hlplus_, "LD A (HL+)" }
             },
             {
-                    0xe2, ld__c__a
+                    0xe2, { ld__c__a, "LD (C) A" }
             },
             {
-                    0x2e, ld_l_d8
+                    0x2e, { ld_l_d8, "LD L d8" }
             },
             {
-                    0x32, ld__hlminus__a
+                    0x32, { ld__hlminus__a, "LD (HL-) A" }
             },
             {
-                    0x31, ld_sp_d16
+                    0x31, { ld_sp_d16, "LD SP d16" }
             },
             {
-                    0x36, ld__hl__d8
+                    0x36, { ld__hl__d8, "LD (HL) d8" }
             },
             {
-                    0x3a, ld_a__hlminus_
+                    0x3a, { ld_a__hlminus_, "LD A (HL-)" }
             },
             {
-                    0xf2, ld_a__c_
+                    0xf2, { ld_a__c_, "LD A (C)" }
             },
             {
-                    0xf9, ld_sp_hl
+                    0xf9, { ld_sp_hl, "LD SP HL" }
             },
             {
-                    0x3e, ld_a_d8
+                    0x3e, { ld_a_d8, "LD A d8" }
             },
             {
-                    0xf8, ld_hl_spplusr8
+                    0xf8, { ld_hl_spplusr8, "LD HL SP+r8" }
             },
             {
-                    0x43, ld_b_e
+                    0x43, { ld_b_e, "LD B E" }
             },
             {
-                    0x42, ld_b_d
+                    0x42, { ld_b_d, "LD B D" }
             },
             {
-                    0x41, ld_b_c
+                    0x41, { ld_b_c, "LD B C" }
             },
             {
-                    0x40, ld_b_b
+                    0x40, { ld_b_b, "LD B B" }
             },
             {
-                    0x49, ld_c_c
+                    0x49, { ld_c_c, "LD C C" }
             },
             {
-                    0x48, ld_c_b
+                    0x48, { ld_c_b, "LD C B" }
             },
             {
-                    0x47, ld_b_a
+                    0x47, { ld_b_a, "LD B A" }
             },
             {
-                    0x46, ld_b__hl_
+                    0x46, { ld_b__hl_, "LD B (HL)" }
             },
             {
-                    0x45, ld_b_l
+                    0x45, { ld_b_l, "LD B L" }
             },
             {
-                    0x44, ld_b_h
+                    0x44, { ld_b_h, "LD B H" }
             },
             {
-                    0x4c, ld_c_h
+                    0x4c, { ld_c_h, "LD C H" }
             },
             {
-                    0x4b, ld_c_e
+                    0x4b, { ld_c_e, "LD C E" }
             },
             {
-                    0x4a, ld_c_d
+                    0x4a, { ld_c_d, "LD C D" }
             },
             {
-                    0x01, ld_bc_d16
+                    0x01, { ld_bc_d16, "LD BC d16" }
             },
             {
-                    0x02, ld__bc__a
+                    0x02, { ld__bc__a, "LD (BC) A" }
             },
             {
-                    0x4f, ld_c_a
+                    0x4f, { ld_c_a, "LD C A" }
             },
             {
-                    0x06, ld_b_d8
+                    0x06, { ld_b_d8, "LD B d8" }
             },
             {
-                    0x4e, ld_c__hl_
+                    0x4e, { ld_c__hl_, "LD C (HL)" }
             },
             {
-                    0x4d, ld_c_l
+                    0x4d, { ld_c_l, "LD C L" }
             },
             {
-                    0x08, ld__a16__sp
+                    0x08, { ld__a16__sp, "LD (a16) SP" }
             },
             {
-                    0x54, ld_d_h
+                    0x54, { ld_d_h, "LD D H" }
             },
             {
-                    0x53, ld_d_e
+                    0x53, { ld_d_e, "LD D E" }
             },
             {
-                    0x52, ld_d_d
+                    0x52, { ld_d_d, "LD D D" }
             },
             {
-                    0x51, ld_d_c
+                    0x51, { ld_d_c, "LD D C" }
             },
             {
-                    0xea, ld__a16__a
+                    0xea, { ld__a16__a, "LD (a16) A" }
             },
             {
-                    0x50, ld_d_b
+                    0x50, { ld_d_b, "LD D B" }
             },
             {
-                    0x59, ld_e_c
+                    0x59, { ld_e_c, "LD E C" }
             },
             {
-                    0x58, ld_e_b
+                    0x58, { ld_e_b, "LD E B" }
             },
             {
-                    0x57, ld_d_a
+                    0x57, { ld_d_a, "LD D A" }
             },
             {
-                    0x56, ld_d__hl_
+                    0x56, { ld_d__hl_, "LD D (HL)" }
             },
             {
-                    0x55, ld_d_l
+                    0x55, { ld_d_l, "LD D L" }
             },
             {
-                    0x5d, ld_e_l
+                    0x5d, { ld_e_l, "LD E L" }
             },
             {
-                    0x5c, ld_e_h
+                    0x5c, { ld_e_h, "LD E H" }
             },
             {
-                    0x5b, ld_e_e
+                    0x5b, { ld_e_e, "LD E E" }
             },
             {
-                    0x5a, ld_e_d
+                    0x5a, { ld_e_d, "LD E D" }
             },
             {
-                    0x5f, ld_e_a
+                    0x5f, { ld_e_a, "LD E A" }
             },
             {
-                    0x5e, ld_e__hl_
+                    0x5e, { ld_e__hl_, "LD E (HL)" }
             },
             {
-                    0x65, ld_h_l
+                    0x65, { ld_h_l, "LD H L" }
             },
             {
-                    0x64, ld_h_h
+                    0x64, { ld_h_h, "LD H H" }
             },
             {
-                    0x63, ld_h_e
+                    0x63, { ld_h_e, "LD H E" }
             },
             {
-                    0x62, ld_h_d
+                    0x62, { ld_h_d, "LD H D" }
             },
             {
-                    0x61, ld_h_c
+                    0x61, { ld_h_c, "LD H C" }
             },
             {
-                    0xfa, ld_a__a16_
+                    0xfa, { ld_a__a16_, "LD A (a16)" }
             },
             {
-                    0x60, ld_h_b
+                    0x60, { ld_h_b, "LD H B" }
             },
             {
-                    0x0a, ld_a__bc_
+                    0x0a, { ld_a__bc_, "LD A (BC)" }
             },
             {
-                    0x69, ld_l_c
+                    0x69, { ld_l_c, "LD L C" }
             },
             {
-                    0x0e, ld_c_d8
+                    0x0e, { ld_c_d8, "LD C d8" }
             },
             {
-                    0x68, ld_l_b
+                    0x68, { ld_l_b, "LD L B" }
             },
             {
-                    0x67, ld_h_a
+                    0x67, { ld_h_a, "LD H A" }
             },
             {
-                    0x66, ld_h__hl_
+                    0x66, { ld_h__hl_, "LD H (HL)" }
             },
             {
-                    0x6e, ld_l__hl_
+                    0x6e, { ld_l__hl_, "LD L (HL)" }
             },
             {
-                    0x6d, ld_l_l
+                    0x6d, { ld_l_l, "LD L L" }
             },
             {
-                    0x6c, ld_l_h
+                    0x6c, { ld_l_h, "LD L H" }
             },
             {
-                    0x6b, ld_l_e
+                    0x6b, { ld_l_e, "LD L E" }
             },
             {
-                    0x6a, ld_l_d
+                    0x6a, { ld_l_d, "LD L D" }
             },
             {
-                    0x6f, ld_l_a
+                    0x6f, { ld_l_a, "LD L A" }
             },
             {
-                    0x75, ld__hl__l
+                    0x75, { ld__hl__l, "LD (HL) L" }
             },
             {
-                    0x74, ld__hl__h
+                    0x74, { ld__hl__h, "LD (HL) H" }
             },
             {
-                    0x73, ld__hl__e
+                    0x73, { ld__hl__e, "LD (HL) E" }
             },
             {
-                    0x72, ld__hl__d
+                    0x72, { ld__hl__d, "LD (HL) D" }
             },
             {
-                    0x71, ld__hl__c
+                    0x71, { ld__hl__c, "LD (HL) C" }
             },
             {
-                    0x70, ld__hl__b
+                    0x70, { ld__hl__b, "LD (HL) B" }
             },
             {
-                    0x79, ld_a_c
+                    0x79, { ld_a_c, "LD A C" }
             },
             {
-                    0x78, ld_a_b
+                    0x78, { ld_a_b, "LD A B" }
             },
             {
-                    0x77, ld__hl__a
+                    0x77, { ld__hl__a, "LD (HL) A" }
             },
             {
-                    0x7f, ld_a_a
+                    0x7f, { ld_a_a, "LD A A" }
             },
             {
-                    0x7e, ld_a__hl_
+                    0x7e, { ld_a__hl_, "LD A (HL)" }
             },
             {
-                    0x7d, ld_a_l
+                    0x7d, { ld_a_l, "LD A L" }
             },
             {
-                    0x7c, ld_a_h
+                    0x7c, { ld_a_h, "LD A H" }
             },
             {
-                    0x7b, ld_a_e
+                    0x7b, { ld_a_e, "LD A E" }
             },
             {
-                    0x7a, ld_a_d
+                    0x7a, { ld_a_d, "LD A D" }
             },
             {
-                    0x0f, rrca__
+                    0x0f, { rrca__, "RRCA  " }
             },
             {
-                    0xa8, xor_b_
+                    0xa8, { xor_b_, "XOR B " }
             },
             {
-                    0xa9, xor_c_
+                    0xa9, { xor_c_, "XOR C " }
             },
             {
-                    0xaf, xor_a_
+                    0xaf, { xor_a_, "XOR A " }
             },
             {
-                    0xae, xor__hl__
+                    0xae, { xor__hl__, "XOR (HL) " }
             },
             {
-                    0xad, xor_l_
+                    0xad, { xor_l_, "XOR L " }
             },
             {
-                    0xac, xor_h_
+                    0xac, { xor_h_, "XOR H " }
             },
             {
-                    0xab, xor_e_
+                    0xab, { xor_e_, "XOR E " }
             },
             {
-                    0xaa, xor_d_
+                    0xaa, { xor_d_, "XOR D " }
             },
             {
-                    0xee, xor_d8_
+                    0xee, { xor_d8_, "XOR d8 " }
             },
             {
-                    0x2f, cpl__
+                    0x2f, { cpl__, "CPL  " }
             },
             {
-                    0x07, rlca__
+                    0x07, { rlca__, "RLCA  " }
             },
             {
-                    0xc5, push_bc_
+                    0xc5, { push_bc_, "PUSH BC " }
             },
             {
-                    0xd5, push_de_
+                    0xd5, { push_de_, "PUSH DE " }
             },
             {
-                    0xe5, push_hl_
+                    0xe5, { push_hl_, "PUSH HL " }
             },
             {
-                    0xf5, push_af_
+                    0xf5, { push_af_, "PUSH AF " }
             },
             {
-                    0x14, inc_d_
+                    0x14, { inc_d_, "INC D " }
             },
             {
-                    0x13, inc_de_
+                    0x13, { inc_de_, "INC DE " }
             },
             {
-                    0x1c, inc_e_
+                    0x1c, { inc_e_, "INC E " }
             },
             {
-                    0x24, inc_h_
+                    0x24, { inc_h_, "INC H " }
             },
             {
-                    0x23, inc_hl_
+                    0x23, { inc_hl_, "INC HL " }
             },
             {
-                    0x2c, inc_l_
+                    0x2c, { inc_l_, "INC L " }
             },
             {
-                    0x34, inc__hl__
+                    0x34, { inc__hl__, "INC (HL) " }
             },
             {
-                    0x33, inc_sp_
+                    0x33, { inc_sp_, "INC SP " }
             },
             {
-                    0x3c, inc_a_
+                    0x3c, { inc_a_, "INC A " }
             },
             {
-                    0x03, inc_bc_
+                    0x03, { inc_bc_, "INC BC " }
             },
             {
-                    0x04, inc_b_
+                    0x04, { inc_b_, "INC B " }
             },
             {
-                    0x0c, inc_c_
+                    0x0c, { inc_c_, "INC C " }
             }
     };
 
