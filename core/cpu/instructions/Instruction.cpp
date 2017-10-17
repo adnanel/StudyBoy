@@ -1388,7 +1388,6 @@ void Instruction::pop_bc_(GameBoyCore* core, unsigned long long) {
 
 // todo
 throw std::exception();
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
 }
 
 // POP DE
@@ -1396,7 +1395,6 @@ void Instruction::pop_de_(GameBoyCore* core, unsigned long long) {
 
 // todo
 throw std::exception();
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
 }
 
 // POP HL
@@ -1404,19 +1402,12 @@ void Instruction::pop_hl_(GameBoyCore* core, unsigned long long) {
 
 // todo
 throw std::exception();
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
 }
 
 // POP AF
 void Instruction::pop_af_(GameBoyCore* core, unsigned long long) {
-    bool z;
-    bool n;
-    bool h;
-    bool c;
-
 // todo
 throw std::exception();
-    core->SetFlags(z, n, h, c);
 }
 
 // RST 00H
@@ -1493,10 +1484,8 @@ void Instruction::rst_38h_(GameBoyCore* core, unsigned long long) {
 
 // PREFIX CB
 void Instruction::prefix_cb_(GameBoyCore* core, unsigned long long) {
-
 // todo
 throw std::exception();
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
 }
 
 // AND B
@@ -1582,12 +1571,16 @@ void Instruction::and_c_(GameBoyCore* core, unsigned long long opcode) {
 }
 
 // AND d8
-void Instruction::and_d8_(GameBoyCore* core, unsigned long long) {
-    bool z;
+void Instruction::and_d8_(GameBoyCore* core, unsigned long long opcode) {
+    auto a = core->getCpu()->getCpuRegisters()->getA();
+    auto pc = core->getCpu()->getCpuRegisters()->getPC();
+    core->getCpu()->getCpuRegisters()->setPC(pc.to_ullong() + 1);
 
-// todo
-throw std::exception();
-    core->SetFlags(z, false, true, false);
+    auto data = core->getCpu()->getCodeLoader()->ReadBytes<1>(pc.to_ullong() + 1);
+
+    auto nA = a & data;
+
+    update_flags_and(a, nA, core, opcode);
 }
 
 // SCF
