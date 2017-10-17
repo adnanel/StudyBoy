@@ -47,15 +47,6 @@ public:
         }
     }
 
-    template<typename T>
-    T* ReadData(unsigned long long targetAddress) {
-        return reinterpret_cast<T*>(mMemory[targetAddress]);
-    }
-
-    template<typename T>
-    const T* ReadData(unsigned long long targetAddress) const {
-        return reinterpret_cast<T*>(mMemory[targetAddress]);
-    }
 };
 
 

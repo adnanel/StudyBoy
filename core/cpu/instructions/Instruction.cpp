@@ -319,7 +319,7 @@ void Instruction::adc_a__hl_(GameBoyCore* core, unsigned long long opcode) {
     auto hl = core->getCpu()->getCpuRegisters()->getHL();
 
     auto oldVal = cReg;
-    cReg += core->getWorkRam()->ReadData<8>(hl.to_ullong());
+    cReg += core->ReadData<8>(hl.to_ullong());
     cReg += static_cast<int>(core->getCpu()->getFlagRegister()->getC());
 
     core->getCpu()->getCpuRegisters()->setA(cReg);
@@ -519,7 +519,7 @@ void Instruction::adc_a_a(GameBoyCore* core, unsigned long long opcode) {
 void Instruction::add_a__hl_(GameBoyCore* core, unsigned long long opcode) {
     auto oldVal = core->getCpu()->getCpuRegisters()->getA();
     auto newVal = oldVal.to_ullong() +
-            core->getWorkRam()->ReadData<8>(core->getCpu()->getCpuRegisters()->getHL().to_ullong()).to_ullong();
+            core->ReadData<8>(core->getCpu()->getCpuRegisters()->getHL().to_ullong()).to_ullong();
 
     core->getCpu()->getCpuRegisters()->setA(newVal);
     update_flags_add(oldVal.to_ullong(), newVal, core, opcode);
@@ -768,7 +768,7 @@ void Instruction::ldh__a8__a(GameBoyCore* core, unsigned long long) {
 
     auto a8 = 0xFF00 + codeLoader.ReadBytes<1>(pc.to_ullong() + 1).to_ullong();
 
-    core->getWorkRam()->WriteData<8>( a8, a );
+    core->WriteData<8>( a8, a );
 }
 
 // LDH A (a8)
@@ -778,7 +778,7 @@ void Instruction::ldh_a__a8_(GameBoyCore* core, unsigned long long) {
 
     auto a8 = 0xFF00 + core->getCpu()->getCodeLoader()->ReadBytes<1>(pc.to_ullong() + 1);
 
-    auto data = core->getWorkRam()->ReadData<8>(a8.to_ullong());
+    auto data = core->ReadData<8>(a8.to_ullong());
 
     core->getCpu()->getCpuRegisters()->setA(data);
 }
@@ -840,7 +840,7 @@ void Instruction::sbc_a_a(GameBoyCore* core, unsigned long long opcode) {
 void Instruction::sbc_a__hl_(GameBoyCore* core, unsigned long long opcode) {
     auto hl = core->getCpu()->getCpuRegisters()->getHL();
 
-    auto op = core->getWorkRam()->ReadData<8>(hl.to_ullong()).to_ullong();
+    auto op = core->ReadData<8>(hl.to_ullong()).to_ullong();
     auto carry = static_cast<int>(core->getCpu()->getFlagRegister()->getC());
 
     auto a = core->getCpu()->getCpuRegisters()->getA();
@@ -952,7 +952,7 @@ void Instruction::sub__hl__(GameBoyCore* core, unsigned long long opcode) {
     auto a = core->getCpu()->getCpuRegisters()->getA();
     auto hl = core->getCpu()->getCpuRegisters()->getHL();
 
-    auto b = core->getWorkRam()->ReadData<8>(hl.to_ullong());
+    auto b = core->ReadData<8>(hl.to_ullong());
 
     auto nA = a - b;
     core->getCpu()->getCpuRegisters()->setA(nA);
@@ -1048,7 +1048,7 @@ void Instruction::or__hl__(GameBoyCore* core, unsigned long long opcode) {
     auto hl = core->getCpu()->getCpuRegisters()->getHL();
 
     auto a = core->getCpu()->getCpuRegisters()->getA();
-    auto b = core->getWorkRam()->ReadData<8>(hl.to_ullong()).to_ullong();
+    auto b = core->ReadData<8>(hl.to_ullong()).to_ullong();
 
     auto nA = a | b;
     core->getCpu()->getCpuRegisters()->setA(nA);
@@ -1167,10 +1167,10 @@ void Instruction::dec_hl_(GameBoyCore* core, unsigned long long opcode) {
 void Instruction::dec__hl__(GameBoyCore* core, unsigned long long opcode) {
     auto addr = core->getCpu()->getCpuRegisters()->getHL();
 
-    auto oldVal = core->getWorkRam()->ReadData<8>(addr.to_ullong());
+    auto oldVal = core->ReadData<8>(addr.to_ullong());
     auto newVal = oldVal.to_ullong() - 1;
 
-    core->getWorkRam()->WriteData<8>(addr.to_ullong(), newVal);
+    core->WriteData<8>(addr.to_ullong(), newVal);
 
     update_flags_dec(oldVal.to_ullong(), newVal, core, opcode);
 }
@@ -1330,7 +1330,7 @@ void Instruction::cp__hl__(GameBoyCore* core, unsigned long long opcode) {
     auto hl = core->getCpu()->getCpuRegisters()->getHL();
 
     auto a = core->getCpu()->getCpuRegisters()->getA();
-    auto b = core->getWorkRam()->ReadData<8>(hl.to_ullong()).to_ullong();
+    auto b = core->ReadData<8>(hl.to_ullong()).to_ullong();
 
     auto nA = a - b;
 
@@ -1513,7 +1513,7 @@ void Instruction::and__hl__(GameBoyCore* core, unsigned long long opcode) {
     auto hl = core->getCpu()->getCpuRegisters()->getHL();
 
     auto a = core->getCpu()->getCpuRegisters()->getA();
-    auto b = core->getWorkRam()->ReadData<8>(hl.to_ullong()).to_ullong();
+    auto b = core->ReadData<8>(hl.to_ullong()).to_ullong();
     auto newVal = a & b;
 
     core->getCpu()->getCpuRegisters()->setA(newVal);
@@ -1612,7 +1612,7 @@ void Instruction::ld__de__a(GameBoyCore* core, unsigned long long) {
     auto de = core->getCpu()->getCpuRegisters()->getDE();
     auto a = core->getCpu()->getCpuRegisters()->getA();
 
-    core->getWorkRam()->WriteData(de.to_ullong(), a);
+    core->WriteData(de.to_ullong(), a);
 }
 
 // LD DE d16
@@ -1639,7 +1639,7 @@ void Instruction::ld_e_d8(GameBoyCore* core, unsigned long long) {
 void Instruction::ld_a__de_(GameBoyCore* core, unsigned long long) {
     auto de = core->getCpu()->getCpuRegisters()->getDE();
 
-    auto data = core->getWorkRam()->ReadData<8>(de.to_ullong());
+    auto data = core->ReadData<8>(de.to_ullong());
 
     core->getCpu()->getCpuRegisters()->setA(data);
 }
@@ -1684,7 +1684,7 @@ void Instruction::ld__c__a(GameBoyCore* core, unsigned long long) {
     auto a = core->getCpu()->getCpuRegisters()->getA();
     auto c = core->getCpu()->getCpuRegisters()->getC();
 
-    core->getWorkRam()->WriteData<8>(c.to_ullong(), a);
+    core->WriteData<8>(c.to_ullong(), a);
 }
 
 // LD L d8
@@ -1735,7 +1735,7 @@ throw std::exception();
 void Instruction::ld_a__c_(GameBoyCore* core, unsigned long long) {
     auto c = core->getCpu()->getCpuRegisters()->getC();
 
-    auto data = core->getWorkRam()->ReadData<8>(c.to_ullong());
+    auto data = core->ReadData<8>(c.to_ullong());
 
     core->getCpu()->getCpuRegisters()->setA(data);
 }
@@ -1744,7 +1744,7 @@ void Instruction::ld_a__c_(GameBoyCore* core, unsigned long long) {
 void Instruction::ld_sp_hl(GameBoyCore* core, unsigned long long) {
     auto hl = core->getCpu()->getCpuRegisters()->getHL();
 
-    auto data = core->getWorkRam()->ReadData<16>(hl.to_ullong());
+    auto data = core->ReadData<16>(hl.to_ullong());
 
     core->getCpu()->getCpuRegisters()->setSP(data);
 }
@@ -1822,7 +1822,7 @@ void Instruction::ld_b_a(GameBoyCore* core, unsigned long long) {
 void Instruction::ld_b__hl_(GameBoyCore* core, unsigned long long) {
     auto hl = core->getCpu()->getCpuRegisters()->getHL();
 
-    auto data = core->getWorkRam()->ReadData<8>(hl.to_ullong());
+    auto data = core->ReadData<8>(hl.to_ullong());
 
     core->getCpu()->getCpuRegisters()->setB(data);
 }
@@ -1878,7 +1878,7 @@ void Instruction::ld__bc__a(GameBoyCore* core, unsigned long long) {
     auto bc = core->getCpu()->getCpuRegisters()->getBC();
     auto a  = core->getCpu()->getCpuRegisters()->getA();
 
-    core->getWorkRam()->WriteData(bc.to_ullong(), a);
+    core->WriteData(bc.to_ullong(), a);
 }
 
 // LD C A
@@ -1902,7 +1902,7 @@ void Instruction::ld_b_d8(GameBoyCore* core, unsigned long long) {
 void Instruction::ld_c__hl_(GameBoyCore* core, unsigned long long) {
     auto hl = core->getCpu()->getCpuRegisters()->getHL();
 
-    auto data = core->getWorkRam()->ReadData<8>(hl.to_ullong());
+    auto data = core->ReadData<8>(hl.to_ullong());
 
     core->getCpu()->getCpuRegisters()->setC(data);
 }
@@ -1924,7 +1924,7 @@ void Instruction::ld__a16__sp(GameBoyCore* core, unsigned long long) {
 
     Register<16> reg = codeLoader.ReadBytes<2>(pc.to_ullong() + 1);
 
-    core->getWorkRam()->WriteData<16>(reg.to_ullong(), sp);
+    core->WriteData<16>(reg.to_ullong(), sp);
 }
 
 // LD D H
@@ -1965,7 +1965,7 @@ void Instruction::ld__a16__a(GameBoyCore* core, unsigned long long) {
 
     Register<16> reg = codeLoader.ReadBytes<2>(pc.to_ullong() + 1);
 
-    core->getWorkRam()->WriteData<8>( reg.to_ullong(), a );
+    core->WriteData<8>( reg.to_ullong(), a );
 }
 
 // LD D B
@@ -1999,7 +1999,7 @@ void Instruction::ld_d_a(GameBoyCore* core, unsigned long long) {
 void Instruction::ld_d__hl_(GameBoyCore* core, unsigned long long) {
     auto hl = core->getCpu()->getCpuRegisters()->getHL();
 
-    auto data = core->getWorkRam()->ReadData<8>(hl.to_ullong());
+    auto data = core->ReadData<8>(hl.to_ullong());
 
     core->getCpu()->getCpuRegisters()->setD(data);
 }
@@ -2049,7 +2049,7 @@ void Instruction::ld_e_a(GameBoyCore* core, unsigned long long) {
 void Instruction::ld_e__hl_(GameBoyCore* core, unsigned long long) {
     auto hl = core->getCpu()->getCpuRegisters()->getHL();
 
-    auto data = core->getWorkRam()->ReadData<8>(hl.to_ullong());
+    auto data = core->ReadData<8>(hl.to_ullong());
 
     core->getCpu()->getCpuRegisters()->setE(data);
 }
@@ -2098,7 +2098,7 @@ void Instruction::ld_a__a16_(GameBoyCore* core, unsigned long long) {
     auto addr = codeLoader->ReadBytes<2>(pc.to_ullong() + 1);
     core->getCpu()->getCpuRegisters()->setPC(pc + 2);
 
-    auto data = core->getWorkRam()->ReadData<8>( addr.to_ullong() );
+    auto data = core->ReadData<8>( addr.to_ullong() );
     core->getCpu()->getCpuRegisters()->setA(data);
 }
 
@@ -2113,7 +2113,7 @@ void Instruction::ld_h_b(GameBoyCore* core, unsigned long long) {
 void Instruction::ld_a__bc_(GameBoyCore* core, unsigned long long) {
     auto bc = core->getCpu()->getCpuRegisters()->getBC();
 
-    auto data = core->getWorkRam()->ReadData<8>(bc.to_ullong());
+    auto data = core->ReadData<8>(bc.to_ullong());
 
     core->getCpu()->getCpuRegisters()->setA(data);
 }
@@ -2151,7 +2151,7 @@ void Instruction::ld_h_a(GameBoyCore* core, unsigned long long) {
 void Instruction::ld_h__hl_(GameBoyCore* core, unsigned long long) {
     auto hl = core->getCpu()->getCpuRegisters()->getHL();
 
-    auto data = core->getWorkRam()->ReadData<8>(hl.to_ullong());
+    auto data = core->ReadData<8>(hl.to_ullong());
 
     core->getCpu()->getCpuRegisters()->setH(data);
 }
@@ -2159,7 +2159,7 @@ void Instruction::ld_h__hl_(GameBoyCore* core, unsigned long long) {
 // LD L (HL)
 void Instruction::ld_l__hl_(GameBoyCore* core, unsigned long long) {
     auto hl = core->getCpu()->getCpuRegisters()->getHL();
-    auto dat = core->getWorkRam()->ReadData<8>(hl.to_ullong());
+    auto dat = core->ReadData<8>(hl.to_ullong());
 
     core->getCpu()->getCpuRegisters()->setL(dat);
 }
@@ -2203,7 +2203,7 @@ void Instruction::ld__hl__l(GameBoyCore* core, unsigned long long) {
     auto l = core->getCpu()->getCpuRegisters()->getL();
     auto hl = core->getCpu()->getCpuRegisters()->getHL();
 
-    core->getWorkRam()->WriteData(hl.to_ullong(), l);
+    core->WriteData(hl.to_ullong(), l);
 }
 
 // LD (HL) H
@@ -2211,7 +2211,7 @@ void Instruction::ld__hl__h(GameBoyCore* core, unsigned long long) {
     auto h = core->getCpu()->getCpuRegisters()->getH();
     auto hl = core->getCpu()->getCpuRegisters()->getHL();
 
-    core->getWorkRam()->WriteData(hl.to_ullong(), h);
+    core->WriteData(hl.to_ullong(), h);
 }
 
 // LD (HL) E
@@ -2219,7 +2219,7 @@ void Instruction::ld__hl__e(GameBoyCore* core, unsigned long long) {
     auto e = core->getCpu()->getCpuRegisters()->getE();
     auto hl = core->getCpu()->getCpuRegisters()->getHL();
 
-    core->getWorkRam()->WriteData(hl.to_ullong(), e);
+    core->WriteData(hl.to_ullong(), e);
 }
 
 // LD (HL) D
@@ -2227,7 +2227,7 @@ void Instruction::ld__hl__d(GameBoyCore* core, unsigned long long) {
     auto d = core->getCpu()->getCpuRegisters()->getD();
     auto hl = core->getCpu()->getCpuRegisters()->getHL();
 
-    core->getWorkRam()->WriteData(hl.to_ullong(), d);
+    core->WriteData(hl.to_ullong(), d);
 }
 
 // LD (HL) C
@@ -2235,7 +2235,7 @@ void Instruction::ld__hl__c(GameBoyCore* core, unsigned long long) {
     auto c = core->getCpu()->getCpuRegisters()->getC();
     auto hl = core->getCpu()->getCpuRegisters()->getHL();
 
-    core->getWorkRam()->WriteData(hl.to_ullong(), c);
+    core->WriteData(hl.to_ullong(), c);
 }
 
 // LD (HL) B
@@ -2243,7 +2243,7 @@ void Instruction::ld__hl__b(GameBoyCore* core, unsigned long long) {
     auto b = core->getCpu()->getCpuRegisters()->getB();
     auto hl = core->getCpu()->getCpuRegisters()->getHL();
 
-    core->getWorkRam()->WriteData(hl.to_ullong(), b);
+    core->WriteData(hl.to_ullong(), b);
 }
 
 // LD A C
@@ -2264,7 +2264,7 @@ void Instruction::ld__hl__a(GameBoyCore* core, unsigned long long) {
     auto hl = core->getCpu()->getCpuRegisters()->getHL();
     auto a  = core->getCpu()->getCpuRegisters()->getA();
 
-    core->getWorkRam()->WriteData(hl.to_ullong(), a);
+    core->WriteData(hl.to_ullong(), a);
 }
 
 // LD A A
@@ -2277,7 +2277,7 @@ void Instruction::ld_a_a(GameBoyCore* core, unsigned long long) {
 // LD A (HL)
 void Instruction::ld_a__hl_(GameBoyCore* core, unsigned long long) {
     auto hl = core->getCpu()->getCpuRegisters()->getHL();
-    auto data = core->getWorkRam()->ReadData<8>(hl.to_ullong());
+    auto data = core->ReadData<8>(hl.to_ullong());
 
     core->getCpu()->getCpuRegisters()->setA(data);
 }
@@ -2367,7 +2367,7 @@ void Instruction::xor__hl__(GameBoyCore* core, unsigned long long opcode) {
     auto hl = core->getCpu()->getCpuRegisters()->getHL();
 
     auto a = core->getCpu()->getCpuRegisters()->getA();
-    auto b = core->getWorkRam()->ReadData<8>(hl.to_ullong()).to_ullong();
+    auto b = core->ReadData<8>(hl.to_ullong()).to_ullong();
 
     auto nA = a ^ b;
     core->getCpu()->getCpuRegisters()->setA(nA);
@@ -2542,9 +2542,9 @@ void Instruction::inc_l_(GameBoyCore* core, unsigned long long opcode) {
 // INC (HL)
 void Instruction::inc__hl__(GameBoyCore* core, unsigned long long opcode) {
     auto addr = core->getCpu()->getCpuRegisters()->getHL();
-    auto oldVal = core->getWorkRam()->ReadData<16>(addr.to_ullong());
+    auto oldVal = core->ReadData<16>(addr.to_ullong());
     auto newVal = std::bitset<16>(oldVal.to_ullong() + 1);
-    core->getWorkRam()->WriteData<16>(addr.to_ullong(), newVal);
+    core->WriteData<16>(addr.to_ullong(), newVal);
 
     update_flags_inc(oldVal.to_ullong(), newVal.to_ullong(), core, opcode);
 }
