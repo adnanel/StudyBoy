@@ -65,27 +65,27 @@ public:
 
     MemoryMap* GetMemoryForAddress(unsigned long long targetAddress) {
         if ( targetAddress <= 0x4000 ) {
-            throw std::exception(); // ROM bank #0
+            throw std::invalid_argument("ROM bank #0"); // ROM bank #0
         } else if ( targetAddress <= 0x8000 ) {
-            throw std::exception(); //switchable ROM bank
+            throw std::invalid_argument("switchable ROM bank not implemented"); // switchable ROM bank
         } else if ( targetAddress <= 0xA000 ) {
             return &mDisplayRam;
         } else if ( targetAddress <= 0xC000 ) {
-            throw std::exception(); //switchable RAM bank
+            throw std::invalid_argument("switchable RAM bank not implemented"); // switchable RAM bank
         } else if ( targetAddress <= 0xE000 ) {
             return &mWorkRam;
         } else if ( targetAddress <= 0xFE00 ) {
-            throw std::exception(); // Echo of 8kB Internal RAM
+            throw std::invalid_argument(" Echo of 8kB Internal RAM not implemented"); //  Echo of 8kB Internal RAM
         } else if ( targetAddress <= 0xFEA0 ) {
-            throw std::exception(); // Sprite Attrib Memory (OAM)
+            throw std::invalid_argument(" Sprite Attrib Memory (OAM) not implemented"); //  Sprite Attrib Memory (OAM)
         } else if ( targetAddress <= 0xFF00 ) {
-            throw std::exception(); // Empty but unusable for I/O
+            throw std::invalid_argument(" Empty but unusable for I/O not implemented"); //  Empty but unusable for I/O
         } else if ( targetAddress <= 0xFF4C ) {
-            throw std::exception(); // I/O ports
+            throw std::invalid_argument(" I/O ports not implemented"); //  I/O ports
         } else if ( targetAddress <= 0xFF80 ) {
-            throw std::exception(); // Empty but unusable for I/O
+            throw std::invalid_argument(" Empty but unusable for I/O not implemented"); //  Empty but unusable for I/O
         } else if ( targetAddress <= 0xFFFF ) {
-            throw std::exception(); // Internal RAM, interrupt enable register if == 0xFFFF
+            throw std::invalid_argument(" Internal RAM, interrupt enable register if == 0xFFFF not implemented"); //  Internal RAM, interrupt enable register if == 0xFFFF
         }
 
         throw std::invalid_argument("Invalid address!");
@@ -93,27 +93,27 @@ public:
 
     const MemoryMap* GetMemoryForAddress(unsigned long long targetAddress) const {
         if ( targetAddress <= 0x4000 ) {
-            throw std::exception(); // ROM bank #0
+            throw std::invalid_argument(" ROM bank #0 not implemented"); //  ROM bank #0
         } else if ( targetAddress <= 0x8000 ) {
-            throw std::exception(); //switchable ROM bank
+            throw std::invalid_argument("switchable ROM bank not implemented"); // switchable ROM bank
         } else if ( targetAddress <= 0xA000 ) {
             return &mDisplayRam;
         } else if ( targetAddress <= 0xC000 ) {
-            throw std::exception(); //switchable RAM bank
+            throw std::invalid_argument("switchable RAM bank not implemented"); // switchable RAM bank
         } else if ( targetAddress <= 0xE000 ) {
             return &mWorkRam;
         } else if ( targetAddress <= 0xFE00 ) {
-            throw std::exception(); // Echo of 8kB Internal RAM
+            throw std::invalid_argument(" Echo of 8kB Internal RAM not implemented"); //  Echo of 8kB Internal RAM
         } else if ( targetAddress <= 0xFEA0 ) {
-            throw std::exception(); // Sprite Attrib Memory (OAM)
+            throw std::invalid_argument(" Sprite Attrib Memory (OAM) not implemented"); //  Sprite Attrib Memory (OAM)
         } else if ( targetAddress <= 0xFF00 ) {
-            throw std::exception(); // Empty but unusable for I/O
+            throw std::invalid_argument(" Empty but unusable for I/O not implemented"); //  Empty but unusable for I/O
         } else if ( targetAddress <= 0xFF4C ) {
-            throw std::exception(); // I/O ports
+            throw std::invalid_argument(" I/O ports not implemented"); //  I/O ports
         } else if ( targetAddress <= 0xFF80 ) {
-            throw std::exception(); // Empty but unusable for I/O
+            throw std::invalid_argument(" Empty but unusable for I/O not implemented"); //  Empty but unusable for I/O
         } else if ( targetAddress <= 0xFFFF ) {
-            throw std::exception(); // Internal RAM, interrupt enable register if == 0xFFFF
+            throw std::invalid_argument(" Internal RAM, interrupt enable register if == 0xFFFF not implemented"); //  Internal RAM, interrupt enable register if == 0xFFFF
         }
 
         throw std::invalid_argument("Invalid address!");
