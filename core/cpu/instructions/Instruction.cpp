@@ -1663,9 +1663,12 @@ void Instruction::ld_sp_hl(GameBoyCore* core, unsigned long long) {
 
 // LD A d8
 void Instruction::ld_a_d8(GameBoyCore* core, unsigned long long) {
+    auto pc = core->getCpu()->getCpuRegisters()->getPC();
+    core->getCpu()->getCpuRegisters()->setPC(pc + 1);
 
-// todo
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
+    auto data = core->getCpu()->getCodeLoader()->ReadBytes<1>(pc.to_ullong() + 1);
+
+    core->getCpu()->getCpuRegisters()->setA(data.to_ullong());
 }
 
 // LD HL SP+r8
