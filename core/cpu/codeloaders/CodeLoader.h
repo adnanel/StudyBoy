@@ -40,7 +40,7 @@ public:
     }
 
     virtual ~CodeLoader() {
-        delete mCodeMemory;
+        delete[] mCodeMemory;
     }
 };
 

@@ -24,6 +24,7 @@ void GameBoyCore::Step() {
 
     fun(this, instruction.to_ullong());
 
+    pc = getCpu()->getCpuRegisters()->getPC();
     getCpu()->getCpuRegisters()->setPC(pc + 1);
 }
 

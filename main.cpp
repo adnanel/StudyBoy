@@ -18,8 +18,17 @@ int main() {
 
     core.getCpu()->setCodeLoader(new CodeLoader(reader.allocRomBuffer(), reader.getRomSize()));
 
-    for ( int i = 0; i < 50; ++ i ) {
-        core.Step();
+    for ( int i = 0; i < reader.getRomSize(); ++ i ) {
+        try {
+            core.Step();
+        } catch ( const std::invalid_argument& ex ) {
+            std::cout<<std::endl;
+            std::cout<<ex.what();
+            break;
+        } catch ( const std::exception& ex ) {
+            std::cout<<std::endl<<"SHIET";
+            break;
+        }
     }
 
     return 0;

@@ -153,9 +153,7 @@ ROM size:
            4 -   4MBit = 512kB = 32 banks
 
  */
-        if ( 1 < 2 ) return 100;
-
-        mRomFile.seekg(0x148);
+        mRomFile.seekg(0x148, std::ios::beg);
 
         auto size = mRomFile.get();
         switch ( size ) {
@@ -176,18 +174,28 @@ ROM size:
 
         mRomFile.read(res, romSize);
 
+        mRomFile.clear();
+        mRomFile.seekg(0, std::ios::beg);
+
         return res;
     }
 
     RomReader(const char* fpath) : mRomFile(fpath) {
         if ( !mRomFile ) throw std::invalid_argument("File not found!");
 
+        mRomFile.seekg(0, std::ios::beg);
+        auto start = mRomFile.tellg();
+        mRomFile.seekg(0, std::ios::end);
+        auto end = mRomFile.tellg();
+        mRomFile.seekg(0, std::ios::beg);
 
-
+        std::cout<<"File size: "<<(end - start)<<std::endl;
         std::cout<<"Game title: "<<getGameTitle()<<std::endl;
         std::cout<<"Cartidge type: "<<getCartidgeType()<<std::endl;
-        std::cout<<"Start address: "<<getCartStartAddress()<<std::endl;
+        std::cout<<"Cartidge language: "<<getCartidgeLanguage()<<std::endl;
+        std::cout<<"Start address: "<<std::hex<<getCartStartAddress()<<std::endl;
         std::cout<<"Rom size (bytes): "<<getRomSize()<<std::endl;
+        std::cout<<"Ram size (bytes): "<<getRamSize()<<std::endl;
     }
 };
 
