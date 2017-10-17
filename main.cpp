@@ -18,7 +18,7 @@ int main() {
 
     core.getCpu()->setCodeLoader(new CodeLoader(reader.allocRomBuffer(), reader.getRomSize()));
 
-    for ( int i = 0; i < reader.getRomSize(); ++ i ) {
+    while ( 1 ) {
         try {
             core.Step();
         } catch ( const std::invalid_argument& ex ) {

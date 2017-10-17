@@ -1644,10 +1644,12 @@ throw std::exception();
 
 // LD HL d16
 void Instruction::ld_hl_d16(GameBoyCore* core, unsigned long long) {
+    auto pc = core->getCpu()->getCpuRegisters()->getPC();
+    core->getCpu()->getCpuRegisters()->setPC(pc + 2);
 
-// todo
-throw std::exception();
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
+    auto d16 = core->getCpu()->getCodeLoader()->ReadBytes<2>(pc.to_ullong() + 1);
+
+    core->getCpu()->getCpuRegisters()->setHL(d16);
 }
 
 // LD H d8
