@@ -1606,8 +1606,12 @@ void Instruction::scf__(GameBoyCore* core, unsigned long long) {
 
 // LD D d8
 void Instruction::ld_d_d8(GameBoyCore* core, unsigned long long) {
-    // todo
-throw std::exception();
+    auto pc = core->getCpu()->getCpuRegisters()->getPC();
+    core->getCpu()->getCpuRegisters()->setPC(pc.to_ullong() + 1);
+
+    auto d8 = core->getCpu()->getCodeLoader()->ReadBytes<1>(pc.to_ullong() + 1);
+
+    core->getCpu()->getCpuRegisters()->setD(d8);
 }
 
 // LD (DE) A
@@ -1620,26 +1624,31 @@ void Instruction::ld__de__a(GameBoyCore* core, unsigned long long) {
 
 // LD DE d16
 void Instruction::ld_de_d16(GameBoyCore* core, unsigned long long) {
+    auto pc = core->getCpu()->getCpuRegisters()->getPC();
+    core->getCpu()->getCpuRegisters()->setPC(pc.to_ullong() + 2);
 
-// todo
-throw std::exception();
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
+    auto d16 = core->getCpu()->getCodeLoader()->ReadBytes<2>(pc.to_ullong() + 1);
+
+    core->getCpu()->getCpuRegisters()->setDE(d16);
 }
 
 // LD E d8
 void Instruction::ld_e_d8(GameBoyCore* core, unsigned long long) {
+    auto pc = core->getCpu()->getCpuRegisters()->getPC();
+    core->getCpu()->getCpuRegisters()->setPC(pc.to_ullong() + 1);
 
-// todo
-throw std::exception();
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
+    auto d8 = core->getCpu()->getCodeLoader()->ReadBytes<1>(pc.to_ullong() + 1);
+
+    core->getCpu()->getCpuRegisters()->setE(d8);
 }
 
 // LD A (DE)
 void Instruction::ld_a__de_(GameBoyCore* core, unsigned long long) {
+    auto de = core->getCpu()->getCpuRegisters()->getDE();
 
-// todo
-throw std::exception();
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
+    auto data = core->getWorkRam()->ReadData<8>(de.to_ullong());
+
+    core->getCpu()->getCpuRegisters()->setA(data);
 }
 
 // LD HL d16
@@ -1654,10 +1663,12 @@ void Instruction::ld_hl_d16(GameBoyCore* core, unsigned long long) {
 
 // LD H d8
 void Instruction::ld_h_d8(GameBoyCore* core, unsigned long long) {
+    auto pc = core->getCpu()->getCpuRegisters()->getPC();
+    core->getCpu()->getCpuRegisters()->setPC(pc.to_ullong() + 1);
 
-// todo
-throw std::exception();
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
+    auto d8 = core->getCpu()->getCodeLoader()->ReadBytes<1>(pc.to_ullong() + 1);
+
+    core->getCpu()->getCpuRegisters()->setH(d8);
 }
 
 // LD (HL+) A
@@ -1685,10 +1696,12 @@ void Instruction::ld__c__a(GameBoyCore* core, unsigned long long) {
 
 // LD L d8
 void Instruction::ld_l_d8(GameBoyCore* core, unsigned long long) {
+    auto pc = core->getCpu()->getCpuRegisters()->getPC();
+    core->getCpu()->getCpuRegisters()->setPC(pc.to_ullong() + 1);
 
-// todo
-throw std::exception();
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
+    auto d8 = core->getCpu()->getCodeLoader()->ReadBytes<1>(pc.to_ullong() + 1);
+
+    core->getCpu()->getCpuRegisters()->setL(d8);
 }
 
 // LD (HL-) A
@@ -1701,10 +1714,12 @@ throw std::exception();
 
 // LD SP d16
 void Instruction::ld_sp_d16(GameBoyCore* core, unsigned long long) {
+    auto pc = core->getCpu()->getCpuRegisters()->getPC();
+    core->getCpu()->getCpuRegisters()->setPC(pc.to_ullong() + 2);
 
-// todo
-throw std::exception();
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
+    auto d16 = core->getCpu()->getCodeLoader()->ReadBytes<2>(pc.to_ullong() + 1);
+
+    core->getCpu()->getCpuRegisters()->setSP(d16);
 }
 
 // LD (HL) d8
