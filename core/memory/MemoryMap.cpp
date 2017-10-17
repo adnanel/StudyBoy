@@ -5,7 +5,7 @@
 #include <new>
 #include "MemoryMap.h"
 
-MemoryMap::MemoryMap(const size_t &memSize, bool isReadonly) {
-    this->mMemory = new char[memSize];
+MemoryMap::MemoryMap(const size_t &memSize, bool isReadonly, char* allocatedData) {
+    this->mMemory = allocatedData ? allocatedData : new char[memSize];
     this->mIsReadonly = isReadonly;
 }

@@ -16,7 +16,7 @@ class MemoryMap {
     bool mIsReadonly;
 
 public:
-    explicit MemoryMap(const size_t& memSize = 32 * 1024, bool readonly = false);
+    explicit MemoryMap(const size_t& memSize = 32 * 1024, bool readonly = false, char* allocatedData = nullptr);
 
 
     template<unsigned int BitCount>
@@ -24,17 +24,20 @@ public:
         if ( BitCount % 8 != 0 ) throw std::invalid_argument("BitCount unsupported!");
         targetAddress /= 4;
 
-        std::bitset<BitCount> res;
+        std::bitset<BitCount> res = 0;
         int byteCount = BitCount / 8;
-
+        
         for ( int i = byteCount; i >= 0; -- i ) {
             res = (res.to_ullong() << 8) | mMemory[targetAddress + i];
         }
+
         return res;
     }
 
     template<unsigned int BitCount>
     void WriteData(unsigned long long address, const Register<BitCount>& reg) {
+        if ( mIsReadonly ) throw std::domain_error("Can't write to read only memory!");
+
         if ( BitCount % 8 != 0 ) throw std::invalid_argument("BitCount unsupported!");
         address /= 4;
 
