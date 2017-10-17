@@ -38,4 +38,12 @@ void GameBoyCore::SetFlags(bool z, bool n, bool h, bool c)  {
     mCpu.getFlagRegister()->setC(c);
 }
 
+bool GameBoyCore::getInterruptsEnabled() const {
+    return mInterruptsEnabled;
+}
+
+void GameBoyCore::setInterruptsEnabled(bool mInterruptsEnabled) {
+    GameBoyCore::mInterruptsEnabled = mInterruptsEnabled;
+}
+
 

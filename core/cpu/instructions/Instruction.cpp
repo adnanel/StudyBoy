@@ -621,10 +621,7 @@ throw std::invalid_argument(__FUNCTION__);;
 
 // DI
 void Instruction::di__(GameBoyCore* core, unsigned long long) {
-
-// todo
-throw std::invalid_argument(__FUNCTION__);;
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
+    core->setInterruptsEnabled(false); //fixme
 }
 
 // JP NZ a16

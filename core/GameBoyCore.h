@@ -52,6 +52,9 @@ private:
     Processor mCpu;
 
     LcdController mLcdController;
+
+    bool mInterruptsEnabled;
+
 public:
     GameBoyCore(const GameBoyConfig& gbConfig);
     ~GameBoyCore();
@@ -62,6 +65,10 @@ public:
     inline const Processor* getCpu() const {
         return &mCpu;
     }
+
+    bool getInterruptsEnabled() const;
+
+    void setInterruptsEnabled(bool mInterruptsEnabled);
 
     MemoryMap* GetMemoryForAddress(unsigned long long targetAddress) {
         if ( targetAddress <= 0x4000 ) {
