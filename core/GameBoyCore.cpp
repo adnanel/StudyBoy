@@ -16,6 +16,8 @@ GameBoyCore::GameBoyCore(const GameBoyConfig& gbConfig)
 GameBoyCore::~GameBoyCore() = default;
 
 void GameBoyCore::Step() {
+    if ( IsHalted() ) return;
+
     auto pc = getCpu()->getCpuRegisters()->getPC();
 
     auto instruction = getCpu()->getCodeLoader()->ReadBytes<1>(pc.to_ullong());
@@ -39,11 +41,11 @@ void GameBoyCore::SetFlags(bool z, bool n, bool h, bool c)  {
 }
 
 bool GameBoyCore::getInterruptsEnabled() const {
-    return mInterruptsEnabled;
+    return mCpu.getIORegisters()->getFFFF().to_ullong() != 0;
 }
 
 void GameBoyCore::setInterruptsEnabled(bool mInterruptsEnabled) {
-    GameBoyCore::mInterruptsEnabled = mInterruptsEnabled;
+    return mCpu.getIORegisters()->setFFFF(mInterruptsEnabled);
 }
 
 

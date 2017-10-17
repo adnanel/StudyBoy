@@ -29,7 +29,7 @@ class Register {
         }
     };
 public:
-    inline Register() {}
+    inline Register() : mData(0) { }
 
     template<typename T>
     inline Register(const T& src) : mData(src) {
@@ -190,7 +190,7 @@ public:
         return copy;
     }
 
-    inline operator std::bitset<N>() {
+    inline operator std::bitset<N>() const {
         return mData;
     }
 

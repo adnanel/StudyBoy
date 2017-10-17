@@ -67,6 +67,13 @@ public:
     inline const CodeLoader* getCodeLoader() const {
         return this->codeLoader;
     }
+
+    inline IORegisters* getIORegisters() {
+        return &mIORegisters;
+    }
+    inline const IORegisters* getIORegisters() const {
+        return &mIORegisters;
+    }
 };
 
 

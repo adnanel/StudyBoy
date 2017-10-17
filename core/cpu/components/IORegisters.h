@@ -16,7 +16,7 @@ class IORegisters {
     Register<8> FF05; // TIMA
     Register<8> FF06; // TMA
     Register<8> FF07; // TAC
-    Register<8> FF0F; // IF
+    Register<8> FF0F; // Interrupt Flag (IF)
     Register<8> FF10; // NR 10
     Register<8> FF11; // NR 11
     Register<8> FF12; // NR 12

@@ -53,8 +53,6 @@ private:
 
     LcdController mLcdController;
 
-    bool mInterruptsEnabled;
-
 public:
     GameBoyCore(const GameBoyConfig& gbConfig);
     ~GameBoyCore();
@@ -64,6 +62,13 @@ public:
     }
     inline const Processor* getCpu() const {
         return &mCpu;
+    }
+
+    inline bool IsHalted() {
+        return mCpu.getIORegisters()->getFF0F().to_ullong() != 0;
+    }
+    inline bool setIsHalted(bool isHalted) {
+        mCpu.getIORegisters()->setFF0F(isHalted ? 1 : 0);
     }
 
     bool getInterruptsEnabled() const;
@@ -92,7 +97,8 @@ public:
         } else if ( targetAddress <= 0xFF80 ) {
             throw std::invalid_argument(" Empty but unusable for I/O not implemented"); //  Empty but unusable for I/O
         } else if ( targetAddress <= 0xFFFF ) {
-            throw std::invalid_argument(" Internal RAM, interrupt enable register if == 0xFFFF not implemented"); //  Internal RAM, interrupt enable register if == 0xFFFF
+            throw std::invalid_argument(" Internal RAM, interrupt enable register if == 0xFFFF not supported here, "
+                                                "use FFFF register directly");
         }
 
         throw std::invalid_argument("Invalid address!");
@@ -120,24 +126,43 @@ public:
         } else if ( targetAddress <= 0xFF80 ) {
             throw std::invalid_argument(" Empty but unusable for I/O not implemented"); //  Empty but unusable for I/O
         } else if ( targetAddress <= 0xFFFF ) {
-            throw std::invalid_argument(" Internal RAM, interrupt enable register if == 0xFFFF not implemented"); //  Internal RAM, interrupt enable register if == 0xFFFF
+            throw std::invalid_argument(" Internal RAM, interrupt enable register if == 0xFFFF not supported here, "
+                                                "use FFFF register directly");
         }
 
         throw std::invalid_argument("Invalid address!");
     }
 
-    template<unsigned int BitCount>
-    std::bitset<BitCount> ReadData(unsigned long long targetAddress) const {
+    std::bitset<16u> ReadData16(unsigned long long targetAddress) const {
         auto* targetMemory = GetMemoryForAddress(targetAddress);
 
-        return targetMemory->ReadData<BitCount>(targetAddress);
+        return targetMemory->ReadData<16u>(targetAddress);
     }
 
-    template<unsigned int BitCount>
-    void WriteData(unsigned long long address, const Register<BitCount>& reg) {
+    std::bitset<8u> ReadData8(unsigned long long targetAddress) const {
+        if ( targetAddress == 0xFFFF ) {
+            return mCpu.getIORegisters()->getFFFF();
+        }
+
+        auto* targetMemory = GetMemoryForAddress(targetAddress);
+
+        return targetMemory->ReadData<8>(targetAddress);
+    }
+
+    void WriteData8(unsigned long long address, const Register<8u>& reg) {
+        if ( address == 0xFFFF ) {
+            return mCpu.getIORegisters()->setFFFF(reg);
+        }
+
         auto* targetMemory = GetMemoryForAddress(address);
 
-        return targetMemory->WriteData<BitCount>(address, reg);
+        return targetMemory->WriteData<8>(address, reg);
+    }
+
+    void WriteData16(unsigned long long address, const Register<16u>& reg) {
+        auto* targetMemory = GetMemoryForAddress(address);
+
+        return targetMemory->WriteData<16u>(address, reg);
     }
 
     void SetFlags(bool z, bool n, bool h, bool c);
@@ -156,7 +181,7 @@ public:
 
             Register<8> r = 0xFF & (reg >> 8).to_ullong();
 
-            WriteData<8>(cpu.getCpuRegisters()->getSP().to_ullong(), r);
+            WriteData8(cpu.getCpuRegisters()->getSP().to_ullong(), r);
         }
     }
 
