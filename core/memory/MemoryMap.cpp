@@ -6,6 +6,10 @@
 #include "MemoryMap.h"
 
 MemoryMap::MemoryMap(const size_t &memSize, bool isReadonly, char* allocatedData) {
-    this->mMemory = allocatedData ? allocatedData : new char[memSize];
+    if ( allocatedData ) {
+        this->mMemory = allocatedData;
+    } else {
+        this->mMemory = new char[memSize];
+    }
     this->mIsReadonly = isReadonly;
 }

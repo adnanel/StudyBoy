@@ -8,6 +8,7 @@
 #include <istream>
 #include <fstream>
 #include <iostream>
+#include <cstring>
 
 /**
 https://fms.komkon.org/GameBoy/Tech/Software.html
@@ -170,9 +171,10 @@ ROM size:
     char* allocRomBuffer() {
         auto romSize = getRomSize();
         auto * res = new char[romSize];
-        mRomFile.seekg(getCartStartAddress());
 
-        mRomFile.read(res, romSize);
+        mRomFile.seekg(0, std::ios::beg);
+
+        mRomFile.read(res, romSize); // fixme
 
         mRomFile.clear();
         mRomFile.seekg(0, std::ios::beg);
@@ -180,7 +182,7 @@ ROM size:
         return res;
     }
 
-    RomReader(const char* fpath) : mRomFile(fpath) {
+    RomReader(const char* fpath) : mRomFile(fpath, std::ios::binary) {
         if ( !mRomFile ) throw std::invalid_argument("File not found!");
 
         mRomFile.seekg(0, std::ios::beg);
