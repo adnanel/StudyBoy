@@ -11,7 +11,8 @@ GameBoyCore::GameBoyCore(const GameBoyConfig& gbConfig)
       mDisplayRam(gbConfig.displayMemorySize),
       mImeFlag(true)
 {
-
+    mWorkRam.setAddressOffset(0xC000);
+    mDisplayRam.setAddressOffset(0x8000);
 }
 
 GameBoyCore::~GameBoyCore() = default;
