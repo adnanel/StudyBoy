@@ -655,10 +655,15 @@ void Instruction::di__(GameBoyCore* core, unsigned long long) {
 
 // JP NZ a16
 void Instruction::jp_nz_a16(GameBoyCore* core, unsigned long long) {
+    auto pc = core->getCpu()->getCpuRegisters()->getPC();
+    core->getCpu()->getCpuRegisters()->setPC(pc + 1);
 
-// todo
-throw std::invalid_argument(__FUNCTION__);;
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
+    auto a16 = core->ReadData16(pc.to_ullong() + 1);
+    if ( core->getCpu()->getFlagRegister()->getZ() ) {
+        return;
+    }
+
+    core->getCpu()->getCpuRegisters()->setPC(a16.to_ullong() - 1);
 }
 
 // JP a16
@@ -672,10 +677,15 @@ void Instruction::jp_a16_(GameBoyCore* core, unsigned long long) {
 
 // JP NC a16
 void Instruction::jp_nc_a16(GameBoyCore* core, unsigned long long) {
+    auto pc = core->getCpu()->getCpuRegisters()->getPC();
+    core->getCpu()->getCpuRegisters()->setPC(pc + 1);
 
-// todo
-throw std::invalid_argument(__FUNCTION__);;
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
+    auto a16 = core->ReadData16(pc.to_ullong() + 1);
+    if ( core->getCpu()->getFlagRegister()->getC() ) {
+        return;
+    }
+
+    core->getCpu()->getCpuRegisters()->setPC(a16.to_ullong() - 1);
 }
 
 // JP (HL)
@@ -688,18 +698,28 @@ throw std::invalid_argument(__FUNCTION__);;
 
 // JP Z a16
 void Instruction::jp_z_a16(GameBoyCore* core, unsigned long long) {
+    auto pc = core->getCpu()->getCpuRegisters()->getPC();
+    core->getCpu()->getCpuRegisters()->setPC(pc + 1);
 
-// todo
-throw std::invalid_argument(__FUNCTION__);;
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
+    auto a16 = core->ReadData16(pc.to_ullong() + 1);
+    if ( !core->getCpu()->getFlagRegister()->getZ() ) {
+        return;
+    }
+
+    core->getCpu()->getCpuRegisters()->setPC(a16.to_ullong() - 1);
 }
 
 // JP C a16
 void Instruction::jp_c_a16(GameBoyCore* core, unsigned long long) {
+    auto pc = core->getCpu()->getCpuRegisters()->getPC();
+    core->getCpu()->getCpuRegisters()->setPC(pc + 1);
 
-// todo
-throw std::invalid_argument(__FUNCTION__);;
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
+    auto a16 = core->ReadData16(pc.to_ullong() + 1);
+    if ( !core->getCpu()->getFlagRegister()->getC() ) {
+        return;
+    }
+
+    core->getCpu()->getCpuRegisters()->setPC(a16.to_ullong() - 1);
 }
 
 // RLA
