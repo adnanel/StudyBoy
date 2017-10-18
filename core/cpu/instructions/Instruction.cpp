@@ -269,9 +269,7 @@ void Instruction::ret_nz_(GameBoyCore* core, unsigned long long opcode) {
 // RET
 void Instruction::ret__(GameBoyCore* core, unsigned long long) {
     // pop 2 bytes from stack and jump to that address
-    auto sp = core->getCpu()->getCpuRegisters()->getSP();
-    // todo
-throw std::invalid_argument(__FUNCTION__);;
+    core->getCpu()->getCpuRegisters()->setPC(core->PopStack<16>().to_ullong() - 1);
 }
 
 // RET Z
@@ -379,18 +377,17 @@ void Instruction::adc_a_d(GameBoyCore* core, unsigned long long opcode) {
 
 
 // ADD A d8
-void Instruction::add_a_d8(GameBoyCore* core, unsigned long long) {
-    bool z;
-    bool h;
-    bool c;
+void Instruction::add_a_d8(GameBoyCore* core, unsigned long long opcode) {
+    auto pc = core->getCpu()->getCpuRegisters()->getPC();
+    core->getCpu()->getCpuRegisters()->setPC( pc.to_ullong() + 1 );
 
-    auto reg = core->getCpu()->getCpuRegisters()->getA();
+    auto d8 = core->ReadData8(pc.to_ullong() + 1);
 
-    // reg +=
-    //core->getCpu()->getCpuRegisters()->A +=
-// todo
-throw std::invalid_argument(__FUNCTION__);;
-    core->SetFlags(z, false, h, c);
+    auto oldVal = core->getCpu()->getCpuRegisters()->getA();
+    auto newVal = oldVal + d8;
+
+    core->getCpu()->getCpuRegisters()->setA(newVal.to_ullong());
+    update_flags_add(oldVal, newVal, core, opcode);
 }
 
 // ADD A C
@@ -443,14 +440,18 @@ void Instruction::add_hl_de(GameBoyCore* core, unsigned long long opcode) {
 }
 
 // ADC A d8
-void Instruction::adc_a_d8(GameBoyCore* core, unsigned long long) {
-    bool z;
-    bool h;
-    bool c;
+void Instruction::adc_a_d8(GameBoyCore* core, unsigned long long opcode) {
+    auto pc = core->getCpu()->getCpuRegisters()->getPC();
+    core->getCpu()->getCpuRegisters()->setPC(pc.to_ullong() + 1);
+    auto oldVal = core->getCpu()->getCpuRegisters()->getA();
 
-// todo
-throw std::invalid_argument(__FUNCTION__);;
-    core->SetFlags(z, false, h, c);
+    auto d8 = core->ReadData8(pc.to_ullong() + 1);
+
+    auto newVal = oldVal + (d8.to_ullong() + static_cast<int>(core->getCpu()->getFlagRegister()->getC()));
+
+    core->getCpu()->getCpuRegisters()->setA(newVal);
+
+    update_flags_adc(oldVal, newVal, core, opcode);
 }
 
 // ADD HL HL
@@ -465,15 +466,16 @@ void Instruction::add_hl_hl(GameBoyCore* core, unsigned long long opcode) {
 }
 
 // ADD SP r8
-void Instruction::add_sp_r8(GameBoyCore* core, unsigned long long) {
-    bool h;
-    bool c;
+void Instruction::add_sp_r8(GameBoyCore* core, unsigned long long opcode) {
+    auto pc = core->getCpu()->getCpuRegisters()->getPC();
+    core->getCpu()->getCpuRegisters()->setPC(pc.to_ullong() + 1);
 
-    auto sp = core->getCpu()->getCpuRegisters()->getSP();
+    auto oldVal = core->getCpu()->getCpuRegisters()->getSP();
+    auto newVal = oldVal + core->ReadData8(pc.to_ullong() + 1);
 
-// todo
-throw std::invalid_argument(__FUNCTION__);;
-    core->SetFlags(false, false, h, c);
+    update_flags_add(oldVal, newVal, core, opcode);
+    core->getCpu()->getFlagRegister()->setZ(false);
+    core->getCpu()->getFlagRegister()->setN(false);
 }
 
 // ADD HL SP
@@ -581,42 +583,69 @@ void Instruction::adc_a_b(GameBoyCore* core, unsigned long long opcode) {
 
 // CALL NZ a16
 void Instruction::call_nz_a16(GameBoyCore* core, unsigned long long) {
+    auto pc = core->getCpu()->getCpuRegisters()->getPC();
+    core->getCpu()->getCpuRegisters()->setPC( pc + 1 );
+    if ( core->getCpu()->getFlagRegister()->getZ() ) {
+        return;
+    }
+    core->PushToStack(pc + 1);
 
-// todo
-throw std::invalid_argument(__FUNCTION__);;
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
+    auto a16 = core->ReadData16(pc.to_ullong() + 1);
+
+    core->getCpu()->getCpuRegisters()->setPC(a16.to_ullong() - 1);
 }
 
 // CALL NC a16
 void Instruction::call_nc_a16(GameBoyCore* core, unsigned long long) {
+    auto pc = core->getCpu()->getCpuRegisters()->getPC();
+    core->getCpu()->getCpuRegisters()->setPC( pc + 1 );
+    if ( core->getCpu()->getFlagRegister()->getC() ) {
+        return;
+    }
+    core->PushToStack(pc + 1);
 
-// todo
-throw std::invalid_argument(__FUNCTION__);;
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
+    auto a16 = core->ReadData16(pc.to_ullong() + 1);
+
+    core->getCpu()->getCpuRegisters()->setPC(a16.to_ullong() - 1);
 }
 
 // CALL a16
 void Instruction::call_a16_(GameBoyCore* core, unsigned long long) {
+    auto pc = core->getCpu()->getCpuRegisters()->getPC();
 
-// todo
-throw std::invalid_argument(__FUNCTION__);;
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
+    core->PushToStack(pc + 1);
+
+    auto a16 = core->ReadData16(pc.to_ullong() + 1);
+
+    core->getCpu()->getCpuRegisters()->setPC(a16.to_ullong() - 1);
 }
 
 // CALL Z a16
 void Instruction::call_z_a16(GameBoyCore* core, unsigned long long) {
+    auto pc = core->getCpu()->getCpuRegisters()->getPC();
+    core->getCpu()->getCpuRegisters()->setPC( pc + 1 );
+    if ( !core->getCpu()->getFlagRegister()->getZ() ) {
+        return;
+    }
+    core->PushToStack(pc + 1);
 
-// todo
-throw std::invalid_argument(__FUNCTION__);;
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
+    auto a16 = core->ReadData16(pc.to_ullong() + 1);
+
+    core->getCpu()->getCpuRegisters()->setPC(a16.to_ullong() - 1);
 }
 
 // CALL C a16
 void Instruction::call_c_a16(GameBoyCore* core, unsigned long long) {
+    auto pc = core->getCpu()->getCpuRegisters()->getPC();
+    core->getCpu()->getCpuRegisters()->setPC( pc + 1 );
+    if ( !core->getCpu()->getFlagRegister()->getC() ) {
+        return;
+    }
+    core->PushToStack(pc + 1);
 
-// todo
-throw std::invalid_argument(__FUNCTION__);;
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
+    auto a16 = core->ReadData16(pc.to_ullong() + 1);
+
+    core->getCpu()->getCpuRegisters()->setPC(a16.to_ullong() - 1);
 }
 
 // DI
@@ -749,11 +778,10 @@ void Instruction::jr_c_r8(GameBoyCore* core, unsigned long long) {
 }
 
 // RETI
-void Instruction::reti__(GameBoyCore* core, unsigned long long) {
-
-// todo
-throw std::invalid_argument(__FUNCTION__);;
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
+void Instruction::reti__(GameBoyCore* core, unsigned long long opcode) {
+    auto pc = core->PopStack<16>().to_ullong() - 1;
+    core->getCpu()->getCpuRegisters()->setPC(pc);
+    ei__(core, opcode);
 }
 
 // LDH (a8) A
@@ -783,13 +811,12 @@ void Instruction::ldh_a__a8_(GameBoyCore* core, unsigned long long) {
 
 // SBC A d8
 void Instruction::sbc_a_d8(GameBoyCore* core, unsigned long long) {
-    bool z;
-    bool h;
-    bool c;
+    auto pc = core->getCpu()->getCpuRegisters()->getPC();
+    core->getCpu()->getCpuRegisters()->setPC(pc.to_ullong() + 1);
 
-// todo
-throw std::invalid_argument(__FUNCTION__);;
-    core->SetFlags(z, true, h, c);
+    auto data = core->ReadData8(pc.to_ullong() + 1);
+
+    core->getCpu()->getCpuRegisters()->setA(data);
 }
 
 // SBC A B
@@ -1217,10 +1244,7 @@ void Instruction::dec_c_(GameBoyCore* core, unsigned long long opcode) {
 
 // EI
 void Instruction::ei__(GameBoyCore* core, unsigned long long) {
-
-// todo
-throw std::invalid_argument(__FUNCTION__);;
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
+    core->setInterruptsEnabled(true);
 }
 
 // STOP 0
@@ -1363,14 +1387,17 @@ void Instruction::cp_e_(GameBoyCore* core, unsigned long long opcode) {
 }
 
 // CP d8
-void Instruction::cp_d8_(GameBoyCore* core, unsigned long long) {
-    bool z;
-    bool h;
-    bool c;
+void Instruction::cp_d8_(GameBoyCore* core, unsigned long long opcode) {
+    auto a = core->getCpu()->getCpuRegisters()->getA();
 
-// todo
-throw std::invalid_argument(__FUNCTION__);;
-    core->SetFlags(z, true, h, c);
+    auto pc = core->getCpu()->getCpuRegisters()->getPC();
+    core->getCpu()->getCpuRegisters()->setPC(pc.to_ullong() + 1);
+
+    auto b = core->ReadData8(pc.to_ullong() + 1);
+
+    auto nA = a - b;
+
+    update_flags_cp(a, nA, core, opcode);
 }
 
 // NOP
@@ -1380,29 +1407,22 @@ void Instruction::nop__(GameBoyCore* core, unsigned long long) {
 
 // POP BC
 void Instruction::pop_bc_(GameBoyCore* core, unsigned long long) {
-
-// todo
-throw std::invalid_argument(__FUNCTION__);;
+    core->getCpu()->getCpuRegisters()->setBC(core->PopStack<16>());
 }
 
 // POP DE
 void Instruction::pop_de_(GameBoyCore* core, unsigned long long) {
-
-// todo
-throw std::invalid_argument(__FUNCTION__);;
+    core->getCpu()->getCpuRegisters()->setDE(core->PopStack<16>());
 }
 
 // POP HL
 void Instruction::pop_hl_(GameBoyCore* core, unsigned long long) {
-
-// todo
-throw std::invalid_argument(__FUNCTION__);;
+    core->getCpu()->getCpuRegisters()->setHL(core->PopStack<16>());
 }
 
 // POP AF
 void Instruction::pop_af_(GameBoyCore* core, unsigned long long) {
-// todo
-throw std::invalid_argument(__FUNCTION__);;
+    core->getCpu()->getCpuRegisters()->setAF(core->PopStack<16>());
 }
 
 // RST 00H

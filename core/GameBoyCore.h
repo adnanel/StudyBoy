@@ -53,6 +53,7 @@ private:
 
     LcdController mLcdController;
 
+    bool mImeFlag;
 public:
     GameBoyCore(const GameBoyConfig& gbConfig);
     ~GameBoyCore();
@@ -167,6 +168,27 @@ public:
 
     void SetFlags(bool z, bool n, bool h, bool c);
 
+    template<unsigned int N>
+    Register<N> PopStack() {
+        assert( N % 8 == 0 );
+
+        int bytes = N / 8;
+
+        auto& cpu = *getCpu();
+
+        Register<N> reg = 0;
+
+        for ( int i = 0; i < bytes; ++ i ) {
+            auto sp = cpu.getCpuRegisters()->getSP();
+            cpu.getCpuRegisters()->setSP(cpu.getCpuRegisters()->getSP() + 1);
+
+            auto data = ReadData8(sp.to_ullong());
+
+            reg = (reg << 8) | ( 0xFF & data.to_ullong());
+        }
+
+        return reg;
+    }
 
     template<unsigned int N>
     void PushToStack(Register<N> reg)
@@ -187,6 +209,25 @@ public:
 
 
     void Step();
+
+
+    void GenerateInterrupt() {
+        mCpu.getIORegisters()->setFF0F(1);
+
+        if ( !mImeFlag ) return;
+
+        auto pc = mCpu.getCpuRegisters()->getPC();
+        PushToStack(pc);
+
+        mCpu.getCpuRegisters()->setPC(pc);
+        /*
+         1. When an interrupt is generated, the IF flag will be    set.
+         2. If the IME flag is set & the corresponding IE flag     is set, the following 3 steps are performed.
+         3. Reset the IME flag and prevent all interrupts.
+         4. The PC (program counter) is pushed onto the stack. 5. Jump to the starting address of the interrupt.
+         */
+
+    }
 };
 
 

@@ -8,7 +8,8 @@
 
 GameBoyCore::GameBoyCore(const GameBoyConfig& gbConfig)
     : mWorkRam(gbConfig.workMemorySize),
-      mDisplayRam(gbConfig.displayMemorySize)
+      mDisplayRam(gbConfig.displayMemorySize),
+      mImeFlag(true)
 {
 
 }
