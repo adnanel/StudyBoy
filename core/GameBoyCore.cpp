@@ -78,7 +78,7 @@ MemoryMap *GameBoyCore::GetMemoryForAddress(unsigned long long targetAddress) {
     } else if ( targetAddress <= 0xFF00 ) {
         throw std::invalid_argument(" Empty but unusable for I/O not implemented"); //  Empty but unusable for I/O
     } else if ( targetAddress <= 0xFF4C ) {
-        throw std::invalid_argument(" I/O ports not implemented"); //  I/O ports
+        throw std::invalid_argument(" IO registers not supported here, use IO register directly");
     } else if ( targetAddress <= 0xFF80 ) {
         throw std::invalid_argument(" Empty but unusable for I/O not implemented"); //  Empty but unusable for I/O
     } else if ( targetAddress <= 0xFFFF ) {
@@ -107,7 +107,7 @@ const MemoryMap *GameBoyCore::GetMemoryForAddress(unsigned long long targetAddre
     } else if ( targetAddress <= 0xFF00 ) {
         throw std::invalid_argument(" Empty but unusable for I/O not implemented"); //  Empty but unusable for I/O
     } else if ( targetAddress <= 0xFF4C ) {
-        throw std::invalid_argument(" I/O ports not implemented"); //  I/O ports
+        throw std::invalid_argument(" IO registers not supported here, use IO register directly");
     } else if ( targetAddress <= 0xFF80 ) {
         throw std::invalid_argument(" Empty but unusable for I/O not implemented"); //  Empty but unusable for I/O
     } else if ( targetAddress <= 0xFFFF ) {
@@ -128,6 +128,10 @@ std::bitset<8u> GameBoyCore::ReadData8(unsigned long long targetAddress) const {
     if ( targetAddress == 0xFFFF ) {
         return mCpu.getIORegisters()->getFFFF();
     }
+    //IO registers
+    if ( targetAddress >= 0xFF00 && targetAddress <= 0xFFFF ) {
+        return mCpu.getIORegisters()->getRegisterByAddress(targetAddress);
+    }
 
     auto* targetMemory = GetMemoryForAddress(targetAddress);
 
@@ -137,6 +141,10 @@ std::bitset<8u> GameBoyCore::ReadData8(unsigned long long targetAddress) const {
 void GameBoyCore::WriteData8(unsigned long long address, const Register<8u> &reg) {
     if ( address == 0xFFFF ) {
         return mCpu.getIORegisters()->setFFFF(reg);
+    }
+    //IO registers
+    if ( address >= 0xFF00 && address <= 0xFFFF ) {
+        return mCpu.getIORegisters()->setRegisterByAddress(address, reg);
     }
 
     auto* targetMemory = GetMemoryForAddress(address);

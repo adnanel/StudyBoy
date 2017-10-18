@@ -6,6 +6,7 @@
 #define STUDYBOY_IOREGISTERS_H
 
 
+#include <map>
 #include "Register.h"
 
 class IORegisters {
@@ -71,7 +72,26 @@ class IORegisters {
     Register<8> FF4B; // WX
     Register<8> FFFF; // IE
 
+    std::map<unsigned long long, Register<8>*> mRegisterMap;
 public:
+    IORegisters();
+
+    Register<8> getRegisterByAddress(unsigned long long addr) const {
+        auto it = mRegisterMap.find(addr);
+        if ( it == mRegisterMap.end() ) {
+            throw std::invalid_argument("Invalid register address");
+        }
+        return *(it->second);
+    }
+
+    void setRegisterByAddress(unsigned long long addr, const Register<8>& reg) {
+        auto it = mRegisterMap.find(addr);
+        if ( it == mRegisterMap.end() ) {
+            throw std::invalid_argument("Invalid register address");
+        }
+        *(it->second) = reg;
+    }
+
     const Register<8> &getFF00() const {
         return FF00;
     }
@@ -536,5 +556,6 @@ public:
         IORegisters::FFFF = FFFF;
     }
 };
+
 
 #endif //STUDYBOY_IOREGISTERS_H

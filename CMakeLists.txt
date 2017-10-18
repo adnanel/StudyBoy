@@ -35,6 +35,6 @@ set(SOURCE_FILES main.cpp
         core/cpu/instructions/Instruction.cpp
         core/cpu/instructions/Instruction.h
         core/RomReader.cpp
-        core/RomReader.h)
+        core/RomReader.h core/cpu/components/IORegisters.cpp)
 
 add_executable(StudyBoy ${SOURCE_FILES})
