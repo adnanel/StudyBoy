@@ -1687,11 +1687,11 @@ void Instruction::ld_hl_spplusr8(GameBoyCore* core, unsigned long long) {
     core->getCpu()->getCpuRegisters()->setHL(newVal);
 
     core->SetFlags(false, false, false, false);
-    if (((oldVal.to_ullong() ^ r8 ^ newVal.to_ullong()) & 0x100) == 0x100) {
+    if (((oldVal.to_ullong() ^ r8.to_ullong() ^ newVal.to_ullong()) & 0x100) == 0x100) {
         core->getCpu()->getFlagRegister()->setC(true);
     }
 
-    if (((oldVal.to_ullong() ^ r8 ^ newVal.to_ullong()) & 0x10) == 0x10) {
+    if (((oldVal.to_ullong() ^ r8.to_ullong() ^ newVal.to_ullong()) & 0x10) == 0x10) {
         core->getCpu()->getFlagRegister()->setH(true);
     }
 }
