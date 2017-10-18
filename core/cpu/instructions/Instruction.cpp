@@ -41,18 +41,30 @@ void update_flags_sub_8(const Register<8>& oldVal,
                         const Register<8>& newVal,
                         GameBoyCore* core,
                         unsigned long long opcode) {
-    // todo
-    throw std::invalid_argument(__FUNCTION__);;
-    core->SetFlags(newVal.to_ullong() == 0, false, false, false);
+    /*
+    Z - Set if result is zero.
+    N - Set.
+     todo below two
+    H - Set if no borrow from bit 4.
+    C - Set if no borrow.
+     */
+
+    core->SetFlags(newVal.to_ullong() == 0, true, false, false);
 }
 
 void update_flags_sbc_8(const Register<8>& oldVal,
                         const Register<8>& newVal,
                         GameBoyCore* core,
                         unsigned long long opcode) {
-    // todo
-    throw std::invalid_argument(__FUNCTION__);;
-    core->SetFlags(newVal.to_ullong() == 0, false, false, false);
+    /*
+    Z - Set if result is zero.
+    N - Set.
+     todo below two
+    H - Set if no borrow from bit 4.
+    C - Set if no borrow.
+     */
+
+    core->SetFlags(newVal.to_ullong() == 0, true, false, false);
 }
 
 void update_flags_and_8(const Register<8>& oldVal,
