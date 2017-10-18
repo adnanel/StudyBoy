@@ -9,6 +9,7 @@
 #include <fstream>
 #include <iostream>
 #include <cstring>
+#include <stdexcept>
 
 /**
 https://fms.komkon.org/GameBoy/Tech/Software.html

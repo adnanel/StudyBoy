@@ -554,10 +554,10 @@ void Instruction::jp_nc_a16(GameBoyCore* core, unsigned long long) {
 
 // JP (HL)
 void Instruction::jp__hl__(GameBoyCore* core, unsigned long long) {
+    auto hl = core->getCpu()->getCpuRegisters()->getHL();
+    auto data = core->ReadData16(hl.to_ullong());
 
-// todo
-throw std::invalid_argument(__FUNCTION__);;
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
+    core->getCpu()->getCpuRegisters()->setPC( data.to_ullong() - 1 );
 }
 
 // JP Z a16
