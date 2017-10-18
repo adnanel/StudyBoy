@@ -611,10 +611,11 @@ void Instruction::rla__(GameBoyCore* core, unsigned long long) {
 
 // JR r8
 void Instruction::jr_r8_(GameBoyCore* core, unsigned long long) {
+    auto pc = core->getCpu()->getCpuRegisters()->getPC();
 
-// todo
-throw std::invalid_argument(__FUNCTION__);;
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
+    auto data = core->ReadData8(pc.to_ullong() + 1);
+
+    core->getCpu()->getCpuRegisters()->setPC(pc.to_ullong() + data.to_ullong() - 1);
 }
 
 // JR NZ r8
@@ -823,14 +824,18 @@ void Instruction::halt__(GameBoyCore* core, unsigned long long) {
 }
 
 // SUB d8
-void Instruction::sub_d8_(GameBoyCore* core, unsigned long long) {
-    bool z;
-    bool h;
-    bool c;
+void Instruction::sub_d8_(GameBoyCore* core, unsigned long long opcode) {
+    auto pc = core->getCpu()->getCpuRegisters()->getPC();
+    core->getCpu()->getCpuRegisters()->setPC( pc.to_ullong() + 1 );
 
-// todo
-throw std::invalid_argument(__FUNCTION__);;
-    core->SetFlags(z, true, h, c);
+    auto d8 = core->ReadData8(pc.to_ullong() + 1);
+    auto oldVal = core->getCpu()->getCpuRegisters()->getA();
+
+    auto newVal = oldVal + d8;
+
+    core->getCpu()->getCpuRegisters()->setA(newVal);
+
+    update_flags_sub_8(oldVal, newVal, core, opcode);
 }
 
 // SUB B
@@ -1007,12 +1012,17 @@ void Instruction::or_d_(GameBoyCore* core, unsigned long long opcode) {
 }
 
 // OR d8
-void Instruction::or_d8_(GameBoyCore* core, unsigned long long) {
-    bool z;
+void Instruction::or_d8_(GameBoyCore* core, unsigned long long opcode) {
+    auto pc = core->getCpu()->getCpuRegisters()->getPC();
+    core->getCpu()->getCpuRegisters()->setPC(pc.to_ullong() + 1);
 
-// todo
-throw std::invalid_argument(__FUNCTION__);;
-    core->SetFlags(z, false, false, false);
+    auto a = core->getCpu()->getCpuRegisters()->getA();
+    auto b = core->ReadData8(pc.to_ullong() + 1);
+
+    auto nA = a | b;
+    core->getCpu()->getCpuRegisters()->setA(nA);
+
+    update_flags_or_8(a, nA, core, opcode);
 }
 
 // DEC D
@@ -1383,7 +1393,7 @@ void Instruction::rst_38h_(GameBoyCore* core, unsigned long long) {
 
 // PREFIX CB
 void Instruction::prefix_cb_(GameBoyCore* core, unsigned long long) {
-// todo
+// todo Gameboy color instruction prefix
 throw std::invalid_argument(__FUNCTION__);;
 }
 
@@ -1564,11 +1574,10 @@ void Instruction::ld_h_d8(GameBoyCore* core, unsigned long long) {
 }
 
 // LD (HL+) A
-void Instruction::ld__hlplus__a(GameBoyCore* core, unsigned long long) {
-
-// todo
-throw std::invalid_argument(__FUNCTION__);;
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
+void Instruction::ld__hlplus__a(GameBoyCore* core, unsigned long long opcode) {
+    // Same as: LD (HL),A - INC HL
+    ld__hl__a(core, opcode);
+    inc_hl_(core, opcode);
 }
 
 // LD A (HL+)
@@ -1615,18 +1624,20 @@ void Instruction::ld_sp_d16(GameBoyCore* core, unsigned long long) {
 
 // LD (HL) d8
 void Instruction::ld__hl__d8(GameBoyCore* core, unsigned long long) {
+    auto pc = core->getCpu()->getCpuRegisters()->getPC();
+    core->getCpu()->getCpuRegisters()->setPC( pc.to_ullong() + 1 );
 
-// todo
-throw std::invalid_argument(__FUNCTION__);;
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
+    auto d8 = core->ReadData8(pc.to_ullong() + 1);
+    auto hl = core->getCpu()->getCpuRegisters()->getHL();
+
+    core->WriteData8(hl.to_ullong(), d8);
 }
 
 // LD A (HL-)
-void Instruction::ld_a__hlminus_(GameBoyCore* core, unsigned long long) {
-
-// todo
-throw std::invalid_argument(__FUNCTION__);;
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
+void Instruction::ld_a__hlminus_(GameBoyCore* core, unsigned long long opcode) {
+    // Same as: LD A,(HL) - DEC HL
+    ld_a__hl_(core, opcode);
+    dec_hl_(core, opcode);
 }
 
 // LD A (C)
@@ -1659,12 +1670,30 @@ void Instruction::ld_a_d8(GameBoyCore* core, unsigned long long) {
 
 // LD HL SP+r8
 void Instruction::ld_hl_spplusr8(GameBoyCore* core, unsigned long long) {
-    bool h;
-    bool c;
+    /**
+     Description:  Put SP + n effective address into HL.
+     Use with:      n = one byte signed immediate value.
+     Flags affected:  Z - Reset.  N - Reset.  H - Set or reset according to operation.  C - Set or reset according to operation.
+     */
 
-// todo
-throw std::invalid_argument(__FUNCTION__);;
-    core->SetFlags(false, false, h, c);
+    auto pc = core->getCpu()->getCpuRegisters()->getPC();
+    core->getCpu()->getCpuRegisters()->setPC(pc.to_ullong() + 1);
+
+    auto r8 = core->ReadData8(pc.to_ullong() + 1);
+
+    auto oldVal = core->getCpu()->getCpuRegisters()->getSP();
+    auto newVal = oldVal + r8;
+
+    core->getCpu()->getCpuRegisters()->setHL(newVal);
+
+    core->SetFlags(false, false, false, false);
+    if (((oldVal.to_ullong() ^ r8 ^ newVal.to_ullong()) & 0x100) == 0x100) {
+        core->getCpu()->getFlagRegister()->setC(true);
+    }
+
+    if (((oldVal.to_ullong() ^ r8 ^ newVal.to_ullong()) & 0x10) == 0x10) {
+        core->getCpu()->getFlagRegister()->setH(true);
+    }
 }
 
 // LD B E
