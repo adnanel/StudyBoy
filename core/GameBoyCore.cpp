@@ -72,7 +72,7 @@ MemoryMap *GameBoyCore::GetMemoryForAddress(unsigned long long targetAddress) {
     } else if ( targetAddress <= 0xE000 ) {
         return &mWorkRam;
     } else if ( targetAddress <= 0xFE00 ) {
-        throw std::invalid_argument(" Echo of 8kB Internal RAM not implemented"); //  Echo of 8kB Internal RAM
+        return GetMemoryForAddress(targetAddress - 0x2000);
     } else if ( targetAddress <= 0xFEA0 ) {
         throw std::invalid_argument(" Sprite Attrib Memory (OAM) not implemented"); //  Sprite Attrib Memory (OAM)
     } else if ( targetAddress <= 0xFF00 ) {
@@ -101,7 +101,7 @@ const MemoryMap *GameBoyCore::GetMemoryForAddress(unsigned long long targetAddre
     } else if ( targetAddress <= 0xE000 ) {
         return &mWorkRam;
     } else if ( targetAddress <= 0xFE00 ) {
-        throw std::invalid_argument(" Echo of 8kB Internal RAM not implemented"); //  Echo of 8kB Internal RAM
+        return GetMemoryForAddress(targetAddress - 0x2000);
     } else if ( targetAddress <= 0xFEA0 ) {
         throw std::invalid_argument(" Sprite Attrib Memory (OAM) not implemented"); //  Sprite Attrib Memory (OAM)
     } else if ( targetAddress <= 0xFF00 ) {
