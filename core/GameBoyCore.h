@@ -76,95 +76,17 @@ public:
 
     void setInterruptsEnabled(bool mInterruptsEnabled);
 
-    MemoryMap* GetMemoryForAddress(unsigned long long targetAddress) {
-        if ( targetAddress <= 0x4000 ) {
-            return mCpu.getCodeLoader()->getMemoryMap();
-        } else if ( targetAddress <= 0x8000 ) {
-            throw std::invalid_argument("switchable ROM bank not implemented"); // switchable ROM bank
-        } else if ( targetAddress <= 0xA000 ) {
-            return &mDisplayRam;
-        } else if ( targetAddress <= 0xC000 ) {
-            throw std::invalid_argument("switchable RAM bank not implemented"); // switchable RAM bank
-        } else if ( targetAddress <= 0xE000 ) {
-            return &mWorkRam;
-        } else if ( targetAddress <= 0xFE00 ) {
-            throw std::invalid_argument(" Echo of 8kB Internal RAM not implemented"); //  Echo of 8kB Internal RAM
-        } else if ( targetAddress <= 0xFEA0 ) {
-            throw std::invalid_argument(" Sprite Attrib Memory (OAM) not implemented"); //  Sprite Attrib Memory (OAM)
-        } else if ( targetAddress <= 0xFF00 ) {
-            throw std::invalid_argument(" Empty but unusable for I/O not implemented"); //  Empty but unusable for I/O
-        } else if ( targetAddress <= 0xFF4C ) {
-            throw std::invalid_argument(" I/O ports not implemented"); //  I/O ports
-        } else if ( targetAddress <= 0xFF80 ) {
-            throw std::invalid_argument(" Empty but unusable for I/O not implemented"); //  Empty but unusable for I/O
-        } else if ( targetAddress <= 0xFFFF ) {
-            throw std::invalid_argument(" Internal RAM, interrupt enable register if == 0xFFFF not supported here, "
-                                                "use FFFF register directly");
-        }
+    MemoryMap* GetMemoryForAddress(unsigned long long targetAddress);
 
-        throw std::invalid_argument("Invalid address!");
-    }
+    const MemoryMap* GetMemoryForAddress(unsigned long long targetAddress) const;
 
-    const MemoryMap* GetMemoryForAddress(unsigned long long targetAddress) const {
-        if ( targetAddress <= 0x4000 ) {
-            return mCpu.getCodeLoader()->getMemoryMap();
-        } else if ( targetAddress <= 0x8000 ) {
-            throw std::invalid_argument("switchable ROM bank not implemented"); // switchable ROM bank
-        } else if ( targetAddress <= 0xA000 ) {
-            return &mDisplayRam;
-        } else if ( targetAddress <= 0xC000 ) {
-            throw std::invalid_argument("switchable RAM bank not implemented"); // switchable RAM bank
-        } else if ( targetAddress <= 0xE000 ) {
-            return &mWorkRam;
-        } else if ( targetAddress <= 0xFE00 ) {
-            throw std::invalid_argument(" Echo of 8kB Internal RAM not implemented"); //  Echo of 8kB Internal RAM
-        } else if ( targetAddress <= 0xFEA0 ) {
-            throw std::invalid_argument(" Sprite Attrib Memory (OAM) not implemented"); //  Sprite Attrib Memory (OAM)
-        } else if ( targetAddress <= 0xFF00 ) {
-            throw std::invalid_argument(" Empty but unusable for I/O not implemented"); //  Empty but unusable for I/O
-        } else if ( targetAddress <= 0xFF4C ) {
-            throw std::invalid_argument(" I/O ports not implemented"); //  I/O ports
-        } else if ( targetAddress <= 0xFF80 ) {
-            throw std::invalid_argument(" Empty but unusable for I/O not implemented"); //  Empty but unusable for I/O
-        } else if ( targetAddress <= 0xFFFF ) {
-            throw std::invalid_argument(" Internal RAM, interrupt enable register if == 0xFFFF not supported here, "
-                                                "use FFFF register directly");
-        }
+    std::bitset<16u> ReadData16(unsigned long long targetAddress) const;
 
-        throw std::invalid_argument("Invalid address!");
-    }
+    std::bitset<8u> ReadData8(unsigned long long targetAddress) const;
 
-    std::bitset<16u> ReadData16(unsigned long long targetAddress) const {
-        auto* targetMemory = GetMemoryForAddress(targetAddress);
+    void WriteData8(unsigned long long address, const Register<8u>& reg);
 
-        return targetMemory->ReadData<16u>(targetAddress);
-    }
-
-    std::bitset<8u> ReadData8(unsigned long long targetAddress) const {
-        if ( targetAddress == 0xFFFF ) {
-            return mCpu.getIORegisters()->getFFFF();
-        }
-
-        auto* targetMemory = GetMemoryForAddress(targetAddress);
-
-        return targetMemory->ReadData<8>(targetAddress);
-    }
-
-    void WriteData8(unsigned long long address, const Register<8u>& reg) {
-        if ( address == 0xFFFF ) {
-            return mCpu.getIORegisters()->setFFFF(reg);
-        }
-
-        auto* targetMemory = GetMemoryForAddress(address);
-
-        return targetMemory->WriteData<8>(address, reg);
-    }
-
-    void WriteData16(unsigned long long address, const Register<16u>& reg) {
-        auto* targetMemory = GetMemoryForAddress(address);
-
-        return targetMemory->WriteData<16u>(address, reg);
-    }
+    void WriteData16(unsigned long long address, const Register<16u>& reg);
 
     void SetFlags(bool z, bool n, bool h, bool c);
 
@@ -210,24 +132,9 @@ public:
 
     void Step();
 
+    void PrintRegisters();
 
-    void GenerateInterrupt() {
-        mCpu.getIORegisters()->setFF0F(1);
-
-        if ( !mImeFlag ) return;
-
-        auto pc = mCpu.getCpuRegisters()->getPC();
-        PushToStack(pc);
-
-        mCpu.getCpuRegisters()->setPC(pc);
-        /*
-         1. When an interrupt is generated, the IF flag will be    set.
-         2. If the IME flag is set & the corresponding IE flag     is set, the following 3 steps are performed.
-         3. Reset the IME flag and prevent all interrupts.
-         4. The PC (program counter) is pushed onto the stack. 5. Jump to the starting address of the interrupt.
-         */
-
-    }
+    void GenerateInterrupt();
 };
 
 

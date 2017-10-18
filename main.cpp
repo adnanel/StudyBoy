@@ -30,6 +30,7 @@ int main() {
             break;
         }
     }
+    core.PrintRegisters();
 
     return 0;
 }

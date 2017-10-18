@@ -30,8 +30,6 @@ set(SOURCE_FILES main.cpp
         core/cpu/ColorProcessor.h
         core/cpu/components/CpuRegisters.h
         core/cpu/components/IORegisters.h
-        core/cpu/components/FlagRegister.cpp
-        core/cpu/components/FlagRegister.h
         core/cpu/codeloaders/CodeLoader.cpp
         core/cpu/codeloaders/CodeLoader.h
         core/cpu/instructions/Instruction.cpp

@@ -13,7 +13,6 @@
 #include "components/Register.h"
 #include "components/IORegisters.h"
 #include "components/CpuRegisters.h"
-#include "components/FlagRegister.h"
 #include "codeloaders/CodeLoader.h"
 
 class Processor {
@@ -30,7 +29,6 @@ protected:
     // Registers
     IORegisters mIORegisters;
     CpuRegisters mCpuRegisters;
-    FlagRegister mFlagRegister;
 
     CodeLoader* codeLoader;
 public:
@@ -41,11 +39,42 @@ public:
 
     virtual void HardReset();
 
-    FlagRegister* getFlagRegister() {
-        return &mFlagRegister;
+
+    inline bool getZFlag() const {
+        getCpuRegisters()->getF()[7];
     }
-    const FlagRegister* getFlagRegister() const {
-        return &mFlagRegister;
+
+    inline void setZFlag(bool set) {
+        auto f = getCpuRegisters()->getF();
+        f[7] = set;
+        getCpuRegisters()->setF(f);
+    }
+
+    inline bool getNFlag() const {
+        getCpuRegisters()->getF()[6];
+    }
+    inline void setNFlag(bool set) {
+        auto f = getCpuRegisters()->getF();
+        f[6] = set;
+        getCpuRegisters()->setF(f);
+    }
+
+    inline bool getHFlag() const {
+        getCpuRegisters()->getF()[5];
+    }
+    inline void setHFlag(bool set) {
+        auto f = getCpuRegisters()->getF();
+        f[5] = set;
+        getCpuRegisters()->setF(f);
+    }
+
+    inline bool getCFlag() const {
+        getCpuRegisters()->getF()[4];
+    }
+    inline void setCFlag(bool set) {
+        auto f = getCpuRegisters()->getF();
+        f[4] = set;
+        getCpuRegisters()->setF(f);
     }
 
     const CpuRegisters* getCpuRegisters() const {

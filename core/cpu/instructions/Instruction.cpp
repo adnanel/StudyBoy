@@ -124,7 +124,7 @@ void update_flags_inc_8(const Register<8>& oldVal,
 
 // RET NZ
 void Instruction::ret_nz_(GameBoyCore* core, unsigned long long opcode) {
-    if ( core->getCpu()->getFlagRegister()->getZ() )
+    if ( core->getCpu()->getZFlag() )
         return;
 
     ret__(core, opcode);
@@ -138,7 +138,7 @@ void Instruction::ret__(GameBoyCore* core, unsigned long long) {
 
 // RET Z
 void Instruction::ret_z_(GameBoyCore* core, unsigned long long opcode) {
-    if ( !core->getCpu()->getFlagRegister()->getZ() )
+    if ( !core->getCpu()->getZFlag() )
         return;
 
     ret__(core, opcode);
@@ -146,7 +146,7 @@ void Instruction::ret_z_(GameBoyCore* core, unsigned long long opcode) {
 
 // RET NC
 void Instruction::ret_nc_(GameBoyCore* core, unsigned long long opcode) {
-    if ( core->getCpu()->getFlagRegister()->getN() )
+    if ( core->getCpu()->getNFlag() )
         return;
 
     ret__(core, opcode);
@@ -154,7 +154,7 @@ void Instruction::ret_nc_(GameBoyCore* core, unsigned long long opcode) {
 
 // RET C
 void Instruction::ret_c_(GameBoyCore* core, unsigned long long opcode) {
-    if ( !core->getCpu()->getFlagRegister()->getC() )
+    if ( !core->getCpu()->getCFlag() )
         return;
 
     ret__(core, opcode);
@@ -164,7 +164,7 @@ void Instruction::ret_c_(GameBoyCore* core, unsigned long long opcode) {
 void Instruction::rra__(GameBoyCore* core, unsigned long long) {
     auto reg = core->getCpu()->getCpuRegisters()->getA();
     bool old = reg[0];
-    Register<8> oldCarry = core->getCpu()->getFlagRegister()->getC();
+    Register<8> oldCarry = core->getCpu()->getCFlag();
 
     reg = (reg >> 1) | (oldCarry << 7) ;
 
@@ -182,7 +182,7 @@ void Instruction::adc_a__hl_(GameBoyCore* core, unsigned long long opcode) {
 
     auto oldVal = cReg;
     cReg += core->ReadData8(hl.to_ullong());
-    cReg += static_cast<int>(core->getCpu()->getFlagRegister()->getC());
+    cReg += static_cast<int>(core->getCpu()->getCFlag());
 
     core->getCpu()->getCpuRegisters()->setA(cReg);
 
@@ -195,7 +195,7 @@ void Instruction::adc_a_l(GameBoyCore* core, unsigned long long opcode) {
     auto oldVal = cReg;
 
     cReg += core->getCpu()->getCpuRegisters()->getL();
-    cReg += static_cast<int>(core->getCpu()->getFlagRegister()->getC());
+    cReg += static_cast<int>(core->getCpu()->getCFlag());
 
     update_flags_adc_8(oldVal, cReg, core, opcode);
 }
@@ -206,7 +206,7 @@ void Instruction::adc_a_h(GameBoyCore* core, unsigned long long opcode) {
     auto oldVal = cReg;
 
     cReg += core->getCpu()->getCpuRegisters()->getH();
-    cReg += static_cast<int>(core->getCpu()->getFlagRegister()->getC());
+    cReg += static_cast<int>(core->getCpu()->getCFlag());
 
     core->getCpu()->getCpuRegisters()->setA(cReg);
 
@@ -219,7 +219,7 @@ void Instruction::adc_a_e(GameBoyCore* core, unsigned long long opcode) {
     auto oldVal = cReg;
 
     cReg += core->getCpu()->getCpuRegisters()->getE();
-    cReg += static_cast<int>(core->getCpu()->getFlagRegister()->getC());
+    cReg += static_cast<int>(core->getCpu()->getCFlag());
 
     core->getCpu()->getCpuRegisters()->setA(cReg);
 
@@ -232,7 +232,7 @@ void Instruction::adc_a_d(GameBoyCore* core, unsigned long long opcode) {
     auto oldVal = cReg;
 
     cReg += core->getCpu()->getCpuRegisters()->getD();
-    cReg += static_cast<int>(core->getCpu()->getFlagRegister()->getC());
+    cReg += static_cast<int>(core->getCpu()->getCFlag());
 
     core->getCpu()->getCpuRegisters()->setA(cReg);
 
@@ -311,7 +311,7 @@ void Instruction::adc_a_d8(GameBoyCore* core, unsigned long long opcode) {
 
     auto d8 = core->ReadData8(pc.to_ullong() + 1);
 
-    auto newVal = oldVal + (d8.to_ullong() + static_cast<int>(core->getCpu()->getFlagRegister()->getC()));
+    auto newVal = oldVal + (d8.to_ullong() + static_cast<int>(core->getCpu()->getCFlag()));
 
     core->getCpu()->getCpuRegisters()->setA(newVal);
 
@@ -338,8 +338,8 @@ void Instruction::add_sp_r8(GameBoyCore* core, unsigned long long opcode) {
     auto newVal = oldVal + core->ReadData8(pc.to_ullong() + 1);
 
     update_flags_add_16(oldVal, newVal, core, opcode);
-    core->getCpu()->getFlagRegister()->setZ(false);
-    core->getCpu()->getFlagRegister()->setN(false);
+    core->getCpu()->setZFlag(false);
+    core->getCpu()->setNFlag(false);
 }
 
 // ADD HL SP
@@ -374,7 +374,7 @@ void Instruction::adc_a_a(GameBoyCore* core, unsigned long long opcode) {
     auto oldVal = a;
 
     a += a;
-    a += static_cast<int>(core->getCpu()->getFlagRegister()->getC());
+    a += static_cast<int>(core->getCpu()->getCFlag());
 
     core->getCpu()->getCpuRegisters()->setA(a);
 
@@ -430,7 +430,7 @@ void Instruction::add_a_d(GameBoyCore* core, unsigned long long opcode) {
 // ADC A C
 void Instruction::adc_a_c(GameBoyCore* core, unsigned long long opcode) {
     auto oldVal = core->getCpu()->getCpuRegisters()->getA();
-    auto newVal = oldVal + core->getCpu()->getCpuRegisters()->getC() + core->getCpu()->getFlagRegister()->getC();
+    auto newVal = oldVal + core->getCpu()->getCpuRegisters()->getC() + core->getCpu()->getCFlag();
 
     core->getCpu()->getCpuRegisters()->setA(newVal);
     update_flags_adc_8(oldVal.to_ullong(), newVal.to_ullong(), core, opcode);
@@ -439,7 +439,7 @@ void Instruction::adc_a_c(GameBoyCore* core, unsigned long long opcode) {
 // ADC A B
 void Instruction::adc_a_b(GameBoyCore* core, unsigned long long opcode) {
     auto oldVal = core->getCpu()->getCpuRegisters()->getA();
-    auto newVal = oldVal + core->getCpu()->getCpuRegisters()->getB() + core->getCpu()->getFlagRegister()->getC();
+    auto newVal = oldVal + core->getCpu()->getCpuRegisters()->getB() + core->getCpu()->getCFlag();
 
     core->getCpu()->getCpuRegisters()->setA(newVal);
     update_flags_adc_8(oldVal.to_ullong(), newVal.to_ullong(), core, opcode);
@@ -449,7 +449,7 @@ void Instruction::adc_a_b(GameBoyCore* core, unsigned long long opcode) {
 void Instruction::call_nz_a16(GameBoyCore* core, unsigned long long) {
     auto pc = core->getCpu()->getCpuRegisters()->getPC();
     core->getCpu()->getCpuRegisters()->setPC( pc + 1 );
-    if ( core->getCpu()->getFlagRegister()->getZ() ) {
+    if ( core->getCpu()->getZFlag() ) {
         return;
     }
     core->PushToStack(pc + 1);
@@ -463,7 +463,7 @@ void Instruction::call_nz_a16(GameBoyCore* core, unsigned long long) {
 void Instruction::call_nc_a16(GameBoyCore* core, unsigned long long) {
     auto pc = core->getCpu()->getCpuRegisters()->getPC();
     core->getCpu()->getCpuRegisters()->setPC( pc + 1 );
-    if ( core->getCpu()->getFlagRegister()->getC() ) {
+    if ( core->getCpu()->getCFlag() ) {
         return;
     }
     core->PushToStack(pc + 1);
@@ -488,7 +488,7 @@ void Instruction::call_a16_(GameBoyCore* core, unsigned long long) {
 void Instruction::call_z_a16(GameBoyCore* core, unsigned long long) {
     auto pc = core->getCpu()->getCpuRegisters()->getPC();
     core->getCpu()->getCpuRegisters()->setPC( pc + 1 );
-    if ( !core->getCpu()->getFlagRegister()->getZ() ) {
+    if ( !core->getCpu()->getZFlag() ) {
         return;
     }
     core->PushToStack(pc + 1);
@@ -502,7 +502,7 @@ void Instruction::call_z_a16(GameBoyCore* core, unsigned long long) {
 void Instruction::call_c_a16(GameBoyCore* core, unsigned long long) {
     auto pc = core->getCpu()->getCpuRegisters()->getPC();
     core->getCpu()->getCpuRegisters()->setPC( pc + 1 );
-    if ( !core->getCpu()->getFlagRegister()->getC() ) {
+    if ( !core->getCpu()->getCFlag() ) {
         return;
     }
     core->PushToStack(pc + 1);
@@ -523,7 +523,7 @@ void Instruction::jp_nz_a16(GameBoyCore* core, unsigned long long) {
     core->getCpu()->getCpuRegisters()->setPC(pc + 1);
 
     auto a16 = core->ReadData16(pc.to_ullong() + 1);
-    if ( core->getCpu()->getFlagRegister()->getZ() ) {
+    if ( core->getCpu()->getZFlag() ) {
         return;
     }
 
@@ -545,7 +545,7 @@ void Instruction::jp_nc_a16(GameBoyCore* core, unsigned long long) {
     core->getCpu()->getCpuRegisters()->setPC(pc + 1);
 
     auto a16 = core->ReadData16(pc.to_ullong() + 1);
-    if ( core->getCpu()->getFlagRegister()->getC() ) {
+    if ( core->getCpu()->getCFlag() ) {
         return;
     }
 
@@ -566,7 +566,7 @@ void Instruction::jp_z_a16(GameBoyCore* core, unsigned long long) {
     core->getCpu()->getCpuRegisters()->setPC(pc + 1);
 
     auto a16 = core->ReadData16(pc.to_ullong() + 1);
-    if ( !core->getCpu()->getFlagRegister()->getZ() ) {
+    if ( !core->getCpu()->getZFlag() ) {
         return;
     }
 
@@ -579,7 +579,7 @@ void Instruction::jp_c_a16(GameBoyCore* core, unsigned long long) {
     core->getCpu()->getCpuRegisters()->setPC(pc + 1);
 
     auto a16 = core->ReadData16(pc.to_ullong() + 1);
-    if ( !core->getCpu()->getFlagRegister()->getC() ) {
+    if ( !core->getCpu()->getCFlag() ) {
         return;
     }
 
@@ -593,7 +593,7 @@ void Instruction::rla__(GameBoyCore* core, unsigned long long) {
     auto carry = (a >> 7).to_ullong();
     assert(carry == 0 || carry == 1);
 
-    a = (a << 1) | static_cast<int>(core->getCpu()->getFlagRegister()->getC());
+    a = (a << 1) | static_cast<int>(core->getCpu()->getCFlag());
 
     /*
         Z - Set if result is zero.
@@ -601,10 +601,10 @@ void Instruction::rla__(GameBoyCore* core, unsigned long long) {
         H - Reset.
         C - Contains old bit 7 data.
      */
-    core->getCpu()->getFlagRegister()->setZ(a.to_ullong() == 0);
-    core->getCpu()->getFlagRegister()->setN(false);
-    core->getCpu()->getFlagRegister()->setH(false);
-    core->getCpu()->getFlagRegister()->setC(static_cast<bool>(carry));
+    core->getCpu()->setZFlag(a.to_ullong() == 0);
+    core->getCpu()->setNFlag(false);
+    core->getCpu()->setHFlag(false);
+    core->getCpu()->setCFlag(static_cast<bool>(carry));
 
     core->getCpu()->getCpuRegisters()->setA(a);
 }
@@ -622,7 +622,7 @@ void Instruction::jr_r8_(GameBoyCore* core, unsigned long long) {
 void Instruction::jr_nz_r8(GameBoyCore* core, unsigned long long) {
     auto pc = core->getCpu()->getCpuRegisters()->getPC();
     core->getCpu()->getCpuRegisters()->setPC(pc + 1);
-    if ( core->getCpu()->getFlagRegister()->getZ() ) return;
+    if ( core->getCpu()->getZFlag() ) return;
 
     auto data = core->ReadData8(pc.to_ullong() + 1);
 
@@ -633,8 +633,8 @@ void Instruction::jr_nz_r8(GameBoyCore* core, unsigned long long) {
 void Instruction::jr_z_r8(GameBoyCore* core, unsigned long long) {
     auto pc = core->getCpu()->getCpuRegisters()->getPC();
     core->getCpu()->getCpuRegisters()->setPC(pc + 1);
-    if ( !core->getCpu()->getFlagRegister()->getZ() ) return;
-    
+    if ( !core->getCpu()->getZFlag() ) return;
+
     auto data = core->ReadData8(pc.to_ullong() + 1);
 
     core->getCpu()->getCpuRegisters()->setPC(pc.to_ullong() + data.to_ullong());
@@ -644,7 +644,7 @@ void Instruction::jr_z_r8(GameBoyCore* core, unsigned long long) {
 void Instruction::jr_nc_r8(GameBoyCore* core, unsigned long long) {
     auto pc = core->getCpu()->getCpuRegisters()->getPC();
     core->getCpu()->getCpuRegisters()->setPC(pc + 1);
-    if ( core->getCpu()->getFlagRegister()->getC() ) return;
+    if ( core->getCpu()->getCFlag() ) return;
 
     auto data = core->ReadData8(pc.to_ullong() + 1);
 
@@ -655,7 +655,7 @@ void Instruction::jr_nc_r8(GameBoyCore* core, unsigned long long) {
 void Instruction::jr_c_r8(GameBoyCore* core, unsigned long long) {
     auto pc = core->getCpu()->getCpuRegisters()->getPC();
     core->getCpu()->getCpuRegisters()->setPC(pc + 1);
-    if ( !core->getCpu()->getFlagRegister()->getC() ) return;
+    if ( !core->getCpu()->getCFlag() ) return;
 
     auto data = core->ReadData8(pc.to_ullong() + 1);
 
@@ -705,7 +705,7 @@ void Instruction::sbc_a_d8(GameBoyCore* core, unsigned long long) {
 // SBC A B
 void Instruction::sbc_a_b(GameBoyCore* core, unsigned long long opcode) {
     auto op = core->getCpu()->getCpuRegisters()->getB();
-    auto carry = static_cast<int>(core->getCpu()->getFlagRegister()->getC());
+    auto carry = static_cast<int>(core->getCpu()->getCFlag());
 
     auto a = core->getCpu()->getCpuRegisters()->getA();
     auto oldVal = a;
@@ -719,7 +719,7 @@ void Instruction::sbc_a_b(GameBoyCore* core, unsigned long long opcode) {
 // SBC A C
 void Instruction::sbc_a_c(GameBoyCore* core, unsigned long long opcode) {
     auto op = core->getCpu()->getCpuRegisters()->getC();
-    auto carry = static_cast<int>(core->getCpu()->getFlagRegister()->getC());
+    auto carry = static_cast<int>(core->getCpu()->getCFlag());
 
     auto a = core->getCpu()->getCpuRegisters()->getA();
     auto oldVal = a;
@@ -733,7 +733,7 @@ void Instruction::sbc_a_c(GameBoyCore* core, unsigned long long opcode) {
 // SBC A A
 void Instruction::sbc_a_a(GameBoyCore* core, unsigned long long opcode) {
     auto op = core->getCpu()->getCpuRegisters()->getA();
-    auto carry = static_cast<int>(core->getCpu()->getFlagRegister()->getC());
+    auto carry = static_cast<int>(core->getCpu()->getCFlag());
 
     auto a = core->getCpu()->getCpuRegisters()->getA();
     auto oldVal = a;
@@ -749,7 +749,7 @@ void Instruction::sbc_a__hl_(GameBoyCore* core, unsigned long long opcode) {
     auto hl = core->getCpu()->getCpuRegisters()->getHL();
 
     auto op = core->ReadData8(hl.to_ullong()).to_ullong();
-    auto carry = static_cast<int>(core->getCpu()->getFlagRegister()->getC());
+    auto carry = static_cast<int>(core->getCpu()->getCFlag());
 
     auto a = core->getCpu()->getCpuRegisters()->getA();
     auto oldVal = a;
@@ -763,7 +763,7 @@ void Instruction::sbc_a__hl_(GameBoyCore* core, unsigned long long opcode) {
 // SBC A L
 void Instruction::sbc_a_l(GameBoyCore* core, unsigned long long opcode) {
     auto op = core->getCpu()->getCpuRegisters()->getL();
-    auto carry = static_cast<int>(core->getCpu()->getFlagRegister()->getC());
+    auto carry = static_cast<int>(core->getCpu()->getCFlag());
 
     auto a = core->getCpu()->getCpuRegisters()->getA();
     auto oldVal = a;
@@ -777,7 +777,7 @@ void Instruction::sbc_a_l(GameBoyCore* core, unsigned long long opcode) {
 // SBC A H
 void Instruction::sbc_a_h(GameBoyCore* core, unsigned long long opcode) {
     auto op = core->getCpu()->getCpuRegisters()->getH();
-    auto carry = static_cast<int>(core->getCpu()->getFlagRegister()->getC());
+    auto carry = static_cast<int>(core->getCpu()->getCFlag());
 
     auto a = core->getCpu()->getCpuRegisters()->getA();
     auto oldVal = a;
@@ -791,7 +791,7 @@ void Instruction::sbc_a_h(GameBoyCore* core, unsigned long long opcode) {
 // SBC A E
 void Instruction::sbc_a_e(GameBoyCore* core, unsigned long long opcode) {
     auto op = core->getCpu()->getCpuRegisters()->getE();
-    auto carry = static_cast<int>(core->getCpu()->getFlagRegister()->getC());
+    auto carry = static_cast<int>(core->getCpu()->getCFlag());
 
     auto a = core->getCpu()->getCpuRegisters()->getA();
     auto oldVal = a;
@@ -805,7 +805,7 @@ void Instruction::sbc_a_e(GameBoyCore* core, unsigned long long opcode) {
 // SBC A D
 void Instruction::sbc_a_d(GameBoyCore* core, unsigned long long opcode) {
     auto op = core->getCpu()->getCpuRegisters()->getD();
-    auto carry = static_cast<int>(core->getCpu()->getFlagRegister()->getC());
+    auto carry = static_cast<int>(core->getCpu()->getCFlag());
 
     auto a = core->getCpu()->getCpuRegisters()->getA();
     auto oldVal = a;
@@ -1144,7 +1144,7 @@ void Instruction::stop_0_(GameBoyCore* core, unsigned long long) {
 
 // todo
 throw std::invalid_argument(__FUNCTION__);;
-    core->SetFlags(core->getCpu()->getFlagRegister()->getN(), core->getCpu()->getFlagRegister()->getH(), core->getCpu()->getFlagRegister()->getC(), core->getCpu()->getFlagRegister()->getZ());
+
 }
 
 // DAA
@@ -1165,16 +1165,16 @@ void Instruction::daa__(GameBoyCore* core, unsigned long long) {
 
     SplitRegister(a, high, low);
 
-    if ( low.to_ullong() > 9 || core->getCpu()->getFlagRegister()->getH() ) {
+    if ( low.to_ullong() > 9 || core->getCpu()->getHFlag() ) {
         nA += 0x06;
 
-        if ( high.to_ullong() > 9 || core->getCpu()->getFlagRegister()->getC() ) {
+        if ( high.to_ullong() > 9 || core->getCpu()->getCFlag() ) {
             nA += 0x60;
         }
     }
 
-    core->getCpu()->getFlagRegister()->setH(false);
-    core->getCpu()->getFlagRegister()->setZ(nA.to_ullong() == 0);
+    core->getCpu()->setHFlag(false);
+    core->getCpu()->setZFlag(nA.to_ullong() == 0);
 
     // todo
 throw std::invalid_argument(__FUNCTION__);;
@@ -1191,9 +1191,9 @@ void Instruction::ccf__(GameBoyCore* core, unsigned long long) {
         C - Complemented.
      */
 
-    core->getCpu()->getFlagRegister()->setN(false);
-    core->getCpu()->getFlagRegister()->setH(false);
-    core->getCpu()->getFlagRegister()->setC(!core->getCpu()->getFlagRegister()->getC());
+    core->getCpu()->setNFlag(false);
+    core->getCpu()->setHFlag(false);
+    core->getCpu()->setCFlag(!core->getCpu()->getCFlag());
 }
 
 // CP C
@@ -1499,9 +1499,9 @@ void Instruction::scf__(GameBoyCore* core, unsigned long long) {
     C - Set.
      */
 
-    core->getCpu()->getFlagRegister()->setN(false);
-    core->getCpu()->getFlagRegister()->setH(false);
-    core->getCpu()->getFlagRegister()->setC(true);
+    core->getCpu()->setNFlag(false);
+    core->getCpu()->setHFlag(false);
+    core->getCpu()->setCFlag(true);
 }
 
 // LD D d8
@@ -1686,11 +1686,11 @@ void Instruction::ld_hl_spplusr8(GameBoyCore* core, unsigned long long) {
 
     core->SetFlags(false, false, false, false);
     if (((oldVal.to_ullong() ^ r8.to_ullong() ^ newVal.to_ullong()) & 0x100) == 0x100) {
-        core->getCpu()->getFlagRegister()->setC(true);
+        core->getCpu()->setCFlag(true);
     }
 
     if (((oldVal.to_ullong() ^ r8.to_ullong() ^ newVal.to_ullong()) & 0x10) == 0x10) {
-        core->getCpu()->getFlagRegister()->setH(true);
+        core->getCpu()->setHFlag(true);
     }
 }
 
@@ -2245,10 +2245,10 @@ void Instruction::rrca__(GameBoyCore* core, unsigned long long) {
     H - Reset.
     C - Contains old bit 0 data
      */
-    core->getCpu()->getFlagRegister()->setZ(a.to_ullong() == 0);
-    core->getCpu()->getFlagRegister()->setN(false);
-    core->getCpu()->getFlagRegister()->setH(false);
-    core->getCpu()->getFlagRegister()->setC(static_cast<bool>(carry));
+    core->getCpu()->setZFlag(a.to_ullong() == 0);
+    core->getCpu()->setNFlag(false);
+    core->getCpu()->setHFlag(false);
+    core->getCpu()->setCFlag(static_cast<bool>(carry));
 }
 
 // XOR B
@@ -2360,8 +2360,8 @@ void Instruction::cpl__(GameBoyCore* core, unsigned long long) {
 
     core->getCpu()->getCpuRegisters()->setA(~a);
 
-    core->getCpu()->getFlagRegister()->setN(true);
-    core->getCpu()->getFlagRegister()->setH(true);
+    core->getCpu()->setNFlag(true);
+    core->getCpu()->setHFlag(true);
 }
 
 // RLCA
@@ -2379,10 +2379,10 @@ void Instruction::rlca__(GameBoyCore* core, unsigned long long) {
         H - Reset.
         C - Contains old bit 7 data.
      */
-    core->getCpu()->getFlagRegister()->setZ(a.to_ullong() == 0);
-    core->getCpu()->getFlagRegister()->setN(false);
-    core->getCpu()->getFlagRegister()->setH(false);
-    core->getCpu()->getFlagRegister()->setC(static_cast<bool>(carry));
+    core->getCpu()->setZFlag(a.to_ullong() == 0);
+    core->getCpu()->setNFlag(false);
+    core->getCpu()->setHFlag(false);
+    core->getCpu()->setCFlag(static_cast<bool>(carry));
 
     core->getCpu()->getCpuRegisters()->setA(a);
 }
