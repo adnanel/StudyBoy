@@ -16,20 +16,12 @@ int main() {
     // Privremeno dok je u test fazi...
 
     // RomReader reader("C:\\Users\\prg01\\CLionProjects\\StudyBoy\\roms\\Bounce.gb");
-    RomReader reader("C:\\Users\\prg01\\CLionProjects\\StudyBoy\\roms\\helloworld.gb");
-
-    core.getCpu()->setCodeLoader(new CodeLoader(reader.allocRomBuffer(), reader.getRomSize()));
+    RomReader reader("C:\\Users\\adnan\\CLionProjects\\StudyBoy\\roms\\Bounce.gb");
 
     while ( 1 ) {
         try {
-            auto t1 = std::chrono::high_resolution_clock::now();
             core.Step();
-            core.CheckForInterrupts();
-            auto t2 = std::chrono::high_resolution_clock::now();
-
-            auto duration = std::chrono::duration_cast<std::chrono::microseconds>( t2 - t1 ).count();
-
-            std::cout<<"deltaTime = "<<std::dec<<(duration)<<" [us]"<<std::endl;
+            // core.CheckForInterrupts();
         } catch ( const std::invalid_argument& ex ) {
             std::cout<<std::endl;
             std::cout<<ex.what();

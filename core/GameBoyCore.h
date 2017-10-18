@@ -155,7 +155,8 @@ public:
         for ( int i = 0; i < bytes; ++ i ) {
             cpu.getCpuRegisters()->setSP(cpu.getCpuRegisters()->getSP() - 1);
 
-            Register<8> r = 0xFF & (reg >> 8).to_ullong();
+            Register<8> r = 0xFF & reg.to_ullong();
+            reg = reg >> 8;
 
             WriteData8(cpu.getCpuRegisters()->getSP().to_ullong(), r);
         }
