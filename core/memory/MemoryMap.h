@@ -30,6 +30,8 @@ public:
 
     template<unsigned int BitCount>
     std::bitset<BitCount> ReadData(unsigned long long targetAddress) const {
+        targetAddress -= mAddrOffset;
+
         if ( BitCount % 8 != 0 ) {
             throw std::invalid_argument("BitCount unsupported!");
         }
@@ -43,7 +45,7 @@ public:
         int byteCount = BitCount / 8;
 
         for ( int i = byteCount; i >= 0; -- i ) {
-            res = (res.to_ullong() << 8) | mMemory[targetAddress + i + mAddrOffset];
+            res = (res.to_ullong() << 8) | mMemory[targetAddress + i];
         }
 
         return res;
@@ -51,6 +53,8 @@ public:
 
     template<unsigned int BitCount>
     void WriteData(unsigned long long address, const Register<BitCount>& reg) {
+        address -= mAddrOffset;
+
         if ( mIsReadonly ) {
             throw std::domain_error("Can't write to read only memory! Address = " + std::to_string(address));
         }
@@ -65,7 +69,7 @@ public:
 
         auto data = reg.to_ullong();
         for ( int i = 0; i < byteCount; ++ i ) {
-            mMemory[address + i + mAddrOffset] = static_cast<char>(0xFF & data);
+            mMemory[address + i] = static_cast<char>(0xFF & data);
             data >>= 8;
         }
     }
