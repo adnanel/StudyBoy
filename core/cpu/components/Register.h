@@ -5,8 +5,22 @@
 #ifndef STUDYBOY_REGISTER_H
 #define STUDYBOY_REGISTER_H
 
-
 #include <bitset>
+
+
+template<typename T>
+inline unsigned long long int to_ullong(const T& t) {
+    return static_cast<unsigned long long int>(t);
+}
+template<>
+inline unsigned long long int to_ullong(const std::bitset<8>& t ) {
+    return t.to_ullong();
+}
+template<>
+inline unsigned long long int to_ullong(const std::bitset<16>& t ) {
+    return t.to_ullong();
+}
+
 
 template <unsigned int N>
 class Register {
@@ -38,6 +52,7 @@ public:
     inline Register(const Register<N>& src) : mData(src.mData) {
     }
 
+    inline Register(const std::bitset<N>& src) : mData(src) {}
 
     inline Register(Register<N>&& src) noexcept {
         mData = src.mData;
@@ -160,15 +175,16 @@ public:
         return *this;
     }
 
+
     template<typename T>
     inline Register<N>& operator-=(const T& other) {
-        mData = mData.to_ullong() - other;
+        mData = mData.to_ullong() - ::to_ullong(other);
         return *this;
     }
 
     template<typename T>
     inline Register<N>& operator+=(const T& other) {
-        mData = mData.to_ullong() + other;
+        mData = mData.to_ullong() + ::to_ullong(other);
         return *this;
     }
 
@@ -221,5 +237,15 @@ template<typename T, unsigned int N>
 inline Register<N> operator&(const T& t, const Register<N>& other) {
     return other & t;
 }
+
+template<>
+inline unsigned long long int to_ullong(const Register<8>& t ) {
+    return t.to_ullong();
+}
+template<>
+inline unsigned long long int to_ullong(const Register<16>& t ) {
+    return t.to_ullong();
+}
+
 
 #endif //STUDYBOY_REGISTER_H

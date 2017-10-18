@@ -7,254 +7,118 @@
 #include <stdexcept>
 
 
-void update_flags_adc(unsigned long long oldVal,
-                      unsigned long long newVal,
-                      GameBoyCore* core,
-                      unsigned long long opcode) {
-    // todo
-    core->SetFlags(newVal == 0, false, false, false);
-}
-
-void update_flags_adc(const Register<8>& oldVal,
+void update_flags_adc_8(const Register<8>& oldVal,
                       const Register<8>& newVal,
                       GameBoyCore* core,
                       unsigned long long opcode) {
     // todo
-    update_flags_adc(oldVal.to_ullong(), newVal.to_ullong(), core, opcode);
+    core->SetFlags(newVal.to_ullong() == 0, false, false, false);
 }
 
-void update_flags_add(unsigned long long oldVal,
-                      unsigned long long newVal,
-                      GameBoyCore* core,
-                      unsigned long long opcode) {
-    // todo
-    core->SetFlags(newVal == 0, false, false, false);
-}
-
-void update_flags_add(const Register<8>& oldVal,
-                      const Register<8>& newVal,
-                      GameBoyCore* core,
-                      unsigned long long opcode) {
-    // todo
-    update_flags_add(oldVal.to_ullong(), newVal.to_ullong(), core, opcode);
-}
-
-void update_flags_inc(unsigned long long oldVal,
-                      unsigned long long newVal,
-                      GameBoyCore* core,
-                      unsigned long long opcode) {
-    // todo
-    core->SetFlags(newVal == 0, false, false, false);
-}
-
-void update_flags_inc(const Register<8>& oldVal,
-                      const Register<8>& newVal,
-                      GameBoyCore* core,
-                      unsigned long long opcode) {
-    // todo
-    update_flags_inc(oldVal.to_ullong(), newVal.to_ullong(), core, opcode);
-}
-
-void update_flags_dec(unsigned long long oldVal,
-                      unsigned long long newVal,
-                      GameBoyCore* core,
-                      unsigned long long) {
-    // todo
-    core->SetFlags(newVal == 0, false, false, false);
-}
-
-void update_flags_dec(const Register<8>& oldVal,
-                      const Register<8>& newVal,
-                      GameBoyCore* core,
-                      unsigned long long opcode) {
-    // todo
-    update_flags_dec(oldVal.to_ullong(), newVal.to_ullong(), core, opcode);
-}
-
-void update_flags_sub(unsigned long long oldVal,
-                      unsigned long long newVal,
-                      GameBoyCore* core,
-                      unsigned long long opcode) {
-    // todo
-    core->SetFlags(newVal == 0, false, false, false);
-}
-
-void update_flags_sub(unsigned long long t1, const Register<8>& t2, GameBoyCore* core, unsigned long long opcode) {
-    return update_flags_sub(t1, t2.to_ullong(), core, opcode);
-}
-
-void update_flags_sub(const Register<8>& t1, unsigned long long t2, GameBoyCore* core, unsigned long long opcode) {
-    return update_flags_sub(t1.to_ullong(), t2, core, opcode);
-}
-
-void update_flags_sub(const Register<8>& t1, const Register<8>& t2, GameBoyCore* core, unsigned long long opcode) {
-    return update_flags_sub(t1.to_ullong(), t2.to_ullong(), core, opcode);
-}
-
-void update_flags_sbc(unsigned long long oldVal,
-                      unsigned long long newVal,
-                      GameBoyCore* core,
-                      unsigned long long opcode) {
-    // todo
-    core->SetFlags(newVal == 0, false, false, false);
-}
-
-void update_flags_sbc(unsigned long long t1, const Register<8>& t2, GameBoyCore* core, unsigned long long opcode) {
-    return update_flags_sbc(t1, t2.to_ullong(), core, opcode);
-}
-
-void update_flags_sbc(const Register<8>& t1, unsigned long long t2, GameBoyCore* core, unsigned long long opcode) {
-    return update_flags_sbc(t1.to_ullong(), t2, core, opcode);
-}
-
-void update_flags_sbc(const Register<8>& t1, const Register<8>& t2, GameBoyCore* core, unsigned long long opcode) {
-    return update_flags_sbc(t1.to_ullong(), t2.to_ullong(), core, opcode);
-}
-
-
-void update_flags_and(unsigned long long oldVal,
-                      unsigned long long newVal,
-                      GameBoyCore* core,
-                      unsigned long long opcode) {
-    // todo
-    core->SetFlags(newVal == 0, false, false, false);
-}
-
-void update_flags_and(unsigned long long t1, const Register<8>& t2, GameBoyCore* core, unsigned long long opcode) {
-    return update_flags_and(t1, t2.to_ullong(), core, opcode);
-}
-
-void update_flags_and(const Register<8>& t1, unsigned long long t2, GameBoyCore* core, unsigned long long opcode) {
-    return update_flags_and(t1.to_ullong(), t2, core, opcode);
-}
-
-void update_flags_and(const Register<8>& t1, const Register<8>& t2, GameBoyCore* core, unsigned long long opcode) {
-    return update_flags_and(t1.to_ullong(), t2.to_ullong(), core, opcode);
-}
-
-
-void update_flags_or(unsigned long long oldVal,
-                      unsigned long long newVal,
-                      GameBoyCore* core,
-                      unsigned long long opcode) {
-    core->SetFlags(newVal == 0, false, false, false);
-}
-
-void update_flags_or(unsigned long long t1, const Register<8>& t2, GameBoyCore* core, unsigned long long opcode) {
-    return update_flags_or(t1, t2.to_ullong(), core, opcode);
-}
-
-void update_flags_or(const Register<8>& t1, unsigned long long t2, GameBoyCore* core, unsigned long long opcode) {
-    return update_flags_or(t1.to_ullong(), t2, core, opcode);
-}
-
-void update_flags_or(const Register<8>& t1, const Register<8>& t2, GameBoyCore* core, unsigned long long opcode) {
-    return update_flags_or(t1.to_ullong(), t2.to_ullong(), core, opcode);
-}
-
-
-void update_flags_xor(unsigned long long oldVal,
-                     unsigned long long newVal,
-                     GameBoyCore* core,
-                     unsigned long long opcode) {
-    core->SetFlags(newVal == 0, false, false, false);
-}
-
-void update_flags_xor(unsigned long long t1, const Register<8>& t2, GameBoyCore* core, unsigned long long opcode) {
-    return update_flags_xor(t1, t2.to_ullong(), core, opcode);
-}
-
-void update_flags_xor(const Register<8>& t1, unsigned long long t2, GameBoyCore* core, unsigned long long opcode) {
-    return update_flags_xor(t1.to_ullong(), t2, core, opcode);
-}
-
-void update_flags_xor(const Register<8>& t1, const Register<8>& t2, GameBoyCore* core, unsigned long long opcode) {
-    return update_flags_xor(t1.to_ullong(), t2.to_ullong(), core, opcode);
-}
-
-
-void update_flags_cp(unsigned long long oldVal,
-                      unsigned long long newVal,
-                      GameBoyCore* core,
-                      unsigned long long opcode) {
-    // todo
-    core->SetFlags(newVal == 0, true, false, false);
-}
-
-void update_flags_cp(unsigned long long t1, const Register<8>& t2, GameBoyCore* core, unsigned long long opcode) {
-    return update_flags_cp(t1, t2.to_ullong(), core, opcode);
-}
-
-void update_flags_cp(const Register<8>& t1, unsigned long long t2, GameBoyCore* core, unsigned long long opcode) {
-    return update_flags_cp(t1.to_ullong(), t2, core, opcode);
-}
-
-void update_flags_cp(const Register<8>& t1, const Register<8>& t2, GameBoyCore* core, unsigned long long opcode) {
-    return update_flags_cp(t1.to_ullong(), t2.to_ullong(), core, opcode);
-}
-
-void update_flags_add_16(unsigned long long oldVal,
-                     unsigned long long newVal,
-                     GameBoyCore* core,
-                     unsigned long long opcode) {
-    // todo
-    core->SetFlags(newVal == 0, true, false, false);
-}
-
-void update_flags_add_16(unsigned long long t1, const Register<16>& t2, GameBoyCore* core, unsigned long long opcode) {
-    return update_flags_add_16(t1, t2.to_ullong(), core, opcode);
-}
-
-void update_flags_add_16(const Register<16>& t1, unsigned long long t2, GameBoyCore* core, unsigned long long opcode) {
-    return update_flags_add_16(t1.to_ullong(), t2, core, opcode);
-}
-
-void update_flags_add_16(const Register<16>& t1, const Register<16>& t2, GameBoyCore* core, unsigned long long opcode) {
-    return update_flags_add_16(t1.to_ullong(), t2.to_ullong(), core, opcode);
-}
-
-void update_flags_dec_16(unsigned long long oldVal,
-                         unsigned long long newVal,
+void update_flags_adc_16(const Register<8>& oldVal,
+                         const Register<8>& newVal,
                          GameBoyCore* core,
                          unsigned long long opcode) {
     // todo
-    core->SetFlags(newVal == 0, true, false, false);
-}
-
-void update_flags_dec_16(unsigned long long t1, const Register<16>& t2, GameBoyCore* core, unsigned long long opcode) {
-    return update_flags_dec_16(t1, t2.to_ullong(), core, opcode);
-}
-
-void update_flags_dec_16(const Register<16>& t1, unsigned long long t2, GameBoyCore* core, unsigned long long opcode) {
-    return update_flags_dec_16(t1.to_ullong(), t2, core, opcode);
-}
-
-void update_flags_dec_16(const Register<16>& t1, const Register<16>& t2, GameBoyCore* core, unsigned long long opcode) {
-    return update_flags_dec_16(t1.to_ullong(), t2.to_ullong(), core, opcode);
+    core->SetFlags(newVal.to_ullong() == 0, false, false, false);
 }
 
 
-void update_flags_inc_16(unsigned long long oldVal,
-                         unsigned long long newVal,
+void update_flags_add_8(const Register<8>& oldVal,
+                        const Register<8>& newVal,
+                      GameBoyCore* core,
+                      unsigned long long opcode) {
+    // todo
+    core->SetFlags(newVal.to_ullong() == 0, false, false, false);
+}
+
+void update_flags_dec_8(const Register<8>& oldVal,
+                        const Register<8>& newVal,
+                        GameBoyCore* core,
+                        unsigned long long) {
+    // todo
+    core->SetFlags(newVal.to_ullong() == 0, false, false, false);
+}
+
+void update_flags_sub_8(const Register<8>& oldVal,
+                        const Register<8>& newVal,
+                        GameBoyCore* core,
+                        unsigned long long opcode) {
+    // todo
+    core->SetFlags(newVal.to_ullong() == 0, false, false, false);
+}
+
+void update_flags_sbc_8(const Register<8>& oldVal,
+                        const Register<8>& newVal,
+                        GameBoyCore* core,
+                        unsigned long long opcode) {
+    // todo
+    core->SetFlags(newVal.to_ullong() == 0, false, false, false);
+}
+
+void update_flags_and_8(const Register<8>& oldVal,
+                        const Register<8>& newVal,
+                        GameBoyCore* core,
+                        unsigned long long opcode) {
+    // todo
+    core->SetFlags(newVal.to_ullong() == 0, false, false, false);
+}
+
+void update_flags_or_8(const Register<8>& oldVal,
+                       const Register<8>& newVal,
+                      GameBoyCore* core,
+                      unsigned long long opcode) {
+    core->SetFlags(newVal.to_ullong() == 0, false, false, false);
+}
+
+void update_flags_xor_8(const Register<8>& oldVal,
+                        const Register<8>& newVal,
+                     GameBoyCore* core,
+                     unsigned long long opcode) {
+    core->SetFlags(newVal.to_ullong() == 0, false, false, false);
+}
+
+void update_flags_cp_8(const Register<8>& oldVal,
+                       const Register<8>& newVal,
+                      GameBoyCore* core,
+                      unsigned long long opcode) {
+    // todo
+    core->SetFlags(newVal.to_ullong() == 0, true, false, false);
+}
+
+void update_flags_add_16(const Register<16>& oldVal,
+                         const Register<16>& newVal,
+                     GameBoyCore* core,
+                     unsigned long long opcode) {
+    // todo
+    core->SetFlags(newVal.to_ullong() == 0, true, false, false);
+}
+
+void update_flags_dec_16(const Register<16>& oldVal,
+                         const Register<16>& newVal,
                          GameBoyCore* core,
                          unsigned long long opcode) {
     // todo
-    core->SetFlags(newVal == 0, true, false, false);
-}
-
-void update_flags_inc_16(unsigned long long t1, const Register<16>& t2, GameBoyCore* core, unsigned long long opcode) {
-    return update_flags_inc_16(t1, t2.to_ullong(), core, opcode);
-}
-
-void update_flags_inc_16(const Register<16>& t1, unsigned long long t2, GameBoyCore* core, unsigned long long opcode) {
-    return update_flags_inc_16(t1.to_ullong(), t2, core, opcode);
-}
-
-void update_flags_inc_16(const Register<16>& t1, const Register<16>& t2, GameBoyCore* core, unsigned long long opcode) {
-    return update_flags_inc_16(t1.to_ullong(), t2.to_ullong(), core, opcode);
+    core->SetFlags(newVal.to_ullong() == 0, true, false, false);
 }
 
 
+void update_flags_inc_16(const Register<16>& oldVal,
+                         const Register<16>& newVal,
+                         GameBoyCore* core,
+                         unsigned long long opcode) {
+    // todo
+    core->SetFlags(newVal.to_ullong() == 0, true, false, false);
+}
+
+
+void update_flags_inc_8(const Register<8>& oldVal,
+                        const Register<8>& newVal,
+                        GameBoyCore* core,
+                        unsigned long long opcode) {
+    // todo
+    core->SetFlags(newVal.to_ullong() == 0, false, false, false);
+}
 
 
 
@@ -322,7 +186,7 @@ void Instruction::adc_a__hl_(GameBoyCore* core, unsigned long long opcode) {
 
     core->getCpu()->getCpuRegisters()->setA(cReg);
 
-    update_flags_adc(oldVal, cReg, core, opcode);
+    update_flags_adc_16(oldVal, cReg, core, opcode);
 }
 
 // ADC A L
@@ -333,7 +197,7 @@ void Instruction::adc_a_l(GameBoyCore* core, unsigned long long opcode) {
     cReg += core->getCpu()->getCpuRegisters()->getL();
     cReg += static_cast<int>(core->getCpu()->getFlagRegister()->getC());
 
-    update_flags_adc(oldVal, cReg, core, opcode);
+    update_flags_adc_8(oldVal, cReg, core, opcode);
 }
 
 // ADC A H
@@ -346,7 +210,7 @@ void Instruction::adc_a_h(GameBoyCore* core, unsigned long long opcode) {
 
     core->getCpu()->getCpuRegisters()->setA(cReg);
 
-    update_flags_adc(oldVal, cReg, core, opcode);
+    update_flags_adc_8(oldVal, cReg, core, opcode);
 }
 
 // ADC A E
@@ -359,7 +223,7 @@ void Instruction::adc_a_e(GameBoyCore* core, unsigned long long opcode) {
 
     core->getCpu()->getCpuRegisters()->setA(cReg);
 
-    update_flags_adc(oldVal, cReg, core, opcode);
+    update_flags_adc_8(oldVal, cReg, core, opcode);
 }
 
 // ADC A D
@@ -372,7 +236,7 @@ void Instruction::adc_a_d(GameBoyCore* core, unsigned long long opcode) {
 
     core->getCpu()->getCpuRegisters()->setA(cReg);
 
-    update_flags_adc(oldVal, cReg, core, opcode);
+    update_flags_adc_8(oldVal, cReg, core, opcode);
 }
 
 
@@ -387,7 +251,7 @@ void Instruction::add_a_d8(GameBoyCore* core, unsigned long long opcode) {
     auto newVal = oldVal + d8;
 
     core->getCpu()->getCpuRegisters()->setA(newVal.to_ullong());
-    update_flags_add(oldVal, newVal, core, opcode);
+    update_flags_add_8(oldVal, newVal, core, opcode);
 }
 
 // ADD A C
@@ -399,7 +263,7 @@ void Instruction::add_a_c(GameBoyCore* core, unsigned long long opcode) {
 
     core->getCpu()->getCpuRegisters()->setA(cReg);
 
-    update_flags_add(oldVal, cReg, core, opcode);
+    update_flags_add_8(oldVal, cReg, core, opcode);
 }
 
 // ADD A B
@@ -411,7 +275,7 @@ void Instruction::add_a_b(GameBoyCore* core, unsigned long long opcode) {
 
     core->getCpu()->getCpuRegisters()->setA(cReg);
 
-    update_flags_add(oldVal, cReg, core, opcode);
+    update_flags_add_8(oldVal, cReg, core, opcode);
 }
 
 // ADD A A
@@ -423,7 +287,7 @@ void Instruction::add_a_a(GameBoyCore* core, unsigned long long opcode) {
 
     core->getCpu()->getCpuRegisters()->setA(cReg);
 
-    update_flags_add(oldVal, cReg, core, opcode);
+    update_flags_add_8(oldVal, cReg, core, opcode);
 }
 
 // ADD HL DE
@@ -451,7 +315,7 @@ void Instruction::adc_a_d8(GameBoyCore* core, unsigned long long opcode) {
 
     core->getCpu()->getCpuRegisters()->setA(newVal);
 
-    update_flags_adc(oldVal, newVal, core, opcode);
+    update_flags_adc_8(oldVal, newVal, core, opcode);
 }
 
 // ADD HL HL
@@ -473,7 +337,7 @@ void Instruction::add_sp_r8(GameBoyCore* core, unsigned long long opcode) {
     auto oldVal = core->getCpu()->getCpuRegisters()->getSP();
     auto newVal = oldVal + core->ReadData8(pc.to_ullong() + 1);
 
-    update_flags_add(oldVal, newVal, core, opcode);
+    update_flags_add_16(oldVal, newVal, core, opcode);
     core->getCpu()->getFlagRegister()->setZ(false);
     core->getCpu()->getFlagRegister()->setN(false);
 }
@@ -514,7 +378,7 @@ void Instruction::adc_a_a(GameBoyCore* core, unsigned long long opcode) {
 
     core->getCpu()->getCpuRegisters()->setA(a);
 
-    update_flags_adc(oldVal, a, core, opcode);
+    update_flags_adc_8(oldVal, a, core, opcode);
 }
 
 // ADD A (HL)
@@ -524,7 +388,7 @@ void Instruction::add_a__hl_(GameBoyCore* core, unsigned long long opcode) {
             core->ReadData8(core->getCpu()->getCpuRegisters()->getHL().to_ullong()).to_ullong();
 
     core->getCpu()->getCpuRegisters()->setA(newVal);
-    update_flags_add(oldVal.to_ullong(), newVal, core, opcode);
+    update_flags_add_8(oldVal.to_ullong(), newVal, core, opcode);
 }
 
 // ADD A L
@@ -533,7 +397,7 @@ void Instruction::add_a_l(GameBoyCore* core, unsigned long long opcode) {
     auto newVal = oldVal + core->getCpu()->getCpuRegisters()->getL();
 
     core->getCpu()->getCpuRegisters()->setA(newVal);
-    update_flags_add(oldVal.to_ullong(), newVal.to_ullong(), core, opcode);
+    update_flags_add_8(oldVal.to_ullong(), newVal.to_ullong(), core, opcode);
 }
 
 // ADD A H
@@ -542,7 +406,7 @@ void Instruction::add_a_h(GameBoyCore* core, unsigned long long opcode) {
     auto newVal = oldVal + core->getCpu()->getCpuRegisters()->getH();
 
     core->getCpu()->getCpuRegisters()->setA(newVal);
-    update_flags_add(oldVal.to_ullong(), newVal.to_ullong(), core, opcode);
+    update_flags_add_8(oldVal.to_ullong(), newVal.to_ullong(), core, opcode);
 }
 
 // ADD A E
@@ -551,7 +415,7 @@ void Instruction::add_a_e(GameBoyCore* core, unsigned long long opcode) {
     auto newVal = oldVal + core->getCpu()->getCpuRegisters()->getE();
 
     core->getCpu()->getCpuRegisters()->setA(newVal);
-    update_flags_add(oldVal.to_ullong(), newVal.to_ullong(), core, opcode);
+    update_flags_add_8(oldVal.to_ullong(), newVal.to_ullong(), core, opcode);
 }
 
 // ADD A D
@@ -560,7 +424,7 @@ void Instruction::add_a_d(GameBoyCore* core, unsigned long long opcode) {
     auto newVal = oldVal + core->getCpu()->getCpuRegisters()->getD();
 
     core->getCpu()->getCpuRegisters()->setA(newVal);
-    update_flags_add(oldVal.to_ullong(), newVal.to_ullong(), core, opcode);
+    update_flags_add_8(oldVal.to_ullong(), newVal.to_ullong(), core, opcode);
 }
 
 // ADC A C
@@ -569,7 +433,7 @@ void Instruction::adc_a_c(GameBoyCore* core, unsigned long long opcode) {
     auto newVal = oldVal + core->getCpu()->getCpuRegisters()->getC() + core->getCpu()->getFlagRegister()->getC();
 
     core->getCpu()->getCpuRegisters()->setA(newVal);
-    update_flags_adc(oldVal.to_ullong(), newVal.to_ullong(), core, opcode);
+    update_flags_adc_8(oldVal.to_ullong(), newVal.to_ullong(), core, opcode);
 }
 
 // ADC A B
@@ -578,7 +442,7 @@ void Instruction::adc_a_b(GameBoyCore* core, unsigned long long opcode) {
     auto newVal = oldVal + core->getCpu()->getCpuRegisters()->getB() + core->getCpu()->getFlagRegister()->getC();
 
     core->getCpu()->getCpuRegisters()->setA(newVal);
-    update_flags_adc(oldVal.to_ullong(), newVal.to_ullong(), core, opcode);
+    update_flags_adc_8(oldVal.to_ullong(), newVal.to_ullong(), core, opcode);
 }
 
 // CALL NZ a16
@@ -850,7 +714,7 @@ void Instruction::sbc_a_b(GameBoyCore* core, unsigned long long opcode) {
     a -= op + carry;
     core->getCpu()->getCpuRegisters()->setA(a);
 
-    update_flags_sbc(oldVal, a, core, opcode);
+    update_flags_sbc_8(oldVal, a, core, opcode);
 }
 
 // SBC A C
@@ -864,7 +728,7 @@ void Instruction::sbc_a_c(GameBoyCore* core, unsigned long long opcode) {
     a -= op + carry;
     core->getCpu()->getCpuRegisters()->setA(a);
 
-    update_flags_sbc(oldVal, a, core, opcode);
+    update_flags_sbc_8(oldVal, a, core, opcode);
 }
 
 // SBC A A
@@ -878,7 +742,7 @@ void Instruction::sbc_a_a(GameBoyCore* core, unsigned long long opcode) {
     a -= op + carry;
     core->getCpu()->getCpuRegisters()->setA(a);
 
-    update_flags_sbc(oldVal, a, core, opcode);
+    update_flags_sbc_8(oldVal, a, core, opcode);
 }
 
 // SBC A (HL)
@@ -894,7 +758,7 @@ void Instruction::sbc_a__hl_(GameBoyCore* core, unsigned long long opcode) {
     a -= op + carry;
     core->getCpu()->getCpuRegisters()->setA(a);
 
-    update_flags_sbc(oldVal, a, core, opcode);
+    update_flags_sbc_8(oldVal, a, core, opcode);
 }
 
 // SBC A L
@@ -908,7 +772,7 @@ void Instruction::sbc_a_l(GameBoyCore* core, unsigned long long opcode) {
     a -= op + carry;
     core->getCpu()->getCpuRegisters()->setA(a);
 
-    update_flags_sbc(oldVal, a, core, opcode);
+    update_flags_sbc_8(oldVal, a, core, opcode);
 }
 
 // SBC A H
@@ -922,7 +786,7 @@ void Instruction::sbc_a_h(GameBoyCore* core, unsigned long long opcode) {
     a -= op + carry;
     core->getCpu()->getCpuRegisters()->setA(a);
 
-    update_flags_sbc(oldVal, a, core, opcode);
+    update_flags_sbc_8(oldVal, a, core, opcode);
 }
 
 // SBC A E
@@ -936,7 +800,7 @@ void Instruction::sbc_a_e(GameBoyCore* core, unsigned long long opcode) {
     a -= op + carry;
     core->getCpu()->getCpuRegisters()->setA(a);
 
-    update_flags_sbc(oldVal, a, core, opcode);
+    update_flags_sbc_8(oldVal, a, core, opcode);
 }
 
 // SBC A D
@@ -950,7 +814,7 @@ void Instruction::sbc_a_d(GameBoyCore* core, unsigned long long opcode) {
     a -= op + carry;
     core->getCpu()->getCpuRegisters()->setA(a);
 
-    update_flags_sbc(oldVal, a, core, opcode);
+    update_flags_sbc_8(oldVal, a, core, opcode);
 }
 
 // HALT
@@ -976,7 +840,7 @@ void Instruction::sub_b_(GameBoyCore* core, unsigned long long opcode) {
     auto nA = a - b;
     core->getCpu()->getCpuRegisters()->setA(nA);
 
-    update_flags_sub(a, nA, core, opcode);
+    update_flags_sub_8(a, nA, core, opcode);
 }
 
 // SUB A
@@ -986,7 +850,7 @@ void Instruction::sub_a_(GameBoyCore* core, unsigned long long opcode) {
     auto nA = a - b;
     core->getCpu()->getCpuRegisters()->setA(nA);
 
-    update_flags_sub(a, nA, core, opcode);
+    update_flags_sub_8(a, nA, core, opcode);
 }
 
 // SUB (HL)
@@ -999,7 +863,7 @@ void Instruction::sub__hl__(GameBoyCore* core, unsigned long long opcode) {
     auto nA = a - b;
     core->getCpu()->getCpuRegisters()->setA(nA);
 
-    update_flags_sub(a, nA, core, opcode);
+    update_flags_sub_8(a, nA, core, opcode);
 }
 
 // SUB L
@@ -1009,7 +873,7 @@ void Instruction::sub_l_(GameBoyCore* core, unsigned long long opcode) {
     auto nA = a - b;
     core->getCpu()->getCpuRegisters()->setA(nA);
 
-    update_flags_sub(a, nA, core, opcode);
+    update_flags_sub_8(a, nA, core, opcode);
 }
 
 // SUB H
@@ -1019,7 +883,7 @@ void Instruction::sub_h_(GameBoyCore* core, unsigned long long opcode) {
     auto nA = a - b;
     core->getCpu()->getCpuRegisters()->setA(nA);
 
-    update_flags_sub(a, nA, core, opcode);
+    update_flags_sub_8(a, nA, core, opcode);
 }
 
 // SUB E
@@ -1029,7 +893,7 @@ void Instruction::sub_e_(GameBoyCore* core, unsigned long long opcode) {
     auto nA = a - b;
     core->getCpu()->getCpuRegisters()->setA(nA);
 
-    update_flags_sub(a, nA, core, opcode);
+    update_flags_sub_8(a, nA, core, opcode);
 }
 
 // SUB D
@@ -1039,7 +903,7 @@ void Instruction::sub_d_(GameBoyCore* core, unsigned long long opcode) {
     auto nA = a - b;
     core->getCpu()->getCpuRegisters()->setA(nA);
 
-    update_flags_sub(a, nA, core, opcode);
+    update_flags_sub_8(a, nA, core, opcode);
 }
 
 // SUB C
@@ -1049,7 +913,7 @@ void Instruction::sub_c_(GameBoyCore* core, unsigned long long opcode) {
     auto nA = a - b;
     core->getCpu()->getCpuRegisters()->setA(nA);
 
-    update_flags_sub(a, nA, core, opcode);
+    update_flags_sub_8(a, nA, core, opcode);
 }
 
 // OR C
@@ -1060,7 +924,7 @@ void Instruction::or_c_(GameBoyCore* core, unsigned long long opcode) {
     auto nA = a | b;
     core->getCpu()->getCpuRegisters()->setA(nA);
 
-    update_flags_or(a, nA, core, opcode);
+    update_flags_or_8(a, nA, core, opcode);
 }
 
 // OR B
@@ -1071,7 +935,7 @@ void Instruction::or_b_(GameBoyCore* core, unsigned long long opcode) {
     auto nA = a | b;
     core->getCpu()->getCpuRegisters()->setA(nA);
 
-    update_flags_or(a, nA, core, opcode);
+    update_flags_or_8(a, nA, core, opcode);
 }
 
 // OR A
@@ -1082,7 +946,7 @@ void Instruction::or_a_(GameBoyCore* core, unsigned long long opcode) {
     auto nA = a | b;
     core->getCpu()->getCpuRegisters()->setA(nA);
 
-    update_flags_or(a, nA, core, opcode);
+    update_flags_or_8(a, nA, core, opcode);
 }
 
 // OR (HL)
@@ -1095,7 +959,7 @@ void Instruction::or__hl__(GameBoyCore* core, unsigned long long opcode) {
     auto nA = a | b;
     core->getCpu()->getCpuRegisters()->setA(nA);
 
-    update_flags_or(a, nA, core, opcode);
+    update_flags_or_8(a, nA, core, opcode);
 }
 
 // OR L
@@ -1106,7 +970,7 @@ void Instruction::or_l_(GameBoyCore* core, unsigned long long opcode) {
     auto nA = a | b;
     core->getCpu()->getCpuRegisters()->setA(nA);
 
-    update_flags_or(a, nA, core, opcode);
+    update_flags_or_8(a, nA, core, opcode);
 }
 
 // OR H
@@ -1117,7 +981,7 @@ void Instruction::or_h_(GameBoyCore* core, unsigned long long opcode) {
     auto nA = a | b;
     core->getCpu()->getCpuRegisters()->setA(nA);
 
-    update_flags_or(a, nA, core, opcode);
+    update_flags_or_8(a, nA, core, opcode);
 }
 
 // OR E
@@ -1128,7 +992,7 @@ void Instruction::or_e_(GameBoyCore* core, unsigned long long opcode) {
     auto nA = a | b;
     core->getCpu()->getCpuRegisters()->setA(nA);
 
-    update_flags_or(a, nA, core, opcode);
+    update_flags_or_8(a, nA, core, opcode);
 }
 
 // OR D
@@ -1139,7 +1003,7 @@ void Instruction::or_d_(GameBoyCore* core, unsigned long long opcode) {
     auto nA = a | b;
     core->getCpu()->getCpuRegisters()->setA(nA);
 
-    update_flags_or(a, nA, core, opcode);
+    update_flags_or_8(a, nA, core, opcode);
 }
 
 // OR d8
@@ -1157,7 +1021,7 @@ void Instruction::dec_d_(GameBoyCore* core, unsigned long long opcode) {
     auto newVal = oldVal - 1;
     core->getCpu()->getCpuRegisters()->setD(newVal);
 
-    update_flags_dec(oldVal, newVal, core, opcode);
+    update_flags_dec_8(oldVal, newVal, core, opcode);
 }
 
 // DEC E
@@ -1166,7 +1030,7 @@ void Instruction::dec_e_(GameBoyCore* core, unsigned long long opcode) {
     auto newVal = oldVal - 1;
     core->getCpu()->getCpuRegisters()->setE(newVal);
 
-    update_flags_dec(oldVal, newVal, core, opcode);
+    update_flags_dec_8(oldVal, newVal, core, opcode);
 }
 
 // DEC DE
@@ -1184,7 +1048,7 @@ void Instruction::dec_h_(GameBoyCore* core, unsigned long long opcode) {
     auto newVal = oldVal - 1;
     core->getCpu()->getCpuRegisters()->setH(newVal);
 
-    update_flags_dec(oldVal, newVal, core, opcode);
+    update_flags_dec_8(oldVal, newVal, core, opcode);
 }
 
 // DEC L
@@ -1193,7 +1057,7 @@ void Instruction::dec_l_(GameBoyCore* core, unsigned long long opcode) {
     auto newVal = oldVal - 1;
     core->getCpu()->getCpuRegisters()->setL(newVal);
 
-    update_flags_dec(oldVal, newVal, core, opcode);
+    update_flags_dec_8(oldVal, newVal, core, opcode);
 }
 
 // DEC HL
@@ -1214,7 +1078,7 @@ void Instruction::dec__hl__(GameBoyCore* core, unsigned long long opcode) {
 
     core->WriteData8(addr.to_ullong(), newVal);
 
-    update_flags_dec(oldVal.to_ullong(), newVal, core, opcode);
+    update_flags_dec_8(oldVal.to_ullong(), newVal, core, opcode);
 }
 
 // DEC SP
@@ -1232,7 +1096,7 @@ void Instruction::dec_a_(GameBoyCore* core, unsigned long long opcode) {
     auto newVal = oldVal - 1;
     core->getCpu()->getCpuRegisters()->setA(newVal);
 
-    update_flags_dec(oldVal, newVal, core, opcode);
+    update_flags_dec_8(oldVal, newVal, core, opcode);
 }
 
 // DEC B
@@ -1241,7 +1105,7 @@ void Instruction::dec_b_(GameBoyCore* core, unsigned long long opcode) {
     auto newVal = oldVal - 1;
     core->getCpu()->getCpuRegisters()->setB(newVal);
 
-    update_flags_dec(oldVal, newVal, core, opcode);
+    update_flags_dec_8(oldVal, newVal, core, opcode);
 }
 
 // DEC BC
@@ -1259,7 +1123,7 @@ void Instruction::dec_c_(GameBoyCore* core, unsigned long long opcode) {
     auto newVal = oldVal - 1;
     core->getCpu()->getCpuRegisters()->setC(newVal);
 
-    update_flags_dec(oldVal, newVal, core, opcode);
+    update_flags_dec_8(oldVal, newVal, core, opcode);
 }
 
 // EI
@@ -1331,7 +1195,7 @@ void Instruction::cp_c_(GameBoyCore* core, unsigned long long opcode) {
 
     auto nA = a - b;
 
-    update_flags_cp(a, nA, core, opcode);
+    update_flags_cp_8(a, nA, core, opcode);
 }
 
 // CP B
@@ -1341,7 +1205,7 @@ void Instruction::cp_b_(GameBoyCore* core, unsigned long long opcode) {
 
     auto nA = a - b;
 
-    update_flags_cp(a, nA, core, opcode);
+    update_flags_cp_8(a, nA, core, opcode);
 }
 
 // CP D
@@ -1351,7 +1215,7 @@ void Instruction::cp_d_(GameBoyCore* core, unsigned long long opcode) {
 
     auto nA = a - b;
 
-    update_flags_cp(a, nA, core, opcode);
+    update_flags_cp_8(a, nA, core, opcode);
 }
 
 // CP A
@@ -1361,7 +1225,7 @@ void Instruction::cp_a_(GameBoyCore* core, unsigned long long opcode) {
 
     auto nA = a - b;
 
-    update_flags_cp(a, nA, core, opcode);
+    update_flags_cp_8(a, nA, core, opcode);
 }
 
 // CP (HL)
@@ -1373,7 +1237,7 @@ void Instruction::cp__hl__(GameBoyCore* core, unsigned long long opcode) {
 
     auto nA = a - b;
 
-    update_flags_cp(a, nA, core, opcode);
+    update_flags_cp_8(a, nA, core, opcode);
 }
 
 // CP L
@@ -1383,7 +1247,7 @@ void Instruction::cp_l_(GameBoyCore* core, unsigned long long opcode) {
 
     auto nA = a - b;
 
-    update_flags_cp(a, nA, core, opcode);
+    update_flags_cp_8(a, nA, core, opcode);
 }
 
 // CP H
@@ -1393,7 +1257,7 @@ void Instruction::cp_h_(GameBoyCore* core, unsigned long long opcode) {
 
     auto nA = a - b;
 
-    update_flags_cp(a, nA, core, opcode);
+    update_flags_cp_8(a, nA, core, opcode);
 }
 
 // CP E
@@ -1403,7 +1267,7 @@ void Instruction::cp_e_(GameBoyCore* core, unsigned long long opcode) {
 
     auto nA = a - b;
 
-    update_flags_cp(a, nA, core, opcode);
+    update_flags_cp_8(a, nA, core, opcode);
 }
 
 // CP d8
@@ -1417,7 +1281,7 @@ void Instruction::cp_d8_(GameBoyCore* core, unsigned long long opcode) {
 
     auto nA = a - b;
 
-    update_flags_cp(a, nA, core, opcode);
+    update_flags_cp_8(a, nA, core, opcode);
 }
 
 // NOP
@@ -1530,7 +1394,7 @@ void Instruction::and_b_(GameBoyCore* core, unsigned long long opcode) {
     auto newVal = a & b;
 
     core->getCpu()->getCpuRegisters()->setA(newVal);
-    update_flags_and(a, newVal, core, opcode);
+    update_flags_and_8(a, newVal, core, opcode);
 }
 
 // AND A
@@ -1540,7 +1404,7 @@ void Instruction::and_a_(GameBoyCore* core, unsigned long long opcode) {
     auto newVal = a & b;
 
     core->getCpu()->getCpuRegisters()->setA(newVal);
-    update_flags_and(a, newVal, core, opcode);
+    update_flags_and_8(a, newVal, core, opcode);
 }
 
 // AND (HL)
@@ -1552,7 +1416,7 @@ void Instruction::and__hl__(GameBoyCore* core, unsigned long long opcode) {
     auto newVal = a & b;
 
     core->getCpu()->getCpuRegisters()->setA(newVal);
-    update_flags_and(a, newVal, core, opcode);
+    update_flags_and_8(a, newVal, core, opcode);
 }
 
 // AND L
@@ -1562,7 +1426,7 @@ void Instruction::and_l_(GameBoyCore* core, unsigned long long opcode) {
     auto newVal = a & b;
 
     core->getCpu()->getCpuRegisters()->setA(newVal);
-    update_flags_and(a, newVal, core, opcode);
+    update_flags_and_8(a, newVal, core, opcode);
 }
 
 // AND H
@@ -1572,7 +1436,7 @@ void Instruction::and_h_(GameBoyCore* core, unsigned long long opcode) {
     auto newVal = a & b;
 
     core->getCpu()->getCpuRegisters()->setA(newVal);
-    update_flags_and(a, newVal, core, opcode);
+    update_flags_and_8(a, newVal, core, opcode);
 }
 
 // AND E
@@ -1582,7 +1446,7 @@ void Instruction::and_e_(GameBoyCore* core, unsigned long long opcode) {
     auto newVal = a & b;
 
     core->getCpu()->getCpuRegisters()->setA(newVal);
-    update_flags_and(a, newVal, core, opcode);
+    update_flags_and_8(a, newVal, core, opcode);
 }
 
 // AND D
@@ -1592,7 +1456,7 @@ void Instruction::and_d_(GameBoyCore* core, unsigned long long opcode) {
     auto newVal = a & b;
 
     core->getCpu()->getCpuRegisters()->setA(newVal);
-    update_flags_and(a, newVal, core, opcode);
+    update_flags_and_8(a, newVal, core, opcode);
 }
 
 // AND C
@@ -1602,7 +1466,7 @@ void Instruction::and_c_(GameBoyCore* core, unsigned long long opcode) {
     auto newVal = a & b;
 
     core->getCpu()->getCpuRegisters()->setA(newVal);
-    update_flags_and(a, newVal, core, opcode);
+    update_flags_and_8(a, newVal, core, opcode);
 }
 
 // AND d8
@@ -1615,7 +1479,7 @@ void Instruction::and_d8_(GameBoyCore* core, unsigned long long opcode) {
 
     auto nA = a & data;
 
-    update_flags_and(a, nA, core, opcode);
+    update_flags_and_8(a, nA, core, opcode);
 }
 
 // SCF
@@ -2371,7 +2235,7 @@ void Instruction::xor_b_(GameBoyCore* core, unsigned long long opcode) {
     auto nA = a ^ b;
     core->getCpu()->getCpuRegisters()->setA(nA);
 
-    update_flags_xor(a, nA, core, opcode);
+    update_flags_xor_8(a, nA, core, opcode);
 }
 
 // XOR C
@@ -2382,7 +2246,7 @@ void Instruction::xor_c_(GameBoyCore* core, unsigned long long opcode) {
     auto nA = a ^ b;
     core->getCpu()->getCpuRegisters()->setA(nA);
 
-    update_flags_xor(a, nA, core, opcode);
+    update_flags_xor_8(a, nA, core, opcode);
 }
 
 // XOR A
@@ -2393,7 +2257,7 @@ void Instruction::xor_a_(GameBoyCore* core, unsigned long long opcode) {
     auto nA = a ^ b;
     core->getCpu()->getCpuRegisters()->setA(nA);
 
-    update_flags_xor(a, nA, core, opcode);
+    update_flags_xor_8(a, nA, core, opcode);
 }
 
 // XOR (HL)
@@ -2406,7 +2270,7 @@ void Instruction::xor__hl__(GameBoyCore* core, unsigned long long opcode) {
     auto nA = a ^ b;
     core->getCpu()->getCpuRegisters()->setA(nA);
 
-    update_flags_xor(a, nA, core, opcode);
+    update_flags_xor_8(a, nA, core, opcode);
 }
 
 // XOR L
@@ -2417,7 +2281,7 @@ void Instruction::xor_l_(GameBoyCore* core, unsigned long long opcode) {
     auto nA = a ^ b;
     core->getCpu()->getCpuRegisters()->setA(nA);
 
-    update_flags_xor(a, nA, core, opcode);
+    update_flags_xor_8(a, nA, core, opcode);
 }
 
 // XOR H
@@ -2428,7 +2292,7 @@ void Instruction::xor_h_(GameBoyCore* core, unsigned long long opcode) {
     auto nA = a ^ b;
     core->getCpu()->getCpuRegisters()->setA(nA);
 
-    update_flags_xor(a, nA, core, opcode);
+    update_flags_xor_8(a, nA, core, opcode);
 }
 
 // XOR E
@@ -2439,7 +2303,7 @@ void Instruction::xor_e_(GameBoyCore* core, unsigned long long opcode) {
     auto nA = a ^ b;
     core->getCpu()->getCpuRegisters()->setA(nA);
 
-    update_flags_xor(a, nA, core, opcode);
+    update_flags_xor_8(a, nA, core, opcode);
 }
 
 // XOR D
@@ -2450,7 +2314,7 @@ void Instruction::xor_d_(GameBoyCore* core, unsigned long long opcode) {
     auto nA = a ^ b;
     core->getCpu()->getCpuRegisters()->setA(nA);
 
-    update_flags_xor(a, nA, core, opcode);
+    update_flags_xor_8(a, nA, core, opcode);
 }
 
 // XOR d8
@@ -2463,7 +2327,7 @@ void Instruction::xor_d8_(GameBoyCore* core, unsigned long long opcode) {
     auto data = core->getCpu()->getCodeLoader()->ReadBytes<1>(pc.to_ullong() + 1);
     auto nA = a ^ data;
 
-    update_flags_xor(a, nA, core, opcode);
+    update_flags_xor_8(a, nA, core, opcode);
 }
 
 // CPL
@@ -2525,7 +2389,7 @@ void Instruction::inc_d_(GameBoyCore* core, unsigned long long opcode) {
     auto newVal = oldVal + 1;
     core->getCpu()->getCpuRegisters()->setD(newVal);
 
-    update_flags_inc(oldVal, newVal, core, opcode);
+    update_flags_inc_8(oldVal, newVal, core, opcode);
 }
 
 // INC DE
@@ -2543,7 +2407,7 @@ void Instruction::inc_e_(GameBoyCore* core, unsigned long long opcode) {
     auto newVal = oldVal + 1;
     core->getCpu()->getCpuRegisters()->setE(newVal);
 
-    update_flags_inc(oldVal, newVal, core, opcode);
+    update_flags_inc_8(oldVal, newVal, core, opcode);
 }
 
 // INC H
@@ -2552,7 +2416,7 @@ void Instruction::inc_h_(GameBoyCore* core, unsigned long long opcode) {
     auto newVal = oldVal + 1;
     core->getCpu()->getCpuRegisters()->setH(newVal);
 
-    update_flags_inc(oldVal, newVal, core, opcode);
+    update_flags_inc_8(oldVal, newVal, core, opcode);
 }
 
 // INC HL
@@ -2570,7 +2434,7 @@ void Instruction::inc_l_(GameBoyCore* core, unsigned long long opcode) {
     auto newVal = oldVal + 1;
     core->getCpu()->getCpuRegisters()->setL(newVal);
 
-    update_flags_inc(oldVal, newVal, core, opcode);
+    update_flags_inc_8(oldVal, newVal, core, opcode);
 }
 
 // INC (HL)
@@ -2580,7 +2444,7 @@ void Instruction::inc__hl__(GameBoyCore* core, unsigned long long opcode) {
     auto newVal = std::bitset<16>(oldVal.to_ullong() + 1);
     core->WriteData16(addr.to_ullong(), newVal);
 
-    update_flags_inc(oldVal.to_ullong(), newVal.to_ullong(), core, opcode);
+    update_flags_inc_8(oldVal.to_ullong(), newVal.to_ullong(), core, opcode);
 }
 
 // INC SP
@@ -2598,7 +2462,7 @@ void Instruction::inc_a_(GameBoyCore* core, unsigned long long opcode) {
     auto newVal = oldVal + 1;
     core->getCpu()->getCpuRegisters()->setA(newVal);
 
-    update_flags_inc(oldVal, newVal, core, opcode);
+    update_flags_inc_8(oldVal, newVal, core, opcode);
 }
 
 // INC BC
@@ -2616,7 +2480,7 @@ void Instruction::inc_b_(GameBoyCore* core, unsigned long long opcode) {
     auto newVal = oldVal + 1;
     core->getCpu()->getCpuRegisters()->setB(newVal);
 
-    update_flags_inc(oldVal, newVal, core, opcode);
+    update_flags_inc_8(oldVal, newVal, core, opcode);
 }
 
 // INC C
@@ -2625,7 +2489,7 @@ void Instruction::inc_c_(GameBoyCore* core, unsigned long long opcode) {
     auto newVal = oldVal + 1;
     core->getCpu()->getCpuRegisters()->setC(newVal);
 
-    update_flags_inc(oldVal, newVal, core, opcode);
+    update_flags_inc_8(oldVal, newVal, core, opcode);
 }
 
 
