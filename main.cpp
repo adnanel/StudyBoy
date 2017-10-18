@@ -13,8 +13,8 @@ int main() {
 
     // Privremeno dok je u test fazi...
 
-    RomReader reader("C:\\Users\\prg01\\CLionProjects\\StudyBoy\\roms\\Bounce.gb");
-
+    // RomReader reader("C:\\Users\\prg01\\CLionProjects\\StudyBoy\\roms\\Bounce.gb");
+    RomReader reader("C:\\Users\\prg01\\CLionProjects\\StudyBoy\\roms\\helloworld.gb");
 
     core.getCpu()->setCodeLoader(new CodeLoader(reader.allocRomBuffer(), reader.getRomSize()));
 

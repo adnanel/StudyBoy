@@ -18,7 +18,7 @@
 class Processor {
 protected:
     // 127 * 8 bits of built in RAM (working and stack)
-    MemoryMap mRam;
+    MemoryMap mInternalRam;
     // 16 stage frequency divider
     FrequencyDivider mFrequencyDivider;
     // 8 bit timer
@@ -102,6 +102,14 @@ public:
     }
     inline const IORegisters* getIORegisters() const {
         return &mIORegisters;
+    }
+
+    const MemoryMap* getInternalRam() const {
+        return &mInternalRam;
+    }
+
+    MemoryMap* getInternalRam() {
+        return &mInternalRam;
     }
 };
 

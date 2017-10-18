@@ -81,8 +81,10 @@ MemoryMap *GameBoyCore::GetMemoryForAddress(unsigned long long targetAddress) {
         throw std::invalid_argument(" IO registers not supported here, use IO register directly");
     } else if ( targetAddress <= 0xFF80 ) {
         throw std::invalid_argument(" Empty but unusable for I/O not implemented"); //  Empty but unusable for I/O
-    } else if ( targetAddress <= 0xFFFF ) {
-        throw std::invalid_argument(" Internal RAM, interrupt enable register if == 0xFFFF not supported here, "
+    } else if ( targetAddress < 0xFFFF ) {
+        return getCpu()->getInternalRam();
+    } else if ( targetAddress == 0xFFFF ) {
+        throw std::invalid_argument("Interrupt enable register if == 0xFFFF not supported here, "
                                             "use FFFF register directly");
     }
 
@@ -110,8 +112,10 @@ const MemoryMap *GameBoyCore::GetMemoryForAddress(unsigned long long targetAddre
         throw std::invalid_argument(" IO registers not supported here, use IO register directly");
     } else if ( targetAddress <= 0xFF80 ) {
         throw std::invalid_argument(" Empty but unusable for I/O not implemented"); //  Empty but unusable for I/O
-    } else if ( targetAddress <= 0xFFFF ) {
-        throw std::invalid_argument(" Internal RAM, interrupt enable register if == 0xFFFF not supported here, "
+    } else if ( targetAddress < 0xFFFF ) {
+        return getCpu()->getInternalRam();
+    } else if ( targetAddress == 0xFFFF ) {
+        throw std::invalid_argument("Interrupt enable register if == 0xFFFF not supported here, "
                                             "use FFFF register directly");
     }
 
@@ -129,7 +133,7 @@ std::bitset<8u> GameBoyCore::ReadData8(unsigned long long targetAddress) const {
         return mCpu.getIORegisters()->getFFFF();
     }
     //IO registers
-    if ( targetAddress >= 0xFF00 && targetAddress <= 0xFFFF ) {
+    if ( targetAddress >= 0xFF00 && targetAddress <= 0xFF4C ) {
         return mCpu.getIORegisters()->getRegisterByAddress(targetAddress);
     }
 
@@ -143,7 +147,7 @@ void GameBoyCore::WriteData8(unsigned long long address, const Register<8u> &reg
         return mCpu.getIORegisters()->setFFFF(reg);
     }
     //IO registers
-    if ( address >= 0xFF00 && address <= 0xFFFF ) {
+    if ( address >= 0xFF00 && address <= 0xFF4C ) {
         return mCpu.getIORegisters()->setRegisterByAddress(address, reg);
     }
 

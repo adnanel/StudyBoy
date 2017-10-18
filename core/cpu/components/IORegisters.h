@@ -79,7 +79,7 @@ public:
     Register<8> getRegisterByAddress(unsigned long long addr) const {
         auto it = mRegisterMap.find(addr);
         if ( it == mRegisterMap.end() ) {
-            throw std::invalid_argument("Invalid register address");
+            throw std::invalid_argument("Invalid IO register address");
         }
         return *(it->second);
     }
@@ -87,7 +87,7 @@ public:
     void setRegisterByAddress(unsigned long long addr, const Register<8>& reg) {
         auto it = mRegisterMap.find(addr);
         if ( it == mRegisterMap.end() ) {
-            throw std::invalid_argument("Invalid register address");
+            throw std::invalid_argument("Invalid IO register address");
         }
         *(it->second) = reg;
     }

@@ -12,4 +12,6 @@ MemoryMap::MemoryMap(const size_t &memSize, bool isReadonly, char* allocatedData
         this->mMemory = new char[memSize];
     }
     this->mIsReadonly = isReadonly;
+    this->mMemSize = memSize;
+    this->mAddrOffset = 0;
 }

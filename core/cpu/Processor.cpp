@@ -6,9 +6,10 @@
 
 
 Processor::Processor()
-    : mRam(127), codeLoader(nullptr)
+    : mInternalRam(127), codeLoader(nullptr)
 {
     HardReset();
+    mInternalRam.setAddressOffset(0xff80);
 }
 
 void Processor::HardReset() {
