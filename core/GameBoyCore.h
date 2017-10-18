@@ -8,6 +8,11 @@
 
 #include <cassert>
 #include <iostream>
+#include <chrono>
+#include <list>
+#include <functional>
+#include <utility>
+
 #include "memory/MemoryMap.h"
 #include "cpu/Processor.h"
 #include "GameBoyConfig.h"
@@ -15,6 +20,25 @@
 
 class GameBoyCore {
 private:
+    typedef std::function<void()> InterruptFun;
+    class InterruptEvent {
+        std::chrono::high_resolution_clock::time_point mLastTriggerTime;
+        InterruptFun mInterruptFun;
+    public:
+        InterruptEvent(InterruptFun fun) :
+                mLastTriggerTime(std::chrono::high_resolution_clock::now()),
+                mInterruptFun(std::move(fun)) {
+
+        }
+
+        bool ShouldFire() {
+            return false; //fixme
+        }
+        void operator() () {
+            return mInterruptFun();
+        }
+    };
+
     /**
      Interrupt Enable Register
      --------------------------- FFFF
@@ -54,6 +78,12 @@ private:
     LcdController mLcdController;
 
     bool mImeFlag;
+    unsigned long long int mRuntimeClock;
+
+    std::chrono::high_resolution_clock::time_point mLastStepTime;
+
+    std::map<unsigned long long int, std::list<InterruptEvent>> mTimedInterrupts;
+
 public:
     GameBoyCore(const GameBoyConfig& gbConfig);
     ~GameBoyCore();
@@ -89,6 +119,8 @@ public:
     void WriteData16(unsigned long long address, const Register<16u>& reg);
 
     void SetFlags(bool z, bool n, bool h, bool c);
+
+    void CheckForInterrupts();
 
     template<unsigned int N>
     Register<N> PopStack() {
@@ -135,6 +167,8 @@ public:
     void PrintRegisters();
 
     void GenerateInterrupt();
+
+    void GenerateVBlankInterrupt();
 };
 
 

@@ -1,4 +1,6 @@
 #include <iostream>
+#include <chrono>
+
 #include "core/GameBoyConfig.h"
 #include "core/GameBoyCore.h"
 #include "core/RomReader.h"
@@ -20,7 +22,14 @@ int main() {
 
     while ( 1 ) {
         try {
+            auto t1 = std::chrono::high_resolution_clock::now();
             core.Step();
+            core.CheckForInterrupts();
+            auto t2 = std::chrono::high_resolution_clock::now();
+
+            auto duration = std::chrono::duration_cast<std::chrono::microseconds>( t2 - t1 ).count();
+
+            std::cout<<"deltaTime = "<<std::dec<<(duration)<<" [us]"<<std::endl;
         } catch ( const std::invalid_argument& ex ) {
             std::cout<<std::endl;
             std::cout<<ex.what();

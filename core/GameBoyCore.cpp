@@ -3,6 +3,7 @@
 //
 
 #include <iomanip>
+#include <chrono>
 #include "GameBoyCore.h"
 #include "cpu/instructions/Instruction.h"
 
@@ -13,11 +14,19 @@ GameBoyCore::GameBoyCore(const GameBoyConfig& gbConfig)
 {
     mWorkRam.setAddressOffset(0xC000);
     mDisplayRam.setAddressOffset(0x8000);
+
+    mRuntimeClock = 0;
+    mLastStepTime = std::chrono::high_resolution_clock::now();
 }
 
 GameBoyCore::~GameBoyCore() = default;
 
 void GameBoyCore::Step() {
+    auto now = std::chrono::high_resolution_clock::now();
+    mRuntimeClock += std::chrono::duration_cast<std::chrono::microseconds>(now - mLastStepTime).count();
+    mLastStepTime = now;
+
+
     if ( IsHalted() ) return;
 
     auto pc = getCpu()->getCpuRegisters()->getPC();
@@ -179,6 +188,14 @@ void GameBoyCore::GenerateInterrupt() {
      4. The PC (program counter) is pushed onto the stack. 5. Jump to the starting address of the interrupt.
      */
 
+}
+
+void GameBoyCore::CheckForInterrupts() {
+
+}
+
+void GameBoyCore::GenerateVBlankInterrupt() {
+    std::cout<<"\n\nVBLANK\n\n";
 }
 
 
