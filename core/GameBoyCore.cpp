@@ -135,7 +135,11 @@ const MemoryMap *GameBoyCore::GetMemoryForAddress(unsigned long long targetAddre
 std::bitset<16u> GameBoyCore::ReadData16(unsigned long long targetAddress) const {
     auto* targetMemory = GetMemoryForAddress(targetAddress);
 
-    return targetMemory->ReadData<16u>(targetAddress);
+    auto res = targetMemory->ReadData<16u>(targetAddress);
+
+    std::cout<<"ReadData16, address = "<<std::hex<<targetAddress<<", data = "<<res.to_ullong()<<std::endl;
+
+    return res;
 }
 
 std::bitset<8u> GameBoyCore::ReadData8(unsigned long long targetAddress) const {

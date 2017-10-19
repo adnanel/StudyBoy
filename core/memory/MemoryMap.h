@@ -44,7 +44,7 @@ public:
         std::bitset<BitCount> res = 0;
         int byteCount = BitCount / 8;
 
-        for ( int i = byteCount; i >= 0; -- i ) {
+        for ( int i = byteCount - 1; i >= 0; -- i ) {
             res = (res.to_ullong() << 8) | mMemory[targetAddress + i];
         }
 

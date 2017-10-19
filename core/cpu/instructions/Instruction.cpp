@@ -48,6 +48,7 @@ void update_flags_sub_8(const Register<8>& oldVal,
     H - Set if no borrow from bit 4.
     C - Set if no borrow.
      */
+    throw std::invalid_argument("still asd as");
 
     core->SetFlags(newVal.to_ullong() == 0, true, false, false);
 }
@@ -63,6 +64,7 @@ void update_flags_sbc_8(const Register<8>& oldVal,
     H - Set if no borrow from bit 4.
     C - Set if no borrow.
      */
+    throw std::invalid_argument("still asd as");
 
     core->SetFlags(newVal.to_ullong() == 0, true, false, false);
 }
@@ -94,6 +96,7 @@ void update_flags_cp_8(const Register<8>& oldVal,
                       GameBoyCore* core,
                       unsigned long long opcode) {
     // todo third flag, change false to expression which evals to true when borrowed from bit 4
+    throw std::invalid_argument("still asd as");
     core->SetFlags(newVal.to_ullong() == 0, true, false, oldVal.to_ullong() < r8.to_ullong());
 }
 
@@ -164,7 +167,7 @@ void Instruction::ret_z_(GameBoyCore* core, unsigned long long opcode) {
 
 // RET NC
 void Instruction::ret_nc_(GameBoyCore* core, unsigned long long opcode) {
-    if ( core->getCpu()->getNFlag() )
+    if ( core->getCpu()->getCFlag() )
         return;
 
     ret__(core, opcode);
