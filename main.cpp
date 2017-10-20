@@ -4,6 +4,7 @@
 #include "core/GameBoyConfig.h"
 #include "core/GameBoyCore.h"
 #include "core/RomReader.h"
+#include "core/cpu/instructions/Instruction.h"
 
 int main() {
     GameBoyConfig testConfig;
@@ -17,6 +18,7 @@ int main() {
 
     RomReader reader("C:\\Users\\adnan\\CLionProjects\\StudyBoy\\roms\\helloworld.gb");
     // RomReader reader("C:\\Users\\adnan\\CLionProjects\\StudyBoy\\roms\\Bounce.gb");
+
 
     core.getCpu()->setCodeLoader(new CodeLoader(reader.allocRomBuffer(), reader.getRomSize()));
 
