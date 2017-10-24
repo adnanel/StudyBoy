@@ -1,7 +1,9 @@
 # StudyBoy
 ## GameBoy Classic and Color emulator
 
-WIP
+Work in progress
+
+todo: add project roadmap.
 
 ## Author
 Adnan Elezović
