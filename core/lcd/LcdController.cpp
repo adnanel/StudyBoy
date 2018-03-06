@@ -22,7 +22,7 @@ void LcdController::Step() {
     // todo - replace true with CGB/DMG check, should be ( isDMG || lcdc[0] )
     if ( true || lcdc[0] ) {
         // ----- BG Display --------
-        std::cout << "----\n";
+
         // note - 144x144 (18x18 blocks) is the visible grid. 256x256 (32x32 blocks) is the memory allocated grid
         // 1 block = 8x8 px
         for (auto i = 0; i < 32; ++i) {
@@ -33,11 +33,9 @@ void LcdController::Step() {
 
                 // todo for CGB read the ATTR data from the other memory bank
 
-                std::cout << std::setw(3) << reg.to_ullong() << " ";
+                //std::cout << std::setw(3) << reg.to_ullong() << " ";
             }
-            std::cout << std::endl;
         }
-        std::cout << "----\n";
     }
 
 

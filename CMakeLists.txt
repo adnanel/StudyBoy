@@ -38,3 +38,5 @@ set(SOURCE_FILES main.cpp
         core/RomReader.h core/cpu/components/IORegisters.cpp tests.h tests.cpp)
 
 add_executable(StudyBoy ${SOURCE_FILES})
+
+target_link_libraries(StudyBoy SDL2)
