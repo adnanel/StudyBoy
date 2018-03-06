@@ -12,11 +12,14 @@
 #include <list>
 #include <functional>
 #include <utility>
+#include <thread>
 
 #include "memory/MemoryMap.h"
 #include "cpu/Processor.h"
 #include "GameBoyConfig.h"
 #include "lcd/LcdController.h"
+
+class LcdController;
 
 class GameBoyCore {
 private:
@@ -75,15 +78,20 @@ private:
 
     Processor mCpu;
 
-    LcdController mLcdController;
+    LcdController* mLcdController;
 
     bool mImeFlag;
     unsigned long long int mRuntimeClock;
+    double mStepTime; // the duration of one clock cycle ( 1/f )
 
     std::chrono::high_resolution_clock::time_point mLastStepTime;
 
     std::map<unsigned long long int, std::list<InterruptEvent>> mTimedInterrupts;
 
+    void StepWithoutDelay();
+
+    void StepProcessor();
+    void StepVideo();
 public:
     GameBoyCore(const GameBoyConfig& gbConfig);
     ~GameBoyCore();

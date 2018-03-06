@@ -10,7 +10,7 @@
 #include "Register.h"
 
 class IORegisters {
-    Register<8> FF00; // P1
+    Register<8> FF00; // P1 - Controller Input (bits 0-5 for buttons, 6 and 7 not used)
     Register<8> FF01; // SB
     Register<8> FF02; // SC
     Register<8> FF04; // DIV
@@ -70,6 +70,8 @@ class IORegisters {
     Register<8> FF49; // OBP1
     Register<8> FF4A; // WY
     Register<8> FF4B; // WX
+
+    Register<8> FF4F; // only 1bit used. VBK register (CGM only, on DMG fixed to 0)
     Register<8> FFFF; // IE
 
     std::map<unsigned long long, Register<8>*> mRegisterMap;
@@ -555,6 +557,15 @@ public:
     void setFFFF(const Register<8> &FFFF) {
         IORegisters::FFFF = FFFF;
     }
+
+    const Register<8>& getFF4F() const {
+        return FF4F;
+    }
+
+    void setFF4F(const Register<8> &FF4F) {
+        IORegisters::FF4F = FF4F;
+    }
+
 };
 
 

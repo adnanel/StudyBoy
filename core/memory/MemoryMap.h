@@ -9,6 +9,7 @@
 #include <cstdio>
 #include <bitset>
 #include <stdexcept>
+#include <assert.h>
 #include "../cpu/components/Register.h"
 
 class MemoryMap {
@@ -30,6 +31,8 @@ public:
 
     template<unsigned int BitCount>
     std::bitset<BitCount> ReadData(unsigned long long targetAddress) const {
+        assert(targetAddress >= mAddrOffset);
+
         targetAddress -= mAddrOffset;
 
         if ( BitCount % 8 != 0 ) {

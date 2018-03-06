@@ -67,7 +67,9 @@ IORegisters::IORegisters() {
     mRegisterMap[0xFF49] = &FF49;
     mRegisterMap[0xFF4A] = &FF4A;
     mRegisterMap[0xFF4B] = &FF4B;
+    mRegisterMap[0xFF4F] = &FF4F;
 
     mRegisterMap[0xFFFF] = &FFFF;
 
 }
+

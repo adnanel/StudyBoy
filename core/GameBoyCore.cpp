@@ -7,16 +7,41 @@
 #include "GameBoyCore.h"
 #include "cpu/instructions/Instruction.h"
 
+
+
+
+// --------- ToDo Temporary solution, until this_thread works ---
+#ifdef _WIN32
+#include <windows.h>
+
+void sleep_ms(unsigned milliseconds)
+{
+    Sleep(milliseconds);
+}
+#else
+#include <unistd.h>
+
+    void sleep_ms(unsigned milliseconds)
+    {
+        usleep(milliseconds * 1000); // takes microseconds
+    }
+#endif
+// -----------------------------------------------------------------
+
+
 GameBoyCore::GameBoyCore(const GameBoyConfig& gbConfig)
     : mWorkRam(gbConfig.workMemorySize),
       mDisplayRam(gbConfig.displayMemorySize),
-      mImeFlag(true)
+      mImeFlag(true),
+      mStepTime(1. / gbConfig.clockSpeed)
 {
     mWorkRam.setAddressOffset(0xC000);
     mDisplayRam.setAddressOffset(0x8000);
 
     mRuntimeClock = 0;
     mLastStepTime = std::chrono::high_resolution_clock::now();
+
+    mLcdController = new LcdController(this);
 }
 
 GameBoyCore::~GameBoyCore() = default;
@@ -26,6 +51,31 @@ void GameBoyCore::Step() {
     mRuntimeClock += std::chrono::duration_cast<std::chrono::microseconds>(now - mLastStepTime).count();
     mLastStepTime = now;
 
+    this->StepWithoutDelay();
+
+    auto finish = std::chrono::high_resolution_clock::now();
+
+    std::chrono::duration<double> duration = finish - now;
+
+    double syncTimeSeconds = mStepTime - duration.count();
+    if ( syncTimeSeconds > 0 ) {
+        sleep_ms(syncTimeSeconds * 1000);
+    }
+}
+
+void GameBoyCore::StepVideo() {
+    this->mLcdController->Step();
+}
+
+void GameBoyCore::StepProcessor() {
+    static int currentInstructionCycleCounter = 0;
+
+    if ( currentInstructionCycleCounter > 0 ) {
+        --currentInstructionCycleCounter;
+        std::cout << std::dec << currentInstructionCycleCounter << " left" << std::endl;
+        return;
+    }
+
 
     if ( IsHalted() ) return;
 
@@ -33,15 +83,25 @@ void GameBoyCore::Step() {
 
     auto instruction = getCpu()->getCodeLoader()->ReadBytes<1>(pc.to_ullong());
 
-    std::cout<<"Decoding instruction - pc = "<<std::hex<<std::setw(5)<<pc.to_ullong()<<", (pc) = "<<std::setw(5)<<std::hex<<instruction.to_ullong();
+    std::cout<<"Decoding instruction - pc = "<<std::hex<<std::setw(5)
+             <<pc.to_ullong()<<", (pc) = "<<std::setw(5)<<std::hex
+             <<instruction.to_ullong();
     auto fun = Instruction::DecodeInstruction(instruction.to_ullong());
 
+    std::cout<<std::dec<<" ("<<fun.cycleCount<<" cycles)";
     std::cout<<"  | "<<fun.instructionText<<std::endl;
 
     fun.instructionFun(this, instruction.to_ullong());
 
     pc = getCpu()->getCpuRegisters()->getPC();
     getCpu()->getCpuRegisters()->setPC(pc + 1);
+
+    currentInstructionCycleCounter = fun.cycleCount;
+}
+
+void GameBoyCore::StepWithoutDelay() {
+    StepProcessor();
+    StepVideo();
 }
 
 void GameBoyCore::SetFlags(bool z, bool n, bool h, bool c)  {
@@ -137,23 +197,27 @@ std::bitset<16u> GameBoyCore::ReadData16(unsigned long long targetAddress) const
 
     auto res = targetMemory->ReadData<16u>(targetAddress);
 
-    std::cout<<"ReadData16, address = "<<std::hex<<targetAddress<<", data = "<<res.to_ullong()<<std::endl;
+    // std::cout<<"ReadData16, address = 0x"<<std::hex<<targetAddress<<", data = "<<res.to_ullong()<<std::endl;
 
     return res;
 }
 
 std::bitset<8u> GameBoyCore::ReadData8(unsigned long long targetAddress) const {
+    std::bitset<8u> res;
+
     if ( targetAddress == 0xFFFF ) {
-        return mCpu.getIORegisters()->getFFFF();
-    }
-    //IO registers
-    if ( targetAddress >= 0xFF00 && targetAddress <= 0xFF4C ) {
-        return mCpu.getIORegisters()->getRegisterByAddress(targetAddress);
+        res = mCpu.getIORegisters()->getFFFF();
+    } else if ( targetAddress >= 0xFF00 && targetAddress <= 0xFF4C ) {
+        res = mCpu.getIORegisters()->getRegisterByAddress(targetAddress);
+    } else {
+        auto *targetMemory = GetMemoryForAddress(targetAddress);
+
+        res = targetMemory->ReadData<8>(targetAddress);
     }
 
-    auto* targetMemory = GetMemoryForAddress(targetAddress);
+    // std::cout<<"ReadData8, address = 0x"<<std::hex<<targetAddress<<", data = 0x"<<res.to_ullong()<<std::endl;
 
-    return targetMemory->ReadData<8>(targetAddress);
+    return res;
 }
 
 void GameBoyCore::WriteData8(unsigned long long address, const Register<8u> &reg) {

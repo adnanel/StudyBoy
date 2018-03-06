@@ -7,25 +7,29 @@
 #include "core/cpu/instructions/Instruction.h"
 
 int main() {
-    GameBoyConfig testConfig;
-    testConfig.displayMemorySize = 8 * 1024;
-    testConfig.workMemorySize = 8 * 1024;
-    testConfig.clockSpeed = 5 * 1000 * 1000;
+    GameBoyConfig gameBoyClassicConfig;
+    gameBoyClassicConfig.displayMemorySize = 8 * 1024;
+    gameBoyClassicConfig.workMemorySize = 8 * 1024;
+    gameBoyClassicConfig.clockSpeed = 5 * 1000 * 1000;
 
-    GameBoyCore core(testConfig);
+    GameBoyConfig gameBoyColorConfig;
+    gameBoyClassicConfig.displayMemorySize = 16 * 1024;
+    gameBoyClassicConfig.workMemorySize = 8 * 1024; // todo update
+    gameBoyClassicConfig.clockSpeed = 5 * 1000 * 1000; // todo update
+
+    GameBoyCore core(gameBoyClassicConfig);
 
     // Privremeno dok je u test fazi...
 
-    RomReader reader("C:\\Users\\adnan\\CLionProjects\\StudyBoy\\roms\\helloworld.gb");
+    RomReader reader("C:\\Stuff\\Projects\\StudyBoy\\roms\\helloworld.gb");
     // RomReader reader("C:\\Users\\adnan\\CLionProjects\\StudyBoy\\roms\\Bounce.gb");
 
 
     core.getCpu()->setCodeLoader(new CodeLoader(reader.allocRomBuffer(), reader.getRomSize()));
 
-    while ( 1 ) {
+    while ( true ) {
         try {
             core.Step();
-            // core.CheckForInterrupts();
         } catch ( const std::invalid_argument& ex ) {
             std::cout<<std::endl;
             std::cout<<ex.what();

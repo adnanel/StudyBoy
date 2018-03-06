@@ -6,8 +6,23 @@
 #define STUDYBOY_LCDCONTROLLER_H
 
 
-class LcdController {
+#include "../GameBoyCore.h"
 
+class GameBoyCore;
+
+class LcdController {
+private:
+    GameBoyCore* mCore;
+
+public:
+    LcdController(GameBoyCore* core);
+
+    void SetScreenEnabled(bool enable);
+    void Step();
+
+
+    inline int getStatus() const;
+    inline void setStatus(int status);
 };
 
 

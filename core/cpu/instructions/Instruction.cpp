@@ -720,9 +720,9 @@ namespace Instruction {
         auto pc = core->getCpu()->getCpuRegisters()->getPC();
         core->getCpu()->getCpuRegisters()->setPC(pc + 1);
 
-        auto a8 = 0xFF00 + core->ReadData8(pc.to_ullong() + 1).to_ullong();
+        Register<16> a16 = 0xFF00 + core->ReadData8(pc.to_ullong() + 1).to_ullong();
 
-        core->WriteData8(a8, a);
+        core->WriteData8(a16.to_ullong(), a);
     }
 
 // LDH A (a8)
@@ -730,9 +730,9 @@ namespace Instruction {
         auto pc = core->getCpu()->getCpuRegisters()->getPC();
         core->getCpu()->getCpuRegisters()->setPC(pc.to_ullong() + 1);
 
-        auto a8 = 0xFF00 + core->ReadData8(pc.to_ullong() + 1).to_ullong();
+        Register<16> a16 = 0xFF00 + core->ReadData8(pc.to_ullong() + 1).to_ullong();
 
-        auto data = core->ReadData8(a8);
+        auto data = core->ReadData8(a16.to_ullong());
 
         core->getCpu()->getCpuRegisters()->setA(data);
     }
