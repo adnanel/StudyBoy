@@ -493,11 +493,11 @@ namespace Instruction {
 // CALL NZ a16
     void call_nz_a16(GameBoyCore *core, unsigned long long) {
         auto pc = core->getCpu()->getCpuRegisters()->getPC();
-        core->getCpu()->getCpuRegisters()->setPC(pc + 1);
+        core->getCpu()->getCpuRegisters()->setPC(pc + 2);
         if (core->getCpu()->getZFlag()) {
             return;
         }
-        core->PushToStack(pc + 1);
+        core->PushToStack(pc + 3);
 
         auto a16 = core->ReadData16(pc.to_ullong() + 1);
 
@@ -507,11 +507,11 @@ namespace Instruction {
 // CALL NC a16
     void call_nc_a16(GameBoyCore *core, unsigned long long) {
         auto pc = core->getCpu()->getCpuRegisters()->getPC();
-        core->getCpu()->getCpuRegisters()->setPC(pc + 1);
+        core->getCpu()->getCpuRegisters()->setPC(pc + 2);
         if (core->getCpu()->getCFlag()) {
             return;
         }
-        core->PushToStack(pc + 1);
+        core->PushToStack(pc + 3);
 
         auto a16 = core->ReadData16(pc.to_ullong() + 1);
 
@@ -521,8 +521,9 @@ namespace Instruction {
 // CALL a16
     void call_a16_(GameBoyCore *core, unsigned long long) {
         auto pc = core->getCpu()->getCpuRegisters()->getPC();
+		core->getCpu()->getCpuRegisters()->setPC(pc + 2);
 
-        core->PushToStack(pc + 1);
+        core->PushToStack(pc + 3);
 
         auto a16 = core->ReadData16(pc.to_ullong() + 1);
 
@@ -532,11 +533,11 @@ namespace Instruction {
 // CALL Z a16
     void call_z_a16(GameBoyCore *core, unsigned long long) {
         auto pc = core->getCpu()->getCpuRegisters()->getPC();
-        core->getCpu()->getCpuRegisters()->setPC(pc + 1);
+        core->getCpu()->getCpuRegisters()->setPC(pc + 2);
         if (!core->getCpu()->getZFlag()) {
             return;
         }
-        core->PushToStack(pc + 1);
+        core->PushToStack(pc + 3);
 
         auto a16 = core->ReadData16(pc.to_ullong() + 1);
 
@@ -546,11 +547,11 @@ namespace Instruction {
 // CALL C a16
     void call_c_a16(GameBoyCore *core, unsigned long long) {
         auto pc = core->getCpu()->getCpuRegisters()->getPC();
-        core->getCpu()->getCpuRegisters()->setPC(pc + 1);
+        core->getCpu()->getCpuRegisters()->setPC(pc + 2);
         if (!core->getCpu()->getCFlag()) {
             return;
         }
-        core->PushToStack(pc + 1);
+        core->PushToStack(pc + 3);
 
         auto a16 = core->ReadData16(pc.to_ullong() + 1);
 
