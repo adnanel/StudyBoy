@@ -72,12 +72,14 @@ void GameBoyCore::StepProcessor() {
 
     if ( currentInstructionCycleCounter > 0 ) {
         --currentInstructionCycleCounter;
-        std::cout << std::dec << currentInstructionCycleCounter << " left" << std::endl;
+        // std::cout << std::dec << currentInstructionCycleCounter << " left" << std::endl;
         return;
     }
 
 
-    if ( IsHalted() ) return;
+    if ( IsHalted() ) {
+        return;
+    }
 
     auto pc = getCpu()->getCpuRegisters()->getPC();
 
@@ -88,7 +90,7 @@ void GameBoyCore::StepProcessor() {
              <<instruction.to_ullong();
     auto fun = Instruction::DecodeInstruction(instruction.to_ullong());
 
-    std::cout<<std::dec<<" ("<<fun.cycleCount<<" cycles)";
+    std::cout<<std::dec<<" ("<< std::setw(2) << fun.cycleCount <<" cycles)";
     std::cout<<"  | "<<fun.instructionText<<std::endl;
 
     fun.instructionFun(this, instruction.to_ullong());
@@ -131,26 +133,28 @@ void GameBoyCore::PrintRegisters() {
 }
 
 MemoryMap *GameBoyCore::GetMemoryForAddress(unsigned long long targetAddress) {
-    if ( targetAddress <= 0x4000 ) {
+	if ( targetAddress < 0x0100 ) {
+		// interrupt address
+		throw std::invalid_argument("interrupt address not implemented");
+	} else if ( targetAddress < 0x0150 ) {
+		throw std::invalid_argument("ROM data area not implemented");
+	} else if ( targetAddress < 0x8000 ) {
         return mCpu.getCodeLoader()->getMemoryMap();
-    } else if ( targetAddress <= 0x8000 ) {
-        throw std::invalid_argument("switchable ROM bank not implemented"); // switchable ROM bank
-    } else if ( targetAddress <= 0xA000 ) {
+    } else if ( targetAddress < 0xA000 ) {
         return &mDisplayRam;
-    } else if ( targetAddress <= 0xC000 ) {
-        throw std::invalid_argument("switchable RAM bank not implemented"); // switchable RAM bank
-    } else if ( targetAddress <= 0xE000 ) {
+    } else if ( targetAddress < 0xC000 ) {
+        throw std::invalid_argument("External Expansion Working RAM not implemented"); // switchable RAM bank
+    } else if ( targetAddress < 0xE000 ) {
+		// todo on CGB switch between banks.
         return &mWorkRam;
-    } else if ( targetAddress <= 0xFE00 ) {
-        return GetMemoryForAddress(targetAddress - 0x2000);
-    } else if ( targetAddress <= 0xFEA0 ) {
+    } else if ( targetAddress < 0xFE00 ) {
+        throw std::invalid_argument("Use of 0xE000 - 0xFDFF is prohibited.");
+    } else if ( targetAddress < 0xFEA0 ) {
         throw std::invalid_argument(" Sprite Attrib Memory (OAM) not implemented"); //  Sprite Attrib Memory (OAM)
-    } else if ( targetAddress <= 0xFF00 ) {
-        throw std::invalid_argument(" Empty but unusable for I/O not implemented"); //  Empty but unusable for I/O
-    } else if ( targetAddress <= 0xFF4C ) {
-        throw std::invalid_argument(" IO registers not supported here, use IO register directly");
-    } else if ( targetAddress <= 0xFF80 ) {
-        throw std::invalid_argument(" Empty but unusable for I/O not implemented"); //  Empty but unusable for I/O
+    } else if ( targetAddress < 0xFF00 ) {
+        throw std::invalid_argument(" Use of 0xFEA0 - 0xFEFF is prohibited."); //  Empty but unusable for I/O
+    } else if ( targetAddress < 0xFF80 ) {
+        throw std::invalid_argument(" Port/Mode Registers, Control Register and Sound Register not implemented"); //  Empty but unusable for I/O
     } else if ( targetAddress < 0xFFFF ) {
         return getCpu()->getInternalRam();
     } else if ( targetAddress == 0xFFFF ) {

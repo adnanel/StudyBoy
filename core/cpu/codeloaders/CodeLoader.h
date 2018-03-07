@@ -15,7 +15,7 @@ class CodeLoader {
     MemoryMap mCodeMemory;
 public:
     CodeLoader(char* data, size_t size) : mCodeMemory(size, true, data) {
-
+        mCodeMemory.setAddressOffset(0x0150);
     }
     CodeLoader(const CodeLoader&) = delete;
     CodeLoader& operator=(const CodeLoader&) = delete;
