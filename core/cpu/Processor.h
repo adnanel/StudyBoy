@@ -14,6 +14,7 @@
 #include "components/IORegisters.h"
 #include "components/CpuRegisters.h"
 #include "codeloaders/CodeLoader.h"
+#include "memory_controllers/MemoryController.h"
 
 class Processor {
 protected:
@@ -26,15 +27,19 @@ protected:
     // DMA controller
     DmaController mDmaController;
 
+    MemoryController* mMemoryController;
+
     // Registers
     IORegisters mIORegisters;
     CpuRegisters mCpuRegisters;
 
-    CodeLoader* codeLoader;
+    CodeLoader* mCodeLoader;
+
 public:
     Processor();
     virtual ~Processor() {
-        delete codeLoader;
+        delete mCodeLoader;
+        delete mMemoryController;
     }
 
     virtual void HardReset();
@@ -85,16 +90,16 @@ public:
     }
 
     inline CodeLoader* setCodeLoader( CodeLoader* loader ) {
-        auto old = this->codeLoader;
-        this->codeLoader = loader;
+        auto old = this->mCodeLoader;
+        this->mCodeLoader = loader;
         return old;
     }
 
     inline CodeLoader* getCodeLoader() {
-        return this->codeLoader;
+        return this->mCodeLoader;
     }
     inline const CodeLoader* getCodeLoader() const {
-        return this->codeLoader;
+        return this->mCodeLoader;
     }
 
     inline IORegisters* getIORegisters() {
@@ -110,6 +115,13 @@ public:
 
     MemoryMap* getInternalRam() {
         return &mInternalRam;
+    }
+
+    void setMemoryController(MemoryController* memController) {
+        this->mMemoryController = memController;
+    }
+    MemoryController* getMemoryController() {
+        return this->mMemoryController;
     }
 };
 

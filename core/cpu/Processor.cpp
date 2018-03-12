@@ -6,7 +6,7 @@
 
 
 Processor::Processor()
-    : mInternalRam(127), codeLoader(nullptr)
+    : mInternalRam(127), mCodeLoader(nullptr)
 {
     HardReset();
     mInternalRam.setAddressOffset(0xff80);
@@ -15,8 +15,8 @@ Processor::Processor()
 void Processor::HardReset() {
     mCpuRegisters.setPC(0x100);
 
-    mCpuRegisters.setAF(0x01); // todo different for gbc
-    mCpuRegisters.setF(0xB0);
+    mCpuRegisters.setAF(0x01B0); // todo different for gbc
+    // mCpuRegisters.setF(0xB0);
     mCpuRegisters.setBC(0x0013);
     mCpuRegisters.setDE(0x00D8);
     mCpuRegisters.setHL(0x014D);

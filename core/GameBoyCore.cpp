@@ -85,6 +85,8 @@ void GameBoyCore::StepProcessor() {
 
     auto instruction = getCpu()->getCodeLoader()->ReadBytes<1>(pc.to_ullong());
 
+	std::cout<<std::endl<<"--------------------------------------------"<<std::endl;
+
     std::cout<<"Decoding instruction - pc = "<<std::hex<<std::setw(5)
              <<pc.to_ullong()<<", (pc) = "<<std::setw(5)<<std::hex
              <<instruction.to_ullong();
@@ -99,6 +101,10 @@ void GameBoyCore::StepProcessor() {
     getCpu()->getCpuRegisters()->setPC(pc + 1);
 
     currentInstructionCycleCounter = fun.cycleCount;
+
+
+	this->PrintRegisters();
+	std::cout<<std::endl<<"--------------------------------------------"<<std::endl;
 }
 
 void GameBoyCore::StepWithoutDelay() {
@@ -130,10 +136,16 @@ void GameBoyCore::PrintRegisters() {
     std::cout<<std::endl<<"FLAGS = [ Z = "<<z<<", N = "<<n<<", H = "<<h<<", C = "<<c<<" ]";
     std::cout<<std::endl<<"SP = "<<std::hex<<getCpu()->getCpuRegisters()->getSP().to_ullong();
     std::cout<<std::endl<<"PC = "<<std::hex<<getCpu()->getCpuRegisters()->getPC().to_ullong();
+
+	std::cout<<std::endl<<"AF = "<<std::hex<<getCpu()->getCpuRegisters()->getAF().to_ullong();
+	std::cout<<std::endl<<"BC = "<<std::hex<<getCpu()->getCpuRegisters()->getBC().to_ullong();
+	std::cout<<std::endl<<"DE = "<<std::hex<<getCpu()->getCpuRegisters()->getDE().to_ullong();
+	std::cout<<std::endl<<"HL = "<<std::hex<<getCpu()->getCpuRegisters()->getHL().to_ullong();
 }
 
 MemoryMap *GameBoyCore::GetMemoryForAddress(unsigned long long targetAddress) {
 	if ( targetAddress < 0x0100 ) {
+		return mCpu.getCodeLoader()->getMemoryMap();
 		// interrupt address
 		throw std::invalid_argument("interrupt address not implemented");
 	} else if ( targetAddress < 0x0150 ) {
@@ -166,26 +178,32 @@ MemoryMap *GameBoyCore::GetMemoryForAddress(unsigned long long targetAddress) {
 }
 
 const MemoryMap *GameBoyCore::GetMemoryForAddress(unsigned long long targetAddress) const {
-    if ( targetAddress <= 0x4000 ) {
+    if ( targetAddress < 0x0100 ) {
+		return mCpu.getCodeLoader()->getMemoryMap();
+        /**
+         * RST commands:    0000,0008,0010,0018,0020,0028,0030,0038
+         * Interrupts:      0040,0048,0050,0058,0060
+         */
+        throw std::invalid_argument("interrupt address not implemented");
+    // } else if ( targetAddress < 0x0150 ) {
+    //    throw std::invalid_argument("ROM data area not implemented");
+    } else if ( targetAddress < 0x8000 ) {
         return mCpu.getCodeLoader()->getMemoryMap();
-    } else if ( targetAddress <= 0x8000 ) {
-        throw std::invalid_argument("switchable ROM bank not implemented"); // switchable ROM bank
-    } else if ( targetAddress <= 0xA000 ) {
+    } else if ( targetAddress < 0xA000 ) {
         return &mDisplayRam;
-    } else if ( targetAddress <= 0xC000 ) {
-        throw std::invalid_argument("switchable RAM bank not implemented"); // switchable RAM bank
-    } else if ( targetAddress <= 0xE000 ) {
+    } else if ( targetAddress < 0xC000 ) {
+        throw std::invalid_argument("External Expansion Working RAM not implemented"); // switchable RAM bank
+    } else if ( targetAddress < 0xE000 ) {
+        // todo on CGB switch between banks.
         return &mWorkRam;
-    } else if ( targetAddress <= 0xFE00 ) {
-        return GetMemoryForAddress(targetAddress - 0x2000);
-    } else if ( targetAddress <= 0xFEA0 ) {
+    } else if ( targetAddress < 0xFE00 ) {
+        throw std::invalid_argument("Use of 0xE000 - 0xFDFF is prohibited.");
+    } else if ( targetAddress < 0xFEA0 ) {
         throw std::invalid_argument(" Sprite Attrib Memory (OAM) not implemented"); //  Sprite Attrib Memory (OAM)
-    } else if ( targetAddress <= 0xFF00 ) {
-        throw std::invalid_argument(" Empty but unusable for I/O not implemented"); //  Empty but unusable for I/O
-    } else if ( targetAddress <= 0xFF4C ) {
-        throw std::invalid_argument(" IO registers not supported here, use IO register directly");
-    } else if ( targetAddress <= 0xFF80 ) {
-        throw std::invalid_argument(" Empty but unusable for I/O not implemented"); //  Empty but unusable for I/O
+    } else if ( targetAddress < 0xFF00 ) {
+        throw std::invalid_argument(" Use of 0xFEA0 - 0xFEFF is prohibited."); //  Empty but unusable for I/O
+    } else if ( targetAddress < 0xFF80 ) {
+        throw std::invalid_argument(" Port/Mode Registers, Control Register and Sound Register not implemented"); //  Empty but unusable for I/O
     } else if ( targetAddress < 0xFFFF ) {
         return getCpu()->getInternalRam();
     } else if ( targetAddress == 0xFFFF ) {
@@ -254,8 +272,8 @@ void GameBoyCore::GenerateInterrupt() {
 
     mCpu.getCpuRegisters()->setPC(pc);
     /*
-     1. When an interrupt is generated, the IF flag will be    set.
-     2. If the IME flag is set & the corresponding IE flag     is set, the following 3 steps are performed.
+     1. When an interrupt is generated, the IF flag will be set.
+     2. If the IME flag is set & the corresponding IE flag is set, the following 3 steps are performed.
      3. Reset the IME flag and prevent all interrupts.
      4. The PC (program counter) is pushed onto the stack. 5. Jump to the starting address of the interrupt.
      */

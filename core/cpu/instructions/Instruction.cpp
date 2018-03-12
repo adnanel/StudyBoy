@@ -14,10 +14,10 @@ namespace Instruction {
                             GameBoyCore *core,
                             unsigned long long) {
 
-        bool c = ((oldVal.to_ullong() ^ r8.to_ullong() ^ newVal.to_ullong()) & 0x100) == 0x100;
-        bool h = ((oldVal.to_ullong() ^ r8.to_ullong() ^ newVal.to_ullong()) & 0x10) == 0x10;
+        auto c = (oldVal.to_ullong() + r8.to_ullong() + core->getCpu()->getCFlag()) > 255;
+        auto h = static_cast<bool>((oldVal.to_ullong() ^ r8.to_ullong() ^ newVal.to_ullong()) & 0x10);
 
-        core->SetFlags(newVal.to_ullong() == 0, false, c, h);
+        core->SetFlags(newVal.to_ullong() == 0, false, h, c);
     }
 
     void update_flags_add_8(const Register<8> &oldVal,
@@ -25,10 +25,10 @@ namespace Instruction {
                             const Register<8> &r8,
                             GameBoyCore *core,
                             unsigned long long opcode) {
-        bool c = ((oldVal.to_ullong() ^ r8.to_ullong() ^ newVal.to_ullong()) & 0x100) == 0x100;
-        bool h = ((oldVal.to_ullong() ^ r8.to_ullong() ^ newVal.to_ullong()) & 0x10) == 0x10;
+        auto c = oldVal[7] && r8[7];
+        auto h = static_cast<bool>((oldVal.to_ullong() ^ r8.to_ullong() ^ newVal.to_ullong()) & 0x10);
 
-        core->SetFlags(newVal.to_ullong() == 0, false, c, h);
+        core->SetFlags(newVal.to_ullong() == 0, false, h, c);
     }
 
     void update_flags_dec_8(const Register<8> &oldVal,
@@ -122,8 +122,8 @@ namespace Instruction {
 
         core->getCpu()->setNFlag(false);
 
-        core->getCpu()->setCFlag(((oldVal.to_ullong() ^ op.to_ullong() ^ newVal.to_ullong()) & 0x10000) == 0x10000);
-        core->getCpu()->setHFlag(((oldVal.to_ullong() ^ op.to_ullong() ^ newVal.to_ullong()) & 0x1000) == 0x1000);
+        core->getCpu()->setCFlag(static_cast<bool>((oldVal.to_ullong() ^ op.to_ullong() ^ newVal.to_ullong()) & 0x10000));
+        core->getCpu()->setHFlag(static_cast<bool>((oldVal.to_ullong() ^ op.to_ullong() ^ newVal.to_ullong()) & 0x1000));
     }
 
     void update_flags_dec_16(const Register<16> &oldVal,
@@ -670,9 +670,9 @@ namespace Instruction {
         core->getCpu()->getCpuRegisters()->setPC(pc + 1);
         if (core->getCpu()->getZFlag()) return;
 
-        auto data = core->ReadData8(pc.to_ullong() + 1);
+        auto data = Register<8>(core->ReadData8(pc.to_ullong() + 1)).ToSignedInt();
 
-        core->getCpu()->getCpuRegisters()->setPC(pc.to_ullong() + data.to_ullong());
+        core->getCpu()->getCpuRegisters()->setPC(pc.to_ullong() + data);
     }
 
 // JR Z r8
@@ -1739,11 +1739,11 @@ namespace Instruction {
         core->getCpu()->getCpuRegisters()->setHL(newVal);
 
         core->SetFlags(false, false, false, false);
-        if (((oldVal.to_ullong() ^ r8.to_ullong() ^ newVal.to_ullong()) & 0x100) == 0x100) {
+        if (static_cast<bool>((oldVal.to_ullong() ^ r8.to_ullong() ^ newVal.to_ullong()) & 0x100)) {
             core->getCpu()->setCFlag(true);
         }
 
-        if (((oldVal.to_ullong() ^ r8.to_ullong() ^ newVal.to_ullong()) & 0x10) == 0x10) {
+        if (static_cast<bool>((oldVal.to_ullong() ^ r8.to_ullong() ^ newVal.to_ullong()) & 0x10)) {
             core->getCpu()->setHFlag(true);
         }
     }
@@ -1942,6 +1942,7 @@ namespace Instruction {
 
         Register<16> reg = core->ReadData16(pc.to_ullong() + 1);
 
+		std::cout<<" writing " << a.to_ullong() << " to [" << reg.to_ullong() << "]" << std::endl;
         core->WriteData8(reg.to_ullong(), a);
     }
 

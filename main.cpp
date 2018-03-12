@@ -34,9 +34,8 @@ int main(int argc, char *argv[])
 
 	core.getCpu()->setCodeLoader(new CodeLoader(reader.allocRomBuffer(), reader.getRomSize()));
 
-
-
-
+	auto memController = MakeMemoryControllerForCartidgeType(&core, &reader);
+	core.getCpu()->setMemoryController(memController);
 
 
 	SDL_Init(SDL_INIT_VIDEO);
@@ -82,7 +81,6 @@ int main(int argc, char *argv[])
 		}
 	}
 
-	core.PrintRegisters();
 
 	SDL_DestroyWindow(window);
 	SDL_Quit();

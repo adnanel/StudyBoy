@@ -37,7 +37,16 @@ set(SOURCE_FILES main.cpp
         core/cpu/instructions/Instruction.cpp
         core/cpu/instructions/Instruction.h
         core/RomReader.cpp
-        core/RomReader.h core/cpu/components/IORegisters.cpp tests.h tests.cpp)
+        core/RomReader.h
+        core/cpu/components/IORegisters.cpp
+        tests.h
+        tests.cpp
+        core/cpu/memory_controllers/MemoryController.cpp
+        core/cpu/memory_controllers/MemoryController.h
+        core/cpu/memory_controllers/Mbc1MemoryController.cpp
+        core/cpu/memory_controllers/Mbc1MemoryController.h
+        core/cpu/memory_controllers/Mbc2MemoryController.cpp
+        core/cpu/memory_controllers/Mbc2MemoryController.h core/cpu/memory_controllers/RomOnlyMemoryController.cpp core/cpu/memory_controllers/RomOnlyMemoryController.h)
 
 add_executable(StudyBoy ${SOURCE_FILES})
 

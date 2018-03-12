@@ -27,7 +27,7 @@ class Register {
     std::bitset<N> mData;
 
     class IndexWrapperHelper {
-        std::bitset<N> mBitset;
+        std::bitset<N>& mBitset;
         size_t mIndex;
 
     public:
@@ -102,6 +102,15 @@ public:
         return mData.any();
     }
 
+    inline long long int ToSignedInt() const {
+        auto data = mData;
+
+        auto result = data.flip().to_ullong();
+        if ( mData[N-1] ) {
+            result *= -1;
+        }
+        return result;
+    }
 
     template<typename T>
     inline Register<N> operator^(const T& other) const  {
